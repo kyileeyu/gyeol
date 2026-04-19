@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Cormorant_Garamond, Noto_Serif_KR } from "next/font/google";
+import { Inter, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 
 const pretendard = localFont({
@@ -10,11 +10,10 @@ const pretendard = localFont({
   weight: "45 920",
 });
 
-const cormorant = Cormorant_Garamond({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-cormorant",
+  variable: "--font-inter",
   weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -39,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${pretendard.variable} ${cormorant.variable} ${notoSerifKr.variable}`}
+      className={`${pretendard.variable} ${inter.variable} ${notoSerifKr.variable}`}
     >
       <body>{children}</body>
     </html>

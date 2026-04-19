@@ -21,7 +21,7 @@
 
   --font-kr: var(--font-pretendard);
   --font-kr-serif: var(--font-noto-serif-kr);
-  --font-en-serif: var(--font-cormorant);
+  --font-en: var(--font-inter);
 
   --ease-water: cubic-bezier(0.65, 0, 0.35, 1);
 }

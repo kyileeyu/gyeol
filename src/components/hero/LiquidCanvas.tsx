@@ -10,6 +10,7 @@ type LiquidApp = {
     material: { metalness: number; roughness: number };
     uniforms: { displacementScale: { value: number } };
     attenuation: number;
+    update: () => void;
   };
   loadImage: (url: string | null | undefined) => Promise<void>;
   loadEnvMap: (url: string | null | undefined) => Promise<void>;
@@ -28,9 +29,11 @@ type Props = {
   displacement?: number;
   /** 0~1 — 낮을수록 물결이 빨리 사라짐 (라이브러리 기본 0.995) */
   attenuation?: number;
+  /** 0~1 — 낮을수록 파동이 천천히 퍼짐. 1 = 기본 속도 */
+  waveSpeed?: number;
 };
 
-// 결 팔레트: 박무 단색
+// 결 팔레트: 대각선 결 — 설백(밝음)↔은박(어두움) 교차 밴드
 function createSilkTexture(): string {
   const size = 2048;
   const c = document.createElement("canvas");
@@ -39,7 +42,21 @@ function createSilkTexture(): string {
   const ctx = c.getContext("2d");
   if (!ctx) return "";
 
-  ctx.fillStyle = "#F0F4F8";
+  // 좌상 → 우하 대각선 그라디언트. 대비가 확실해야 금속 반사 밑에서도 보임.
+  const grad = ctx.createLinearGradient(0, 0, size, size);
+  const bands: Array<[number, string]> = [
+    [0.00, "#FAFBFC"],
+    [0.12, "#C9D6DF"],
+    [0.24, "#FAFBFC"],
+    [0.38, "#C9D6DF"],
+    [0.50, "#FAFBFC"],
+    [0.62, "#C9D6DF"],
+    [0.76, "#FAFBFC"],
+    [0.88, "#C9D6DF"],
+    [1.00, "#FAFBFC"],
+  ];
+  for (const [pos, col] of bands) grad.addColorStop(pos, col);
+  ctx.fillStyle = grad;
   ctx.fillRect(0, 0, size, size);
 
   return c.toDataURL("image/png");
@@ -48,13 +65,16 @@ function createSilkTexture(): string {
 export default function LiquidCanvas({
   imageUrl,
   envMapUrl,
-  metalness = 0.75,
-  roughness = 0.25,
+  metalness = 0.3,
+  roughness = 0.45,
   displacement = 5,
-  attenuation = 0.95,
+  attenuation = 0.98,
+  waveSpeed = 0.45,
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const appRef = useRef<LiquidApp | null>(null);
+  const waveSpeedRef = useRef(waveSpeed);
+  waveSpeedRef.current = waveSpeed;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -67,6 +87,19 @@ export default function LiquidCanvas({
     app.liquidPlane.uniforms.displacementScale.value = displacement;
     app.liquidPlane.attenuation = attenuation;
     app.setRain(false);
+
+    // 매 프레임마다 liquidPlane.update()를 호출하면 파동이 라이브러리 기본 속도(2.0)로 퍼짐.
+    // waveSpeedRef에 따라 업데이트 빈도를 낮추면 그 비율만큼 천천히 퍼지게 됨.
+    const originalUpdate = app.liquidPlane.update.bind(app.liquidPlane);
+    let accumulator = 0;
+    app.liquidPlane.update = () => {
+      accumulator += waveSpeedRef.current;
+      if (accumulator >= 1) {
+        accumulator -= 1;
+        originalUpdate();
+      }
+    };
+
     return () => {
       app.dispose();
       appRef.current = null;
@@ -95,7 +128,7 @@ export default function LiquidCanvas({
   }, [metalness, roughness, displacement, attenuation]);
 
   return (
-    <div className="absolute -inset-[20%] z-0">
+    <div className="absolute -inset-[8%] z-0">
       <canvas
         ref={canvasRef}
         style={{ width: "100%", height: "100%", display: "block" }}
