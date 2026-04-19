@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+:root {
+  --color-seolbaek: #fafbfc;
+  --color-bakmu: #f0f4f8;
+  --color-bingcheong: #a8d5e2;
+  --color-eunbak: #c9d6df;
+  --color-cheongram: #1b3b5f;
+  --color-meok: #1a1a1a;
+  --color-angae: #8b95a1;
+}
+
+@theme inline {
+  --color-bg: var(--color-seolbaek);
+  --color-surface: var(--color-bakmu);
+  --color-wave: var(--color-bingcheong);
+  --color-shimmer: var(--color-eunbak);
+  --color-deep: var(--color-cheongram);
+  --color-ink: var(--color-meok);
+  --color-muted: var(--color-angae);
+
+  --font-kr: var(--font-pretendard);
+  --font-kr-serif: var(--font-noto-serif-kr);
+  --font-en-serif: var(--font-cormorant);
+
+  --ease-water: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-kr), -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@keyframes ripple-out {
+  from {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes wave-pulse {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.7);
+  }
+}
+
+.btn-deep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-deep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-bingcheong);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 600ms var(--ease-water);
+}
+
+.btn-deep:hover::after {
+  opacity: 0.18;
+  animation: ripple-out 1200ms var(--ease-water);
+}

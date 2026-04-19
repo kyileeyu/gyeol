@@ -1,0 +1,8 @@
+/*
+ * LiquidCanvas
+ *
+ * Learn More: https://www.framer.com/asset-urls
+ */
+
+export * from "https://framerusercontent.com/modules/pA76BEmjsjIuYC2kuow7/691ehulu4gS3BqVbFPai/LiquidCanvas.js"
+export { default } from "https://framerusercontent.com/modules/pA76BEmjsjIuYC2kuow7/691ehulu4gS3BqVbFPai/LiquidCanvas.js"

@@ -1,0 +1,6 @@
+{
+  "https://cdn.jsdelivr.net/npm/threejs-components@0.0.22/build/backgrounds/liquid1.min.js": { "integrity": "sha512-OzyzfJaCY/iWl7UQ2UjX9tSLzrL/NvOSJP3HhoP9/zsYPPu98P2NY7oz6LeQayqCnEyd85y88lhfeP2uhqgeqQ==", "contentType": "application/javascript; charset=utf-8" },
+  "https://framer.com/m/LiquidCanvas-hnvM.js@691ehulu4gS3BqVbFPai": { "integrity": "sha512-nqppYDuWzEbbrNXiEVMqX4cV7hSdmB14W+JOV+Lm1YNc+AdLd6/a0eJAsweHZK1Q4p7luiVBO9QSAOPN88HnuA==", "contentType": "text/javascript; charset=utf-8" },
+  "https://framerusercontent.com/modules/pA76BEmjsjIuYC2kuow7/691ehulu4gS3BqVbFPai/LiquidCanvas.js": { "integrity": "sha512-4Iaf15GCDWALeqOpZnFVTSGg2tl/k7antO3a2fY2LDNtLl0J3pLCDXdKWGHRWCB0r0xVjbEO0h2aFV8oDOpASQ==", "contentType": "text/javascript; charset=utf-8" },
+  "version": 1
+}
