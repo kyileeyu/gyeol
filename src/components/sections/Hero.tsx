@@ -2,9 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
 const LiquidCanvas = dynamic(() => import("@/components/hero/LiquidCanvas"), {
   ssr: false,
@@ -29,20 +26,6 @@ const itemVariants: Variants = {
 
 export default function Hero() {
   const reduce = useReducedMotion();
-  const ctaRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollToPlugin);
-  }, []);
-
-  function handleCtaClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault();
-    gsap.to(window, {
-      duration: reduce ? 0 : 1.0,
-      scrollTo: { y: "#contact", offsetY: 0 },
-      ease: "power3.inOut",
-    });
-  }
 
   return (
     <section className="relative h-[100svh] w-full overflow-hidden bg-bg">
