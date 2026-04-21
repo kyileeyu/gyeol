@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 const LiquidCanvas = dynamic(() => import("@/components/hero/LiquidCanvas"), {
@@ -30,16 +31,16 @@ export default function Hero() {
   return (
     <section className="relative h-[100svh] w-full overflow-hidden bg-bg">
       {reduce ? (
-        <div
-          aria-hidden
-          className="absolute inset-0 z-0"
-          style={{
-            background:
-              "radial-gradient(120% 80% at 30% 20%, var(--color-bingcheong) 0%, var(--color-eunbak) 35%, var(--color-seolbaek) 70%)",
-          }}
+        <Image
+          src="/hero/bg.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 z-0 object-cover"
         />
       ) : (
-        <LiquidCanvas />
+        <LiquidCanvas imageUrl="/hero/bg.webp" />
       )}
 
       <motion.div

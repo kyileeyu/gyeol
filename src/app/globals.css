@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "GounBatang";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GounBatang";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Bold.woff")
+    format("woff");
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   --color-seolbaek: #fafbfc;
   --color-bakmu: #f0f4f8;
@@ -20,7 +36,7 @@
   --color-muted: var(--color-angae);
 
   --font-kr: var(--font-pretendard);
-  --font-kr-serif: var(--font-noto-serif-kr);
+  --font-kr-serif: "GounBatang", var(--font-noto-serif-kr);
   --font-en: var(--font-inter);
 
   --ease-water: cubic-bezier(0.65, 0, 0.35, 1);

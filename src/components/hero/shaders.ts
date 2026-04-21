@@ -52,7 +52,7 @@ export const waterFragmentShader = /* glsl */ `
 
   // constants — tuned for a "Spline follow" trail feel
   const float RIPPLE_SPEED = 0.45;   // how fast each ring expands (UV / sec)
-  const float RIPPLE_FREQ  = 42.0;   // spatial frequency of the sine wave
+  const float RIPPLE_FREQ  = 82.0;   // spatial frequency of the sine wave
   const float RIPPLE_DECAY = 1.35;   // how fast amplitude fades with age
   const float RIPPLE_LIFE  = 3.0;    // seconds before a ripple is fully dead
 
@@ -61,10 +61,10 @@ export const waterFragmentShader = /* glsl */ `
     vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
 
     // ----- ambient base water -----
-    float wave1 = sin(uv.x * 7.0 + uTime * 0.4) * 0.5 + 0.5;
-    float wave2 = sin(uv.y * 5.0 - uTime * 0.28) * 0.5 + 0.5;
+    float wave1 = sin(uv.x * 13.0 + uTime * 0.4) * 0.5 + 0.5;
+    float wave2 = sin(uv.y * 10.0 - uTime * 0.28) * 0.5 + 0.5;
     float ambient = pow(wave1 * wave2, 1.4);
-    float shimmer = fbm(uv * 4.5 + vec2(uTime * 0.05, uTime * 0.04));
+    float shimmer = fbm(uv * 7.5 + vec2(uTime * 0.05, uTime * 0.04));
 
     // ----- accumulate ripples (interference = additive sum) -----
     float waveSum = 0.0;   // signed — lets troughs subtract from crests
