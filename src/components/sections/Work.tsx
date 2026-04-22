@@ -8,9 +8,9 @@ type Case = {
   name: string;
   tag: string;
   label: string;
-  href?: string;
-  accent: string;
+  href: string;
   year: string;
+  description: string;
 };
 
 const cases: Case[] = [
@@ -19,16 +19,18 @@ const cases: Case[] = [
     tag: "Personal Branding",
     label: "Branding",
     href: "https://dewstone.kr",
-    accent: "#A8D5E2",
     year: "2026",
+    description:
+      "듀스톤의 퍼스널 브랜딩 사이트. 톤과 리듬을 한 결로 정리한 첫 화면부터 끝까지.",
   },
   {
     name: "yoonseul-log",
     tag: "Portfolio Site",
     label: "Portfolio",
     href: "https://yoonseul-log.vercel.app/",
-    accent: "#C9D6DF",
     year: "2026",
+    description:
+      "사진작가의 기록을 모은 포트폴리오. 이미지의 호흡에 맞춰 읽히도록 설계된 레이아웃.",
   },
 ];
 
@@ -71,7 +73,6 @@ export default function Work() {
 
   return (
     <section id="work" className="relative w-full bg-bg">
-      {/* Header — 일반 스크롤, pin 바깥 */}
       <div className="px-6 pb-20 pt-32 sm:pb-28 sm:pt-48">
         <div className="mx-auto flex max-w-6xl flex-col gap-6">
           <div className="flex items-center gap-4">
@@ -84,7 +85,7 @@ export default function Work() {
             지금까지 결을 맞춘 페이지
           </h2>
           <p className="max-w-xl text-sm sm:text-base leading-[1.85] text-muted">
-            옆으로 스크롤해 케이스를 확인하세요.
+            카드에 마우스를 올려 설명을 확인하고, 카드를 눌러 실제 사이트로 이동하세요.
           </p>
         </div>
       </div>
@@ -96,7 +97,7 @@ export default function Work() {
       >
         <div
           ref={trackRef}
-          className="flex h-full w-max items-center gap-8 pl-6 pr-[50vw] sm:gap-12 sm:pl-16"
+          className="flex h-full w-max items-center gap-10 pl-16 pr-[50vw] lg:gap-14"
         >
           {cases.map((c, i) => (
             <CaseCard key={c.name} c={c} index={i} />
@@ -126,73 +127,92 @@ function CaseCard({
   const isMobile = variant === "mobile";
 
   return (
-    <article
+    <a
+      href={c.href}
+      target="_blank"
+      rel="noreferrer noopener"
+      aria-label={`${c.name} — ${c.tag}`}
       className={
         (isMobile
-          ? "grid h-[72vw] w-full "
-          : "grid h-[clamp(420px,68vh,620px)] w-[clamp(320px,58vw,580px)] shrink-0 ") +
-        "grid-cols-[auto_1fr] overflow-hidden rounded-[4px] border border-ink/10 bg-surface/60 transition-colors duration-500 hover:border-wave"
+          ? "h-[62vw] w-full "
+          : "h-[clamp(440px,62vh,620px)] w-[clamp(620px,82vw,1040px)] shrink-0 ") +
+        "group relative grid grid-cols-[56px_1fr] overflow-hidden rounded-[6px] border border-ink/10 bg-surface/60 transition-all duration-[600ms] ease-[cubic-bezier(0.65,0,0.35,1)] hover:-translate-y-2 hover:border-wave hover:shadow-[0_30px_80px_-30px_rgba(27,59,95,0.35)]"
       }
     >
-      {/* 세로 라벨 — 위에서 아래로 읽힘 */}
+      {/* 세로 라벨 */}
       <div
-        className="flex items-start justify-center border-r border-ink/10 bg-bg/80 py-8"
-        style={{
-          writingMode: "vertical-rl",
-          textOrientation: "mixed",
-        }}
+        className="relative z-20 flex items-start justify-center border-r border-ink/10 bg-bg/90 py-8 backdrop-blur-sm"
+        style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
       >
         <span className="font-en text-[11px] tracking-[0.35em] uppercase text-deep">
           {c.label}
         </span>
       </div>
 
-      {/* 본문 */}
-      <div className="relative flex flex-col justify-between p-8 sm:p-10">
+      {/* 미리보기 + 호버 오버레이 */}
+      <div className="relative overflow-hidden">
+        <CardPreview href={c.href} />
+
+        {/* 흰색 그라데이션 호버 오버레이 */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-60"
-          style={{
-            background: `radial-gradient(70% 80% at 30% 30%, ${c.accent}2E 0%, transparent 70%)`,
-          }}
+          className="absolute inset-0 z-10 bg-gradient-to-b from-white/80 via-white/55 to-white/30 opacity-0 backdrop-blur-[2px] transition-opacity duration-[700ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:opacity-100"
         />
 
-        <div className="relative z-10 flex items-center justify-between">
-          <span className="font-en text-xs tracking-[0.25em] text-muted">
-            0{index + 1}
-          </span>
-          <span className="font-en text-xs tracking-[0.25em] text-muted">
-            {c.year}
-          </span>
-        </div>
-
-        <div className="relative z-10 flex flex-col gap-4">
-          <p className="font-en italic text-xs tracking-[0.2em] uppercase text-deep/80">
-            {c.tag}
-          </p>
-          <h3 className="font-kr-serif text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-            {c.name}
-          </h3>
-        </div>
-
-        <div className="relative z-10 flex items-center justify-between">
-          {c.href ? (
-            <a
-              href={c.href}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-3 border-b border-ink/30 pb-1 font-en text-sm tracking-[0.15em] text-ink transition-colors duration-300 hover:border-wave hover:text-deep"
-            >
-              Visit
-              <span aria-hidden>↗</span>
-            </a>
-          ) : (
-            <span className="font-en text-xs tracking-[0.25em] text-muted/60">
-              Case coming soon
+        {/* Info — 호버 시 떠오름 */}
+        <div className="pointer-events-none absolute inset-0 z-20 flex flex-col justify-between p-8 opacity-0 translate-y-3 transition-[opacity,transform] duration-[700ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:opacity-100 group-hover:translate-y-0 sm:p-10">
+          <div className="flex items-center justify-between">
+            <span className="font-en text-xs tracking-[0.25em] text-deep/80">
+              0{index + 1}
             </span>
-          )}
+            <span className="font-en text-xs tracking-[0.25em] text-deep/80">
+              {c.year}
+            </span>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <p className="font-en italic text-xs tracking-[0.2em] uppercase text-deep">
+              {c.tag}
+            </p>
+            <h3 className="font-kr-serif text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
+              {c.name}
+            </h3>
+            <p className="max-w-md text-sm leading-[1.85] text-ink/80">
+              {c.description}
+            </p>
+          </div>
+
+          <div className="flex items-center justify-between font-en text-xs tracking-[0.25em] uppercase text-deep">
+            <span>Click to visit</span>
+            <span aria-hidden>↗</span>
+          </div>
         </div>
       </div>
-    </article>
+    </a>
+  );
+}
+
+function CardPreview({ href }: { href: string }) {
+  // 데스크톱 1440 기준으로 렌더한 뒤 카드에 맞춰 스케일 다운 — 미니어처 효과
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-bg">
+      <iframe
+        src={href}
+        title=""
+        aria-hidden
+        tabIndex={-1}
+        loading="lazy"
+        scrolling="no"
+        sandbox="allow-same-origin allow-scripts"
+        referrerPolicy="no-referrer"
+        className="absolute left-0 top-0 origin-top-left"
+        style={{
+          width: "1440px",
+          height: "900px",
+          // 카드 너비를 최대치(1040)로 가정했을 때 스케일. 카드가 더 좁아도 자연스럽게 좌상단 기준으로 잘림.
+          transform: "scale(0.72)",
+        }}
+      />
+    </div>
   );
 }
