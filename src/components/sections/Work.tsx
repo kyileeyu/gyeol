@@ -21,8 +21,9 @@ const cases: Case[] = [
     year: "2026",
   },
   {
-    name: "Photographer Portfolio",
+    name: "yoonseul-log",
     tag: "Portfolio Site",
+    href: "https://yoonseul-log.vercel.app/",
     accent: "#C9D6DF",
     year: "2026",
   },
