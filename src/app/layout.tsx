@@ -25,9 +25,8 @@ const notoSerifKr = Noto_Serif_KR({
 });
 
 export const metadata: Metadata = {
-  title: "결 (Gyeol) — 결이 맞는 페이지",
-  description:
-    "브랜드와 개인을 위한 3D 인터랙티브 웹 스튜디오. 보이는 것만큼, 보이게도 만듭니다.",
+  title: "스튜디오 결",
+  description: "결이 다른 웹사이트. 보이지 않는 가치까지 새깁니다.",
 };
 
 export default function RootLayout({
