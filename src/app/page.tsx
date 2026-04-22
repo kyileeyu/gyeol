@@ -1,3 +1,4 @@
+import FixedLiquidBackground from "@/components/hero/FixedLiquidBackground";
 import Hero from "@/components/sections/Hero";
 import PromiseSection from "@/components/sections/PromiseSection";
 import Work from "@/components/sections/Work";
@@ -9,6 +10,7 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   return (
     <main>
+      <FixedLiquidBackground />
       <Hero />
       <PromiseSection />
       <Work />

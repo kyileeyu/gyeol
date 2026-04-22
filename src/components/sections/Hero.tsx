@@ -1,12 +1,6 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-
-const LiquidCanvas = dynamic(() => import("@/components/hero/LiquidCanvas"), {
-  ssr: false,
-});
 
 const containerVariants: Variants = {
   hidden: { opacity: 1 },
@@ -29,20 +23,7 @@ export default function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative h-[100svh] w-full overflow-hidden bg-bg">
-      {reduce ? (
-        <Image
-          src="/hero/bg.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="absolute inset-0 z-0 object-cover"
-        />
-      ) : (
-        <LiquidCanvas imageUrl="/hero/bg.webp" />
-      )}
-
+    <section className="relative h-[100svh] w-full">
       <motion.div
         variants={containerVariants}
         initial={reduce ? "show" : "hidden"}

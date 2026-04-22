@@ -53,7 +53,7 @@ export default function Capability() {
   return (
     <section
       id="capability"
-      className="relative w-full bg-surface/50 px-6 py-32 sm:py-48"
+      className="relative w-full bg-surface px-6 py-32 sm:py-48"
     >
       <motion.div
         variants={container}
