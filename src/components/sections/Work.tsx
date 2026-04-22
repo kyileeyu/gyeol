@@ -77,45 +77,76 @@ export default function Work() {
 
   return (
     <section id="work" className="relative w-full bg-bg">
-      <div className="px-6 pb-20 pt-32 sm:pb-28 sm:pt-48">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6">
-          <div className="flex items-center gap-4">
-            <span aria-hidden className="block h-px w-16 bg-wave" />
-            <p className="font-en italic text-xs tracking-[0.3em] text-muted uppercase">
-              Work
-            </p>
-          </div>
-          <h2 className="font-kr-serif text-[clamp(2rem,4.5vw,3.25rem)] font-medium leading-[1.2] tracking-[-0.03em] text-ink">
-            지금까지 결을 맞춘 페이지
-          </h2>
-          <p className="max-w-xl text-sm sm:text-base leading-[1.85] text-muted">
-            카드에 마우스를 올려 설명을 확인하고, 카드를 눌러 실제 사이트로 이동하세요.
-          </p>
-        </div>
-      </div>
-
-      {/* Desktop — pinned horizontal scroll */}
+      {/* Desktop — pinned horizontal scroll (헤더 포함) */}
       <div
         ref={pinRef}
         className="relative hidden h-[100svh] overflow-hidden md:block"
       >
         <div
           ref={trackRef}
-          className="flex h-full w-max items-center gap-10 pl-16 pr-[50vw] lg:gap-14"
+          className="flex h-full w-max items-center gap-10 pr-[50vw] lg:gap-14"
         >
+          <WorkIntro />
           {cases.map((c, i) => (
             <CaseCard key={c.name} c={c} index={i} />
           ))}
         </div>
       </div>
 
-      {/* Mobile — 세로 스택 */}
-      <div className="flex flex-col gap-10 px-6 pb-32 md:hidden">
+      {/* Mobile — 세로 스택 + 헤더 */}
+      <div className="flex flex-col gap-10 px-6 pb-32 pt-32 md:hidden">
+        <MobileIntro />
         {cases.map((c, i) => (
           <CaseCard key={c.name + "-m"} c={c} index={i} variant="mobile" />
         ))}
       </div>
     </section>
+  );
+}
+
+function WorkIntro() {
+  return (
+    <div className="flex h-full w-[clamp(520px,60vw,760px)] shrink-0 flex-col justify-center gap-8 px-16 lg:px-24">
+      <div className="flex items-center gap-4">
+        <span aria-hidden className="block h-px w-16 bg-wave" />
+        <p className="font-en italic text-xs tracking-[0.3em] text-muted uppercase">
+          Work
+        </p>
+      </div>
+      <h2 className="font-kr-serif text-[clamp(2.25rem,5vw,3.75rem)] font-medium leading-[1.15] tracking-[-0.03em] text-ink">
+        지금까지
+        <br />
+        결을 맞춘 페이지
+      </h2>
+      <p className="max-w-md text-sm sm:text-base leading-[1.85] text-muted">
+        카드에 마우스를 올려 설명을 확인하고,
+        <br />
+        카드를 눌러 실제 사이트로 이동하세요.
+      </p>
+      <div className="mt-4 flex items-center gap-3 font-en text-xs tracking-[0.25em] uppercase text-deep/70">
+        <span aria-hidden>→</span>
+        <span>Scroll</span>
+      </div>
+    </div>
+  );
+}
+
+function MobileIntro() {
+  return (
+    <div className="flex flex-col gap-6 pb-4">
+      <div className="flex items-center gap-4">
+        <span aria-hidden className="block h-px w-12 bg-wave" />
+        <p className="font-en italic text-xs tracking-[0.3em] text-muted uppercase">
+          Work
+        </p>
+      </div>
+      <h2 className="font-kr-serif text-[clamp(2rem,7vw,2.75rem)] font-medium leading-[1.2] tracking-[-0.03em] text-ink">
+        지금까지 결을 맞춘 페이지
+      </h2>
+      <p className="max-w-xl text-sm leading-[1.85] text-muted">
+        카드를 눌러 실제 사이트로 이동하세요.
+      </p>
+    </div>
   );
 }
 
