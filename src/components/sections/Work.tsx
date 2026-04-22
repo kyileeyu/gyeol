@@ -171,66 +171,68 @@ function CaseCard({
         (isMobile
           ? "h-[62vw] w-full "
           : "h-[clamp(440px,62vh,620px)] w-[clamp(620px,82vw,1040px)] shrink-0 ") +
-        "group relative grid grid-cols-[56px_1fr] overflow-hidden rounded-[6px] border border-ink/10 bg-surface/60 transition-all duration-[600ms] ease-[cubic-bezier(0.65,0,0.35,1)] hover:-translate-y-2 hover:border-wave hover:shadow-[0_30px_80px_-30px_rgba(27,59,95,0.35)]"
+        "group relative block [perspective:1600px]"
       }
     >
-      {/* 세로 라벨 */}
       <div
-        className="relative z-20 flex items-start justify-center border-r border-ink/10 bg-bg/90 py-8 backdrop-blur-sm"
-        style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+        className={
+          "relative h-full w-full transition-transform duration-[900ms] ease-[cubic-bezier(0.65,0,0.35,1)] [transform-style:preserve-3d]" +
+          (isMobile ? "" : " group-hover:[transform:rotateY(180deg)]")
+        }
       >
-        <span className="font-en text-[11px] tracking-[0.35em] uppercase text-deep">
-          {c.label}
-        </span>
-      </div>
-
-      {/* 미리보기 + 호버 오버레이 */}
-      <div className="relative overflow-hidden bg-bg">
-        <Image
-          src={c.image}
-          alt={`${c.name} 미리보기`}
-          fill
-          sizes="(max-width: 768px) 100vw, 82vw"
-          className="object-cover object-top transition-transform duration-[900ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-[1.03]"
-          priority={index === 0}
-        />
-
-        {/* 흰색 그라데이션 호버 오버레이 */}
-        <div
-          aria-hidden
-          className="absolute inset-0 z-10 bg-gradient-to-b from-white/80 via-white/55 to-white/30 opacity-0 backdrop-blur-[2px] transition-opacity duration-[700ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:opacity-100"
-        />
-
-        {/* Info — 호버 시 떠오름 */}
-        <div className="pointer-events-none absolute inset-0 z-20 flex flex-col justify-between p-8 opacity-0 translate-y-3 transition-[opacity,transform] duration-[700ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:opacity-100 group-hover:translate-y-0 sm:p-10">
-          <div className="flex items-center justify-between">
-            <span className="font-en text-xs tracking-[0.25em] text-deep/80">
-              0{index + 1}
-            </span>
-            <span className="font-en text-xs tracking-[0.25em] text-deep/80">
-              {c.year}
+        {/* Front — 미리보기 + 세로 라벨 */}
+        <div className="absolute inset-0 grid grid-cols-[56px_1fr] overflow-hidden rounded-[6px] border border-ink/10 bg-surface/60 [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
+          <div
+            className="relative z-20 flex items-start justify-center border-r border-ink/10 bg-bg/90 py-8 backdrop-blur-sm"
+            style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+          >
+            <span className="font-en text-[11px] tracking-[0.35em] uppercase text-deep">
+              {c.label}
             </span>
           </div>
-
-          <div className="flex flex-col gap-4">
-            <p className="font-en italic text-xs tracking-[0.2em] uppercase text-deep">
-              {c.tag}
-            </p>
-            <h3 className="font-kr-serif text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-              {c.name}
-            </h3>
-            <p className="max-w-md text-sm leading-[1.85] text-ink/80">
-              {c.description}
-            </p>
+          <div className="relative overflow-hidden bg-bg">
+            <Image
+              src={c.image}
+              alt={`${c.name} 미리보기`}
+              fill
+              sizes="(max-width: 768px) 100vw, 82vw"
+              className="object-cover object-top"
+              priority={index === 0}
+            />
           </div>
+        </div>
 
-          <div className="flex items-center justify-between font-en text-xs tracking-[0.25em] uppercase text-deep">
-            <span>Click to visit</span>
-            <span aria-hidden>↗</span>
+        {/* Back — 정보 패널 */}
+        <div className="absolute inset-0 overflow-hidden rounded-[6px] border border-wave bg-bg [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)]">
+          <div className="flex h-full flex-col justify-between p-10 sm:p-12">
+            <div className="flex items-center justify-between">
+              <span className="font-en text-xs tracking-[0.25em] text-deep/80">
+                0{index + 1}
+              </span>
+              <span className="font-en text-xs tracking-[0.25em] text-deep/80">
+                {c.year}
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-5">
+              <p className="font-en italic text-xs tracking-[0.2em] uppercase text-deep">
+                {c.tag}
+              </p>
+              <h3 className="font-kr-serif text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
+                {c.name}
+              </h3>
+              <p className="max-w-md text-sm leading-[1.85] text-ink/80">
+                {c.description}
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between font-en text-xs tracking-[0.25em] uppercase text-deep">
+              <span>Click to visit</span>
+              <span aria-hidden>↗</span>
+            </div>
           </div>
         </div>
       </div>
     </a>
   );
 }
-
