@@ -5,6 +5,11 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+const TILT_DEG = 8;
+const SHADOW_OFFSET = 24;
+const SHADOW_Y_BIAS = 14;
+const SHADOW_COLOR = "color-mix(in srgb, var(--color-deep) 22%, transparent)";
+
 type Case = {
   name: string;
   tag: string;
@@ -80,7 +85,7 @@ export default function Work() {
         >
           <WorkIntro />
           {cases.map((c, i) => (
-            <CaseCard key={c.name} c={c} index={i} />
+            <CaseCard key={c.name} c={c} index={i} isMobile={false} />
           ))}
         </div>
       </div>
@@ -89,7 +94,7 @@ export default function Work() {
       <div className="flex flex-col gap-10 px-6 pb-32 pt-32 md:hidden">
         <MobileIntro />
         {cases.map((c, i) => (
-          <CaseCard key={c.name + "-m"} c={c} index={i} variant="mobile" />
+          <CaseCard key={c.name + "-m"} c={c} index={i} isMobile />
         ))}
       </div>
     </section>
@@ -143,37 +148,43 @@ function MobileIntro() {
 function CaseCard({
   c,
   index,
-  variant,
+  isMobile,
 }: {
   c: Case;
   index: number;
-  variant?: "mobile";
+  isMobile: boolean;
 }) {
-  const isMobile = variant === "mobile";
   const cardRef = useRef<HTMLDivElement | null>(null);
+  const reducedMotionRef = useRef(false);
+
+  useEffect(() => {
+    if (isMobile) return;
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reducedMotionRef.current = mql.matches;
+    const onChange = (e: MediaQueryListEvent) => {
+      reducedMotionRef.current = e.matches;
+    };
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, [isMobile]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isMobile || !cardRef.current) return;
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
+    if (reducedMotionRef.current || !cardRef.current) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const nx = (e.clientX - rect.left) / rect.width - 0.5;
     const ny = (e.clientY - rect.top) / rect.height - 0.5;
-    const rx = (-ny * 8).toFixed(2);
-    const ry = (nx * 8).toFixed(2);
-    const sx = (-nx * 24).toFixed(0);
-    const sy = (-ny * 24 + 14).toFixed(0);
+    const rx = (-ny * TILT_DEG).toFixed(2);
+    const ry = (nx * TILT_DEG).toFixed(2);
+    const sx = (-nx * SHADOW_OFFSET).toFixed(0);
+    const sy = (-ny * SHADOW_OFFSET + SHADOW_Y_BIAS).toFixed(0);
     cardRef.current.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-    cardRef.current.style.boxShadow = `${sx}px ${sy}px 44px -8px rgba(27, 59, 95, 0.22)`;
+    cardRef.current.style.boxShadow = `${sx}px ${sy}px 44px -8px ${SHADOW_COLOR}`;
   };
 
   const handleMouseLeave = () => {
     if (!cardRef.current) return;
     cardRef.current.style.transform = "rotateX(0deg) rotateY(0deg)";
-    cardRef.current.style.boxShadow = "0 0 0 0 rgba(27, 59, 95, 0)";
+    cardRef.current.style.boxShadow = "0 0 0 0 transparent";
   };
 
   return (
@@ -209,7 +220,7 @@ function CaseCard({
           style={{
             transition:
               "transform 300ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-            willChange: "transform, box-shadow",
+            willChange: isMobile ? undefined : "transform, box-shadow",
           }}
           className="relative h-full w-full overflow-hidden rounded-[6px] border border-ink/10 bg-surface/60"
         >
