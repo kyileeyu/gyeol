@@ -10,8 +10,6 @@ type Case = {
   tag: string;
   label: string;
   href: string;
-  year: string;
-  description: string;
   image: string;
 };
 
@@ -21,9 +19,6 @@ const cases: Case[] = [
     tag: "Personal Branding",
     label: "Branding",
     href: "https://dewstone.kr",
-    year: "2026",
-    description:
-      "듀스톤의 퍼스널 브랜딩 사이트. 톤과 리듬을 한 결로 정리한 첫 화면부터 끝까지.",
     image: "/work/dewstone.webp",
   },
   {
@@ -31,9 +26,6 @@ const cases: Case[] = [
     tag: "Portfolio Site",
     label: "Portfolio",
     href: "https://yoonseul-log.vercel.app/",
-    year: "2026",
-    description:
-      "사진작가의 기록을 모은 포트폴리오. 이미지의 호흡에 맞춰 읽히도록 설계된 레이아웃.",
     image: "/work/yoonseul-log.webp",
   },
 ];
@@ -84,7 +76,7 @@ export default function Work() {
       >
         <div
           ref={trackRef}
-          className="flex h-full w-max items-center gap-10 pr-[50vw] lg:gap-14"
+          className="flex h-full w-max items-center gap-24 pr-[16vw] lg:gap-32"
         >
           <WorkIntro />
           {cases.map((c, i) => (
@@ -119,8 +111,6 @@ function WorkIntro() {
         결을 맞춘 페이지
       </h2>
       <p className="max-w-md text-sm sm:text-base leading-[1.85] text-muted">
-        카드에 마우스를 올려 설명을 확인하고,
-        <br />
         카드를 눌러 실제 사이트로 이동하세요.
       </p>
       <div className="mt-4 flex items-center gap-3 font-en text-xs tracking-[0.25em] uppercase text-deep/70">
@@ -160,6 +150,31 @@ function CaseCard({
   variant?: "mobile";
 }) {
   const isMobile = variant === "mobile";
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile || !cardRef.current) return;
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const nx = (e.clientX - rect.left) / rect.width - 0.5;
+    const ny = (e.clientY - rect.top) / rect.height - 0.5;
+    const rx = (-ny * 8).toFixed(2);
+    const ry = (nx * 8).toFixed(2);
+    const sx = (-nx * 24).toFixed(0);
+    const sy = (-ny * 24 + 14).toFixed(0);
+    cardRef.current.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    cardRef.current.style.boxShadow = `${sx}px ${sy}px 44px -8px rgba(27, 59, 95, 0.22)`;
+  };
+
+  const handleMouseLeave = () => {
+    if (!cardRef.current) return;
+    cardRef.current.style.transform = "rotateX(0deg) rotateY(0deg)";
+    cardRef.current.style.boxShadow = "0 0 0 0 rgba(27, 59, 95, 0)";
+  };
 
   return (
     <a
@@ -169,68 +184,43 @@ function CaseCard({
       aria-label={`${c.name} — ${c.tag}`}
       className={
         (isMobile
-          ? "h-[62vw] w-full "
-          : "h-[clamp(440px,62vh,620px)] w-[clamp(620px,82vw,1040px)] shrink-0 ") +
-        "group relative block [perspective:1600px]"
+          ? "h-[46vw] w-full "
+          : "h-[clamp(280px,42vh,400px)] w-[clamp(400px,52vw,660px)] shrink-0 ") +
+        "group relative flex items-stretch gap-5"
       }
     >
-      <div
-        className={
-          "relative h-full w-full transition-transform duration-[900ms] ease-[cubic-bezier(0.65,0,0.35,1)] [transform-style:preserve-3d]" +
-          (isMobile ? "" : " group-hover:[transform:rotateY(180deg)]")
-        }
-      >
-        {/* Front — 미리보기 + 세로 라벨 */}
-        <div className="absolute inset-0 grid grid-cols-[56px_1fr] overflow-hidden rounded-[6px] border border-ink/10 bg-surface/60 [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
-          <div
-            className="relative z-20 flex items-start justify-center border-r border-ink/10 bg-bg/90 py-8 backdrop-blur-sm"
-            style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-          >
-            <span className="font-en text-[11px] tracking-[0.35em] uppercase text-deep">
-              {c.label}
-            </span>
-          </div>
-          <div className="relative overflow-hidden bg-bg">
-            <Image
-              src={c.image}
-              alt={`${c.name} 미리보기`}
-              fill
-              sizes="(max-width: 768px) 100vw, 82vw"
-              className="object-cover object-top"
-              priority={index === 0}
-            />
-          </div>
-        </div>
+      <div className="flex shrink-0 items-end justify-center py-1">
+        <span
+          style={{
+            writingMode: "vertical-rl",
+            transform: "rotate(180deg)",
+          }}
+          className="font-en text-[11px] tracking-[0.35em] uppercase text-deep"
+        >
+          {c.label}
+        </span>
+      </div>
 
-        {/* Back — 정보 패널 */}
-        <div className="absolute inset-0 overflow-hidden rounded-[6px] border border-wave bg-bg [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)]">
-          <div className="flex h-full flex-col justify-between p-10 sm:p-12">
-            <div className="flex items-center justify-between">
-              <span className="font-en text-xs tracking-[0.25em] text-deep/80">
-                0{index + 1}
-              </span>
-              <span className="font-en text-xs tracking-[0.25em] text-deep/80">
-                {c.year}
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-5">
-              <p className="font-en italic text-xs tracking-[0.2em] uppercase text-deep">
-                {c.tag}
-              </p>
-              <h3 className="font-kr-serif text-[clamp(1.75rem,3.2vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-                {c.name}
-              </h3>
-              <p className="max-w-md text-sm leading-[1.85] text-ink/80">
-                {c.description}
-              </p>
-            </div>
-
-            <div className="flex items-center justify-between font-en text-xs tracking-[0.25em] uppercase text-deep">
-              <span>Click to visit</span>
-              <span aria-hidden>↗</span>
-            </div>
-          </div>
+      <div className="relative flex-1 [perspective:1200px]">
+        <div
+          ref={cardRef}
+          onMouseMove={isMobile ? undefined : handleMouseMove}
+          onMouseLeave={isMobile ? undefined : handleMouseLeave}
+          style={{
+            transition:
+              "transform 300ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+            willChange: "transform, box-shadow",
+          }}
+          className="relative h-full w-full overflow-hidden rounded-[6px] border border-ink/10 bg-surface/60"
+        >
+          <Image
+            src={c.image}
+            alt={`${c.name} 미리보기`}
+            fill
+            sizes="(max-width: 768px) 100vw, 82vw"
+            className="object-cover object-top"
+            priority={index === 0}
+          />
         </div>
       </div>
     </a>
