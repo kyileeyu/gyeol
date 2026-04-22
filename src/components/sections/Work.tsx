@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -11,6 +12,7 @@ type Case = {
   href: string;
   year: string;
   description: string;
+  image: string;
 };
 
 const cases: Case[] = [
@@ -22,6 +24,7 @@ const cases: Case[] = [
     year: "2026",
     description:
       "듀스톤의 퍼스널 브랜딩 사이트. 톤과 리듬을 한 결로 정리한 첫 화면부터 끝까지.",
+    image: "/work/dewstone.webp",
   },
   {
     name: "yoonseul-log",
@@ -31,6 +34,7 @@ const cases: Case[] = [
     year: "2026",
     description:
       "사진작가의 기록을 모은 포트폴리오. 이미지의 호흡에 맞춰 읽히도록 설계된 레이아웃.",
+    image: "/work/yoonseul-log.webp",
   },
 ];
 
@@ -150,8 +154,15 @@ function CaseCard({
       </div>
 
       {/* 미리보기 + 호버 오버레이 */}
-      <div className="relative overflow-hidden">
-        <CardPreview href={c.href} />
+      <div className="relative overflow-hidden bg-bg">
+        <Image
+          src={c.image}
+          alt={`${c.name} 미리보기`}
+          fill
+          sizes="(max-width: 768px) 100vw, 82vw"
+          className="object-cover object-top transition-transform duration-[900ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:scale-[1.03]"
+          priority={index === 0}
+        />
 
         {/* 흰색 그라데이션 호버 오버레이 */}
         <div
@@ -192,27 +203,3 @@ function CaseCard({
   );
 }
 
-function CardPreview({ href }: { href: string }) {
-  // 데스크톱 1440 기준으로 렌더한 뒤 카드에 맞춰 스케일 다운 — 미니어처 효과
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-bg">
-      <iframe
-        src={href}
-        title=""
-        aria-hidden
-        tabIndex={-1}
-        loading="lazy"
-        scrolling="no"
-        sandbox="allow-same-origin allow-scripts"
-        referrerPolicy="no-referrer"
-        className="absolute left-0 top-0 origin-top-left"
-        style={{
-          width: "1440px",
-          height: "900px",
-          // 카드 너비를 최대치(1040)로 가정했을 때 스케일. 카드가 더 좁아도 자연스럽게 좌상단 기준으로 잘림.
-          transform: "scale(0.72)",
-        }}
-      />
-    </div>
-  );
-}
