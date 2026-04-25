@@ -24,6 +24,9 @@ const C = {
   card: "#ffffff",
 } as const;
 
+const SENDER_NAME = "결 Gyeol";
+const withName = (email: string) => `${SENDER_NAME} <${email}>`;
+
 const escape = (value: string) =>
   value
     .replace(/&/g, "&amp;")
@@ -86,7 +89,7 @@ export function buildAdminNotification(
   ].join("\n");
 
   return {
-    from,
+    from: withName(from),
     to,
     replyTo: data.email,
     subject: `[결] 새 문의 — ${data.name} / ${data.projectType}`,
@@ -150,7 +153,7 @@ export function buildAutoReply(
   ].join("\n");
 
   return {
-    from,
+    from: withName(from),
     to: data.email,
     subject: "결에 문의해주셔서 감사합니다",
     html,
