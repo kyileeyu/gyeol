@@ -6,7 +6,7 @@ type Card = {
   en: string;
   ko: string;
   title: string;
-  body: string;
+  body: string[];
 };
 
 const cards: Card[] = [
@@ -14,19 +14,30 @@ const cards: Card[] = [
     en: "Interaction",
     ko: "표면",
     title: "결이 흐르는 인터랙션",
-    body: "3D, 셰이더, 스크롤 모션. 한 사람이 디자인부터 개발까지 손에서 놓지 않으니, 브랜드의 결이 손끝의 감각으로 끝까지 옮겨집니다.",
+    body: [
+      "3D, 셰이더, 스크롤 모션",
+      "디자인부터 개발까지 한 사람이 손에서 놓지 않습니다",
+      "브랜드의 결이 손끝의 감각으로 끝까지 옮겨집니다",
+    ],
   },
   {
     en: "Visibility",
     ko: "구조",
     title: "검색에 잡히는 구조",
-    body: "프론트엔드 개발 출신이 설계하는 SEO·AEO 최적화. 시맨틱 마크업, 구조화 데이터, Core Web Vitals. 이미지부터 코드까지 빌더의 한계 없이 다듬어 검색에 정확히 노출됩니다.",
+    body: [
+      "프론트엔드 개발 출신이 설계하는 SEO·AEO 최적화",
+      "시맨틱 마크업, 구조화 데이터, Core Web Vitals",
+      "이미지부터 코드까지 빌더의 한계 없이 다듬어 검색에 정확히 노출됩니다",
+    ],
   },
   {
     en: "Care",
     ko: "시간",
     title: "출시 이후의 결",
-    body: "페이지는 만든 순간이 아니라 쓰이는 동안 살아있습니다. 출시 후 일정 기간 함께 모니터링하며 검색 노출과 사용자 흐름을 다듬습니다. 이후의 운영도 함께 이어갈 수 있습니다.",
+    body: [
+      "페이지는 만든 순간이 아니라 쓰이는 동안 살아있습니다",
+      "출시 후 한 달, 검색 노출과 사용자 흐름을 함께 보고 다듬습니다",
+    ],
   },
 ];
 
@@ -100,9 +111,17 @@ export default function Capability() {
               <h3 className="font-kr-serif text-xl sm:text-2xl font-medium leading-[1.4] tracking-[-0.02em] text-ink">
                 {c.title}
               </h3>
-              <p className="text-sm sm:text-base leading-[1.85] text-muted">
-                {c.body}
-              </p>
+              <ul className="flex flex-col gap-3 text-sm sm:text-base leading-[1.7] text-muted">
+                {c.body.map((line) => (
+                  <li key={line} className="flex items-start gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-[0.7em] h-1 w-1 shrink-0 rounded-full bg-muted/60"
+                    />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.article>
           ))}
         </motion.div>

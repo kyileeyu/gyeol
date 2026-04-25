@@ -21,18 +21,21 @@ export default function ContactForm() {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       name: "",
       email: "",
-      projectType: "Brand Site",
+      projectType: "" as ContactInput["projectType"],
       message: "",
       referenceUrl: "",
       company: "",
     },
   });
+
+  const projectTypeValue = watch("projectType");
 
   const onSubmit: SubmitHandler<ContactInput> = async (data) => {
     setStatus("submitting");
@@ -55,10 +58,10 @@ export default function ContactForm() {
   };
 
   const inputCx =
-    "w-full bg-transparent px-1 py-5 text-ink placeholder:text-muted outline-none border-0 text-base";
+    "w-full bg-transparent px-5 py-5 text-ink placeholder:text-muted outline-none border-0 text-base";
   const rowCx =
-    "border-b border-ink/15 transition-colors duration-300 ease-[cubic-bezier(0.65,0,0.35,1)] focus-within:border-wave";
-  const errorCx = "px-1 pb-3 text-xs text-[#B23A48]";
+    "border-b border-ink/15 transition-colors duration-300 ease-[cubic-bezier(0.65,0,0.35,1)] focus-within:border-wave last:border-b-0";
+  const errorCx = "px-5 pb-3 text-xs text-[#B23A48]";
 
   return (
     <AnimatePresence mode="wait">
@@ -79,7 +82,7 @@ export default function ContactForm() {
           noValidate
           className="flex flex-col"
         >
-          <div className="border-t border-ink/15">
+          <div className="rounded-3xl border border-ink/15 overflow-hidden">
             <div className={rowCx}>
               <input
                 id="name"
@@ -109,13 +112,21 @@ export default function ContactForm() {
             <div className={rowCx}>
               <select
                 id="projectType"
-                className={inputCx + " appearance-none cursor-pointer"}
+                defaultValue=""
+                className={
+                  inputCx +
+                  " appearance-none cursor-pointer" +
+                  (projectTypeValue ? "" : " text-muted")
+                }
                 aria-invalid={!!errors.projectType}
                 {...register("projectType")}
               >
+                <option value="" disabled hidden>
+                  사이트 유형
+                </option>
                 {projectTypes.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
+                  <option key={t} value={t} className="text-ink">
+                    {t === "기타" ? "기타 문의(Web, App)" : t}
                   </option>
                 ))}
               </select>
@@ -152,6 +163,16 @@ export default function ContactForm() {
                 <p className={errorCx}>{errors.referenceUrl.message}</p>
               )}
             </div>
+
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="btn-wave block w-full bg-wave px-5 py-5 text-deep text-sm sm:text-base font-medium tracking-[0.04em] transition-colors duration-300 ease-[cubic-bezier(0.65,0,0.35,1)] hover:bg-wave/90 disabled:opacity-60 focus-visible:outline-none"
+            >
+              <span>
+                {status === "submitting" ? "보내는 중…" : "문의 남기기"}
+              </span>
+            </button>
           </div>
 
           {/* honeypot */}
@@ -169,14 +190,6 @@ export default function ContactForm() {
               전송 중 문제가 있었어요: {submitError}
             </p>
           )}
-
-          <button
-            type="submit"
-            disabled={status === "submitting"}
-            className="btn-deep mt-10 inline-flex items-center justify-center rounded-full bg-deep px-8 py-4 text-bg text-sm sm:text-base tracking-[0.04em] transition-transform duration-500 ease-out hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-wave focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-          >
-            {status === "submitting" ? "보내는 중…" : "문의 남기기"}
-          </button>
         </motion.form>
       )}
     </AnimatePresence>

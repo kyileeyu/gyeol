@@ -25,14 +25,14 @@ const notoSerifKr = Noto_Serif_KR({
 });
 
 const SITE_URL = "https://gyeol.page";
-const SITE_NAME = "결 (Gyeol)";
+const SITE_NAME = "결 Gyeol";
 const SITE_DESCRIPTION =
   "결이 맞는 페이지를 만드는 웹 스튜디오. 브랜드와 개인을 위한 3D 인터랙티브 웹 스튜디오 — 보이는 것만큼, 보이게도 만듭니다.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — 결이 맞는 페이지`,
+    default: `${SITE_NAME}`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -115,7 +115,7 @@ const jsonLd = [
       "SEO",
       "AEO",
     ],
-    email: "hello@gyeol.page",
+    email: "hi@gyeol.page",
     slogan: "보이는 것만큼, 보이게도 만듭니다",
   },
   {

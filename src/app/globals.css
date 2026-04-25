@@ -96,3 +96,34 @@ body {
   opacity: 0.18;
   animation: ripple-out 1200ms var(--ease-water);
 }
+
+.btn-wave {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-wave::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 70%
+  );
+  transform: translateX(-110%);
+  transition: transform 900ms var(--ease-water);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn-wave:hover::before {
+  transform: translateX(110%);
+}
+
+.btn-wave > * {
+  position: relative;
+  z-index: 1;
+}

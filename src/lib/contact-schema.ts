@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const projectTypes = ["Brand Site", "Portfolio", "Landing", "기타"] as const;
+export const projectTypes = ["Brand Site", "Portfolio", "기타"] as const;
 export type ProjectType = (typeof projectTypes)[number];
 
 export const contactSchema = z.object({
