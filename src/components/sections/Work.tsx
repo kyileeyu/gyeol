@@ -91,7 +91,7 @@ export default function Work() {
       </div>
 
       {/* Mobile — 세로 스택 + 헤더 */}
-      <div className="flex flex-col gap-10 px-6 pb-32 pt-32 md:hidden">
+      <div className="flex flex-col gap-20 px-6 pb-32 pt-32 md:hidden">
         <MobileIntro />
         {cases.map((c, i) => (
           <CaseCard key={c.name + "-m"} c={c} index={i} isMobile />

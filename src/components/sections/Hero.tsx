@@ -28,7 +28,7 @@ export default function Hero() {
         variants={containerVariants}
         initial={reduce ? "show" : "hidden"}
         animate="show"
-        className="pointer-events-none relative z-10 flex h-full w-full flex-col items-start justify-center pl-[120px] pr-6 text-left"
+        className="pointer-events-none relative z-10 flex h-full w-full flex-col items-start justify-center px-6 sm:pl-10 md:pl-16 lg:pl-[120px] lg:pr-6 text-left"
       >
         <motion.h1
           variants={itemVariants}
