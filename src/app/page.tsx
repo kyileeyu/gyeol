@@ -1,7 +1,7 @@
 import FixedLiquidBackground from "@/components/hero/FixedLiquidBackground";
 import Hero from "@/components/sections/Hero";
 import PromiseSection from "@/components/sections/PromiseSection";
-import Work from "@/components/sections/Work";
+import WorkSection from "@/features/work";
 import Capability from "@/components/sections/Capability";
 import Process from "@/components/sections/Process";
 import Contact from "@/components/sections/Contact";
@@ -13,7 +13,7 @@ export default function Home() {
       <FixedLiquidBackground />
       <Hero />
       <PromiseSection />
-      <Work />
+      <WorkSection />
       <Capability />
       <Process />
       <Contact />
