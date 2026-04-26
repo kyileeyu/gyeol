@@ -127,3 +127,110 @@ body {
   position: relative;
   z-index: 1;
 }
+
+/* 케이스 스터디 본문 — 모든 케이스에서 외형 통일 */
+.prose-gyeol {
+  font-family: var(--font-kr);
+  color: var(--color-ink);
+  font-size: 1.0625rem;
+  line-height: 1.95;
+  letter-spacing: -0.005em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.prose-gyeol > * + * {
+  margin-top: 1.4em;
+}
+.prose-gyeol h2 {
+  font-family: var(--font-kr-serif);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  margin-top: 3rem;
+  color: var(--color-ink);
+}
+.prose-gyeol h3 {
+  font-family: var(--font-kr-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.4;
+  margin-top: 2.25rem;
+  color: var(--color-ink);
+}
+.prose-gyeol p {
+  color: var(--color-ink);
+}
+.prose-gyeol a {
+  color: var(--color-deep);
+  text-decoration: underline;
+  text-decoration-color: var(--color-wave);
+  text-underline-offset: 4px;
+  transition: color 200ms var(--ease-water);
+}
+.prose-gyeol a:hover {
+  color: var(--color-ink);
+}
+.prose-gyeol blockquote {
+  font-family: var(--font-kr-serif);
+  border-left: 2px solid var(--color-wave);
+  padding-left: 1.25rem;
+  color: var(--color-deep);
+  font-style: normal;
+}
+.prose-gyeol code {
+  background: var(--color-surface);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-family: var(--font-en);
+  font-size: 0.9em;
+}
+.prose-gyeol pre {
+  background: var(--color-meok);
+  color: var(--color-seolbaek);
+  padding: 1.25rem 1.5rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+.prose-gyeol pre code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+}
+.prose-gyeol hr {
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+  margin: 3rem auto;
+  width: 4rem;
+}
+.prose-gyeol ul {
+  list-style: disc;
+  padding-left: 1.4em;
+}
+.prose-gyeol ol {
+  list-style: decimal;
+  padding-left: 1.4em;
+}
+.prose-gyeol li + li {
+  margin-top: 0.4em;
+}
+.prose-gyeol strong {
+  font-weight: 600;
+  color: var(--color-deep);
+}
+.prose-gyeol .heading-anchor {
+  color: inherit;
+  text-decoration: none;
+}
+.prose-gyeol .heading-anchor:hover {
+  color: var(--color-deep);
+}
+.prose-gyeol .not-prose {
+  font-family: revert;
+  font-size: revert;
+  line-height: revert;
+  letter-spacing: revert;
+}
