@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Inter, Noto_Serif_KR } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import {
   SITE_URL,
@@ -125,8 +123,6 @@ export default function RootLayout({
         {children}
         <ScrollDepthTracker />
         <JsonLd />
-        <Analytics />
-        <SpeedInsights />
         <GoogleAnalytics />
       </body>
     </html>

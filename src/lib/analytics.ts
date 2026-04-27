@@ -1,14 +1,8 @@
 type GtagFn = (...args: unknown[]) => void;
-type VaFn = (
-  event: "track",
-  name: string,
-  params?: Record<string, unknown>,
-) => void;
 
 declare global {
   interface Window {
     gtag?: GtagFn;
-    va?: VaFn;
   }
 }
 
@@ -33,5 +27,4 @@ export function track(event: string, params?: Record<string, unknown>): void;
 export function track(event: string, params: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
   window.gtag?.("event", event, params);
-  window.va?.("track", event, params);
 }
