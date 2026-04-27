@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllCases } from "@/features/work";
-
-const SITE_URL = "https://gyeol.page";
+import { SITE_URL } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const cases = await getAllCases();
@@ -18,5 +17,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly" as const,
       priority: 0.7,
     })),
+    {
+      url: `${SITE_URL}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    },
   ];
 }

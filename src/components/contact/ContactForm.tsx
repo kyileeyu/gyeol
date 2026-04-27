@@ -9,6 +9,7 @@ import {
   projectTypes,
   type ContactInput,
 } from "@/lib/contact-schema";
+import { track } from "@/lib/analytics";
 import SuccessWave from "./SuccessWave";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -40,6 +41,7 @@ export default function ContactForm() {
   const onSubmit: SubmitHandler<ContactInput> = async (data) => {
     setStatus("submitting");
     setSubmitError(null);
+    track("cta_form_click", { form: "contact" });
     try {
       const res = await fetch("/api/contact", {
         method: "POST",

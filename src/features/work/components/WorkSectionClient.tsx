@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { track } from "@/lib/analytics";
 import type { CaseMeta } from "../lib/types";
 
 const TILT_DEG = 8;
@@ -19,11 +20,12 @@ type Props = {
 export default function WorkSectionClient({ cases }: Props) {
   const pinRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const lastCaseRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const pin = pinRef.current;
-    const track = trackRef.current;
-    if (!pin || !track) return;
+    const trackEl = trackRef.current;
+    if (!pin || !trackEl) return;
 
     const mql = window.matchMedia(
       "(prefers-reduced-motion: reduce), (max-width: 768px)",
@@ -33,9 +35,9 @@ export default function WorkSectionClient({ cases }: Props) {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      const distance = () => track.scrollWidth - window.innerWidth;
+      const distance = () => trackEl.scrollWidth - window.innerWidth;
 
-      gsap.to(track, {
+      gsap.to(trackEl, {
         x: () => -distance(),
         ease: "none",
         scrollTrigger: {
@@ -53,6 +55,24 @@ export default function WorkSectionClient({ cases }: Props) {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const el = lastCaseRef.current;
+    if (!el) return;
+    let fired = false;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !fired) {
+          fired = true;
+          track("work_scroll_complete", { cases_seen: cases.length });
+          io.disconnect();
+        }
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [cases.length]);
+
   return (
     <section id="work" className="relative w-full bg-bg">
       {/* Desktop — pinned horizontal scroll */}
@@ -65,18 +85,36 @@ export default function WorkSectionClient({ cases }: Props) {
           className="flex h-full w-max items-center gap-24 pr-[16vw] lg:gap-32"
         >
           <WorkIntro />
-          {cases.map((c, i) => (
-            <CaseCard key={c.slug} c={c} index={i} isMobile={false} />
-          ))}
+          {cases.map((c, i) => {
+            const isLast = i === cases.length - 1;
+            return (
+              <div
+                key={c.slug}
+                ref={isLast ? lastCaseRef : undefined}
+                className="contents"
+              >
+                <CaseCard c={c} index={i} isMobile={false} />
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* Mobile — vertical stack */}
       <div className="flex flex-col gap-20 px-6 pb-32 pt-32 md:hidden">
         <MobileIntro />
-        {cases.map((c, i) => (
-          <CaseCard key={c.slug + "-m"} c={c} index={i} isMobile />
-        ))}
+        {cases.map((c, i) => {
+          const isLast = i === cases.length - 1;
+          return (
+            <div
+              key={c.slug + "-m"}
+              ref={isLast ? lastCaseRef : undefined}
+              className="contents"
+            >
+              <CaseCard c={c} index={i} isMobile />
+            </div>
+          );
+        })}
       </div>
     </section>
   );

@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { track } from "@/lib/analytics";
 
 const containerVariants: Variants = {
   hidden: { opacity: 1 },
@@ -21,9 +23,30 @@ const itemVariants: Variants = {
 
 export default function Hero() {
   const reduce = useReducedMotion();
+  const enteredAtRef = useRef<number | null>(null);
+  const firedRef = useRef(false);
+
+  const handleMouseEnter = () => {
+    enteredAtRef.current = Date.now();
+  };
+  const handleMouseLeave = () => {
+    if (firedRef.current || enteredAtRef.current === null) return;
+    const duration = Date.now() - enteredAtRef.current;
+    enteredAtRef.current = null;
+    if (duration >= 500) {
+      firedRef.current = true;
+      track("hero_interact", { duration_ms: duration });
+    }
+  };
 
   return (
     <section className="relative h-[100svh] w-full">
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      />
       <motion.div
         variants={containerVariants}
         initial={reduce ? "show" : "hidden"}

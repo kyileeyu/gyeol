@@ -1,3 +1,8 @@
+"use client";
+
+import Link from "next/link";
+import { track } from "@/lib/analytics";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -15,7 +20,11 @@ export default function Footer() {
           </div>
 
           <nav aria-label="Footer" className="flex flex-col gap-1">
-            <a href="mailto:hi@gyeol.page" className="group flex flex-col gap-1">
+            <a
+              href="mailto:hi@gyeol.page"
+              className="group flex flex-col gap-1"
+              onClick={() => track("mailto_click", { where: "footer" })}
+            >
               <span className="font-en text-[10px] tracking-[0.25em] uppercase text-muted">
                 Contact
               </span>
@@ -26,10 +35,16 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="pt-4 text-xs leading-[1.8] text-muted/80">
+        <div className="flex flex-col gap-2 pt-4 text-xs leading-[1.8] text-muted/80">
           <p className="font-en tracking-[0.15em]">
             © {year} Gyeol Studio. All rights reserved.
           </p>
+          <Link
+            href="/privacy"
+            className="inline-block w-fit transition-colors hover:text-deep"
+          >
+            개인정보처리방침
+          </Link>
         </div>
       </div>
     </footer>

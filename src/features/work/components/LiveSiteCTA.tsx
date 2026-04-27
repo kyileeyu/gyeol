@@ -1,3 +1,7 @@
+"use client";
+
+import { track } from "@/lib/analytics";
+
 type Props = {
   href: string;
 };
@@ -10,6 +14,7 @@ export default function LiveSiteCTA({ href }: Props) {
         href={href}
         target="_blank"
         rel="noreferrer noopener"
+        onClick={() => track("cta_external_click", { target: display })}
         className="btn-deep btn-wave inline-flex items-center gap-3 rounded-full bg-deep px-7 py-3 font-en text-sm tracking-[0.2em] uppercase text-bg transition-colors"
       >
         <span>Visit {display}</span>

@@ -6,18 +6,33 @@ import Capability from "@/components/sections/Capability";
 import Process from "@/components/sections/Process";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import { SectionView } from "@/components/SectionView";
 
 export default function Home() {
   return (
     <main>
       <FixedLiquidBackground />
-      <Hero />
-      <PromiseSection />
-      <WorkSection />
-      <Capability />
-      <Process />
-      <Contact />
-      <Footer />
+      <SectionView name="hero">
+        <Hero />
+      </SectionView>
+      <SectionView name="promise">
+        <PromiseSection />
+      </SectionView>
+      <SectionView name="work">
+        <WorkSection />
+      </SectionView>
+      <SectionView name="capability">
+        <Capability />
+      </SectionView>
+      <SectionView name="process">
+        <Process />
+      </SectionView>
+      <SectionView name="contact">
+        <Contact />
+      </SectionView>
+      <SectionView name="footer">
+        <Footer />
+      </SectionView>
     </main>
   );
 }
