@@ -36,6 +36,11 @@ yarn-error.log*
 .wrangler
 .dev.vars
 
+# auto-generated
+src/features/work/lib/cases.generated.ts
+src/features/work/lib/cases.compiled.ts
+src/features/work/cases/**/_compiled.jsx
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

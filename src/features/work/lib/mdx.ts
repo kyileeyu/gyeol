@@ -1,18 +1,12 @@
 import { cache } from "react";
-import fs from "node:fs/promises";
-import path from "node:path";
-import matter from "gray-matter";
+import { generatedCases } from "./cases.generated";
 import { caseCovers } from "../cases/manifest";
 import { caseFrontmatterSchema } from "./schema";
 import type { CaseMeta } from "./types";
 import { estimateReadingMinutes } from "./reading-time";
 
-const CASES_DIR = path.join(process.cwd(), "src/features/work/cases");
-
-async function readCaseFile(slug: string) {
-  const filePath = path.join(CASES_DIR, slug, "index.mdx");
-  const raw = await fs.readFile(filePath, "utf8");
-  return matter(raw);
+function findCase(slug: string) {
+  return generatedCases.find((c) => c.slug === slug) ?? null;
 }
 
 function buildMeta(slug: string, frontmatter: unknown, content: string): CaseMeta {
@@ -39,16 +33,8 @@ function buildMeta(slug: string, frontmatter: unknown, content: string): CaseMet
 }
 
 export const getAllCases = cache(async (): Promise<CaseMeta[]> => {
-  const entries = await fs.readdir(CASES_DIR, { withFileTypes: true });
-  const slugs = entries
-    .filter((e) => e.isDirectory() && !e.name.startsWith("_"))
-    .map((e) => e.name);
-
-  const cases = await Promise.all(
-    slugs.map(async (slug) => {
-      const { data, content } = await readCaseFile(slug);
-      return buildMeta(slug, data, content);
-    }),
+  const cases = generatedCases.map(({ slug, data, content }) =>
+    buildMeta(slug, data, content),
   );
 
   return cases
@@ -59,12 +45,8 @@ export const getAllCases = cache(async (): Promise<CaseMeta[]> => {
 export const readCase = cache(
   async (slug: string): Promise<{ meta: CaseMeta; content: string } | null> => {
     if (slug.startsWith("_")) return null;
-    let raw: { data: unknown; content: string };
-    try {
-      raw = await readCaseFile(slug);
-    } catch {
-      return null;
-    }
+    const raw = findCase(slug);
+    if (!raw) return null;
     const meta = buildMeta(slug, raw.data, raw.content);
     if (meta.draft && process.env.NODE_ENV === "production") return null;
     return { meta, content: raw.content };

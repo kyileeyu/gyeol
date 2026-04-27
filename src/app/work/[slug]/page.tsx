@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { compileMDX } from "next-mdx-remote/rsc";
-import remarkGfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 import {
   getAllCases,
   readCase,
   getAdjacentCases,
 } from "@/features/work/lib/mdx";
+import { compiledCases } from "@/features/work/lib/cases.compiled";
 import { mdxComponents } from "@/features/work/components/mdx";
 import CaseHeader from "@/features/work/components/CaseHeader";
 import CaseMeta from "@/features/work/components/CaseMeta";
@@ -72,28 +69,11 @@ export default async function CasePage({
 }) {
   const data = await readCase(params.slug);
   if (!data) notFound();
-  const { meta, content } = data;
+  const { meta } = data;
   const { prev, next } = await getAdjacentCases(meta.slug);
 
-  const { content: compiled } = await compileMDX({
-    source: content,
-    components: mdxComponents,
-    options: {
-      mdxOptions: {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [
-          rehypeSlug,
-          [
-            rehypeAutolinkHeadings,
-            {
-              behavior: "wrap",
-              properties: { className: ["heading-anchor"] },
-            },
-          ],
-        ],
-      },
-    },
-  });
+  const MDXContent = compiledCases[meta.slug];
+  if (!MDXContent) notFound();
 
   const coverUrl = meta.coverSrc.src.startsWith("http")
     ? meta.coverSrc.src
@@ -119,7 +99,9 @@ export default async function CasePage({
       <article className="mx-auto max-w-[680px] px-6 pt-28 pb-24 sm:pt-36">
         <CaseHeader meta={meta} />
         <CaseMeta meta={meta} />
-        <div className="prose-gyeol">{compiled}</div>
+        <div className="prose-gyeol">
+          <MDXContent components={mdxComponents} />
+        </div>
         {meta.liveUrl && <LiveSiteCTA href={meta.liveUrl} />}
         <CaseNav prev={prev} next={next} />
       </article>

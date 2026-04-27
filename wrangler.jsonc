@@ -11,6 +11,12 @@
     "binding": "ASSETS",
     "directory": ".open-next/assets"
   },
+  "routes": [
+    {
+      "pattern": "gyeol.page",
+      "custom_domain": true
+    }
+  ],
   "observability": {
     "enabled": true
   }
