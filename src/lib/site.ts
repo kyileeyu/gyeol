@@ -16,7 +16,8 @@ export const OPERATOR_JOB_TITLE = "Design Engineer";
 export const OPERATOR_SAME_AS: string[] = [
   "https://www.linkedin.com/in/seunghyun-yu/",
   "https://github.com/kyileeyu",
-  // 인스타 등 공개 소셜 추가 시 여기에 push
+  "https://www.threads.com/@gyeolpage",
+  "https://www.instagram.com/gyeolpage/",
 ];
 
 // 검색엔진 인증 코드 — Search Console / Naver Search Advisor 등록 코드
