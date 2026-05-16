@@ -8,6 +8,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { track } from "@/lib/analytics";
 import type { CaseMeta } from "../lib/types";
 
+function displayHost(url: string) {
+  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+}
+
 const TILT_DEG = 8;
 const SHADOW_OFFSET = 24;
 const SHADOW_Y_BIAS = 14;
@@ -135,7 +139,7 @@ function WorkIntro() {
         결을 맞춘 페이지
       </h2>
       <p className="max-w-md text-sm sm:text-base leading-[1.85] text-muted">
-        카드를 눌러 작업 노트를 펼쳐보세요.
+        카드를 눌러 작업물 사이트로 이동합니다.
       </p>
       <div className="mt-4 flex items-center gap-3 font-en text-xs tracking-[0.25em] uppercase text-deep/70">
         <span aria-hidden>→</span>
@@ -158,7 +162,7 @@ function MobileIntro() {
         지금까지 결을 맞춘 페이지
       </h2>
       <p className="max-w-xl text-sm leading-[1.85] text-muted">
-        카드를 눌러 작업 노트를 펼쳐보세요.
+        카드를 눌러 작업물 사이트로 이동합니다.
       </p>
     </div>
   );
@@ -206,17 +210,14 @@ function CaseCard({
     cardRef.current.style.boxShadow = "0 0 0 0 transparent";
   };
 
-  return (
-    <Link
-      href={`/work/${c.slug}`}
-      aria-label={`${c.title} — ${c.tag}`}
-      className={
-        (isMobile
-          ? "h-[46vw] w-full "
-          : "h-[clamp(280px,42vh,400px)] w-[clamp(400px,52vw,660px)] shrink-0 ") +
-        "group relative flex items-stretch gap-5"
-      }
-    >
+  const sharedClassName =
+    (isMobile
+      ? "h-[46vw] w-full "
+      : "h-[clamp(280px,42vh,400px)] w-[clamp(400px,52vw,660px)] shrink-0 ") +
+    "group relative flex items-stretch gap-5";
+
+  const inner = (
+    <>
       <div className="flex shrink-0 items-end justify-center py-1">
         <span
           style={{
@@ -251,6 +252,32 @@ function CaseCard({
           />
         </div>
       </div>
+    </>
+  );
+
+  if (c.liveUrl) {
+    const target = displayHost(c.liveUrl);
+    return (
+      <a
+        href={c.liveUrl}
+        target="_blank"
+        rel="noreferrer noopener"
+        aria-label={`${c.title} — ${c.tag} (새 창에서 열기)`}
+        onClick={() => track("cta_external_click", { target, slug: c.slug })}
+        className={sharedClassName}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={`/work/${c.slug}`}
+      aria-label={`${c.title} — ${c.tag}`}
+      className={sharedClassName}
+    >
+      {inner}
     </Link>
   );
 }
