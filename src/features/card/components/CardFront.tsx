@@ -19,7 +19,7 @@ export default function CardFront({ hidden }: CardFrontProps) {
       <div className="absolute inset-0 overflow-hidden rounded-[inherit]">
         <Image
           src={PROFILE.profile_image}
-          alt="유승현 — 결 스튜디오 대표"
+          alt="유승현 — 스튜디오 결"
           fill
           priority
           sizes="(max-width: 640px) 86vw, 360px"
@@ -27,8 +27,8 @@ export default function CardFront({ hidden }: CardFrontProps) {
         />
       </div>
 
-      {/* 좌측 상단: 이름 + 소속 */}
-      <div className="relative z-10 flex flex-col">
+      {/* 좌측 컬럼 — 상단 이름·직무 / 하단 브랜드명 */}
+      <div className="relative z-10 flex flex-1 flex-col">
         {/* 이름 */}
         <p className="font-kr text-[clamp(1.75rem,8vw,2.25rem)] text-ink font-bold leading-[1.05] tracking-wide whitespace-nowrap">
           {PROFILE.name_kr}
@@ -37,15 +37,30 @@ export default function CardFront({ hidden }: CardFrontProps) {
           {PROFILE.name_en}
         </p>
 
-        {/* 소속 */}
-        <div className="mt-4">
-          <p className="text-[12px] text-ink leading-tight whitespace-nowrap">
-            스튜디오 결
+        {/* 디바이더 */}
+        <span aria-hidden className="mt-4 block h-px w-9 bg-muted/50" />
+
+        {/* 직무 */}
+        <div className="mt-4 max-w-[62%]">
+          <p className="font-en text-[13px] sm:text-sm text-ink font-semibold leading-snug">
+            Design Engineer /<br />
+            AI Workflow Instructor
           </p>
-          <p className="font-en text-[10px] text-muted leading-tight mt-0.5 tracking-wide whitespace-nowrap">
-            Studio Gyeol
+          <p className="text-[12px] text-muted leading-tight mt-1">
+            {PROFILE.role_kr}
           </p>
         </div>
+
+        {/* 하단 브랜드명 */}
+        <p
+          className="mt-auto pt-6 text-muted leading-none"
+          style={{
+            fontFamily: "var(--font-kr-serif)",
+            fontSize: "clamp(0.9rem, 3.6vw, 1.05rem)",
+          }}
+        >
+          Studio Gyeol.
+        </p>
       </div>
 
       {/* 우측 상단 QR — 패딩(52px) 모서리에 맞춤, 사진 위 오버레이 (투명 배경) */}

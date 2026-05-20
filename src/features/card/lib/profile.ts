@@ -3,8 +3,8 @@
 export const PROFILE = {
   name_kr: "유승현",
   name_en: "Seunghyun Yu",
-  role_kr: "대표 · 결 스튜디오",
-  role_en: "Founder",
+  role_kr: "스튜디오 결 디렉터",
+  role_en: "Design Engineer / AI Workflow Instructor",
   org_kr: "결 Gyeol Studio",
   org_short: "결",
   bio_one_line: "결이 맞는 페이지를 만듭니다",

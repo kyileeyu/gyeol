@@ -39,28 +39,42 @@ function PhoneIcon() {
   );
 }
 
+function GlobeIcon() {
+  return (
+    <svg {...iconProps}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M2 12h20" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+  );
+}
+
 export default function CardBack({ hidden }: CardBackProps) {
   return (
     <div
-      className={`${styles.face} ${styles.faceBack} justify-between`}
+      className={`${styles.face} ${styles.faceBack}`}
       aria-hidden={hidden}
       role="region"
       aria-label="명함 뒷면"
     >
-      {/* 상단: 슬로건 + 연락처 */}
-      <div>
-        <p
-          className="text-ink leading-snug"
-          style={{
-            fontFamily: "var(--font-kr-serif)",
-            fontSize: "clamp(1.05rem, 3.5vw, 1.3rem)",
-          }}
-        >
-          {PROFILE.bio_one_line}
-        </p>
+      {/* 상단: 슬로건 */}
+      <p
+        className="text-ink leading-snug text-center mt-4"
+        style={{
+          fontFamily: "var(--font-kr-serif)",
+          fontSize: "clamp(1.05rem, 3.5vw, 1.3rem)",
+        }}
+      >
+        {PROFILE.bio_one_line}
+      </p>
 
-        {/* 연락처 — 전화·이메일 */}
-        <ul className="mt-5 space-y-2">
+      {/* 디바이더 + 연락처 (슬로건 아래, 위치는 mt로 조절) */}
+      <div className="mt-16">
+        {/* 짧은 디바이더 — 슬로건과 연락처 구분 */}
+        <span aria-hidden className="mx-auto mb-12 block h-px w-10 bg-muted/50" />
+
+        {/* 연락처 — 전화·이메일·사이트 */}
+        <ul className="space-y-3">
           <li>
             <a
               href={PROFILE.phone_href}
@@ -93,11 +107,28 @@ export default function CardBack({ hidden }: CardBackProps) {
               {PROFILE.email}
             </a>
           </li>
+          <li>
+            <a
+              href={PROFILE.site}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.stopPropagation();
+                track("cta_external_click", { target: "site" });
+              }}
+              className="flex items-center gap-3 text-sm text-ink hover:text-deep transition-colors"
+            >
+              <span aria-hidden className="text-muted">
+                <GlobeIcon />
+              </span>
+              gyeol.page
+            </a>
+          </li>
         </ul>
       </div>
 
-      {/* 연락처 저장 CTA */}
-      <div>
+      {/* 연락처 저장 CTA — 하단 고정 */}
+      <div className="mt-auto pt-8">
         <SaveContactButton />
       </div>
     </div>
