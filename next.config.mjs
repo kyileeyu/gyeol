@@ -1,6 +1,11 @@
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
-initOpenNextCloudflareForDev();
+// `next dev`(로컬 개발)에서만 Cloudflare 바인딩용 miniflare 초기화.
+// `next build`(Vercel·Cloudflare 빌드) 환경에서 실행되면 miniflare가
+// EPIPE로 죽어 빌드가 실패하므로 개발 모드로 한정한다.
+if (process.env.NODE_ENV === "development") {
+  initOpenNextCloudflareForDev();
+}
 
 /** @type {import('next').NextConfig} */
 
