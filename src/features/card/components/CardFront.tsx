@@ -27,39 +27,36 @@ export default function CardFront({ hidden }: CardFrontProps) {
         />
       </div>
 
-      {/* 좌측: 텍스트 컬럼 (relative로 사진 위) */}
-      <div className="relative z-10 w-[42%] h-full flex flex-col justify-between pr-2">
-        {/* 상단: 이름 */}
-        <div>
-          <p className="font-kr text-[clamp(1.75rem,8vw,2.25rem)] text-ink font-bold leading-[1.05] tracking-tight">
-            {PROFILE.name_kr}
-          </p>
-          <p className="font-en text-[13px] text-muted mt-1 tracking-wide">
-            {PROFILE.name_en}
-          </p>
-        </div>
+      {/* 좌측 상단: 이름 + 소속 */}
+      <div className="relative z-10 flex flex-col">
+        {/* 이름 */}
+        <p className="font-kr text-[clamp(1.75rem,8vw,2.25rem)] text-ink font-bold leading-[1.05] tracking-wide whitespace-nowrap">
+          {PROFILE.name_kr}
+        </p>
+        <p className="font-en text-[13px] text-muted mt-1 tracking-wide whitespace-nowrap">
+          {PROFILE.name_en}
+        </p>
 
-        {/* 중하단: 소속 + 직함 */}
-        <div className="space-y-3 pb-1">
-          <div>
-            <p className="text-[12px] text-ink leading-tight">결 스튜디오</p>
-            <p className="font-en text-[10px] text-muted leading-tight mt-0.5 tracking-wide">
-              Gyeol Studio
-            </p>
-          </div>
-          <div>
-            <p className="text-[12px] text-ink leading-tight">대표</p>
-            <p className="font-en text-[10px] text-muted leading-tight mt-0.5 tracking-wide">
-              {PROFILE.role_en}
-            </p>
-          </div>
+        {/* 소속 */}
+        <div className="mt-4">
+          <p className="text-[12px] text-ink leading-tight whitespace-nowrap">
+            스튜디오 결
+          </p>
+          <p className="font-en text-[10px] text-muted leading-tight mt-0.5 tracking-wide whitespace-nowrap">
+            Studio Gyeol
+          </p>
         </div>
       </div>
 
-      {/* 우측 상단 워드마크 — 사진 위 오버레이 */}
-      <span className="absolute top-5 right-5 z-20 font-en text-[10px] tracking-[0.25em] uppercase text-ink/70 select-none">
-        Gyeol
-      </span>
+      {/* 우측 상단 QR — 패딩(52px) 모서리에 맞춤, 사진 위 오버레이 (투명 배경) */}
+      <img
+        src="/card/qr.svg"
+        alt="결 스튜디오 QR 코드"
+        width={56}
+        height={56}
+        onClick={(e) => e.stopPropagation()}
+        className="absolute top-[48px] right-[48px] z-20 w-14 h-14 select-none"
+      />
     </div>
   );
 }

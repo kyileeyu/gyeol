@@ -2,7 +2,7 @@
 
 export const PROFILE = {
   name_kr: "유승현",
-  name_en: "Shannon Yu",
+  name_en: "Seunghyun Yu",
   role_kr: "대표 · 결 스튜디오",
   role_en: "Founder",
   org_kr: "결 Gyeol Studio",

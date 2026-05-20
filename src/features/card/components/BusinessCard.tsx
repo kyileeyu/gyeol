@@ -30,14 +30,12 @@ export default function BusinessCard() {
     [onFlip],
   );
 
-  // 진입 모션: 비스듬한 3D 자세 → 정면 안착
-  const initial = reduce
-    ? { opacity: 0 }
-    : { opacity: 0, rotateX: -22, rotateY: 18, translateZ: -60 };
-
-  const animate = reduce
-    ? { opacity: 1 }
-    : { opacity: 1, rotateX: 0, rotateY: 0, translateZ: 0 };
+  // 진입 모션: 살짝 아래/축소 → 정면 안착.
+  // ⚠️ opacity·3D 회전을 퍼스펙티브 컨테이너(.stage)에 걸면 iOS Safari가
+  // 3D 컨텍스트를 평탄화해 backface 숨김이 깨진다(앞·뒷면 동시 노출).
+  // 평면 변환(y/scale)만 사용해 3D 서브트리를 절대 평탄화하지 않는다.
+  const initial = reduce ? { opacity: 0 } : { y: 28, scale: 0.96 };
+  const animate = reduce ? { opacity: 1 } : { y: 0, scale: 1 };
 
   const transition = reduce
     ? { duration: 0.2, ease: "easeOut" }
@@ -49,7 +47,6 @@ export default function BusinessCard() {
       initial={initial}
       animate={animate}
       transition={transition}
-      style={{ transformStyle: "preserve-3d" }}
     >
       <div
         role="button"

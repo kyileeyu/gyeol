@@ -39,16 +39,6 @@ function PhoneIcon() {
   );
 }
 
-function GlobeIcon() {
-  return (
-    <svg {...iconProps}>
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-      <path d="M2 12h20" />
-    </svg>
-  );
-}
-
 export default function CardBack({ hidden }: CardBackProps) {
   return (
     <div
@@ -57,69 +47,54 @@ export default function CardBack({ hidden }: CardBackProps) {
       role="region"
       aria-label="명함 뒷면"
     >
-      {/* 한 줄 슬로건 */}
-      <p
-        className="text-ink leading-snug"
-        style={{
-          fontFamily: "var(--font-kr-serif)",
-          fontSize: "clamp(1.05rem, 3.5vw, 1.3rem)",
-        }}
-      >
-        {PROFILE.bio_one_line}
-      </p>
+      {/* 상단: 슬로건 + 연락처 */}
+      <div>
+        <p
+          className="text-ink leading-snug"
+          style={{
+            fontFamily: "var(--font-kr-serif)",
+            fontSize: "clamp(1.05rem, 3.5vw, 1.3rem)",
+          }}
+        >
+          {PROFILE.bio_one_line}
+        </p>
 
-      {/* 연락처 목록 */}
-      <ul className="space-y-5">
-        <li>
-          <a
-            href={`mailto:${PROFILE.email}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              track("mailto_click", { where: "card" });
-            }}
-            className="flex items-center gap-3 text-sm text-ink hover:text-deep transition-colors"
-          >
-            <span aria-hidden className="text-muted">
-              <MailIcon />
-            </span>
-            {PROFILE.email}
-          </a>
-        </li>
-        <li>
-          <a
-            href={PROFILE.phone_href}
-            onClick={(e) => {
-              e.stopPropagation();
-              track("cta_external_click", {
-                target: `tel:${PROFILE.phone_intl}`,
-              });
-            }}
-            className="flex items-center gap-3 text-sm text-ink hover:text-deep transition-colors"
-          >
-            <span aria-hidden className="text-muted">
-              <PhoneIcon />
-            </span>
-            {PROFILE.phone_display}
-          </a>
-        </li>
-        <li>
-          <a
-            href={PROFILE.site}
-            target="_blank"
-            rel="noreferrer noopener"
-            onClick={(e) => {
-              e.stopPropagation();
-              track("cta_external_click", { target: "gyeol.page" });
-            }}
-            className="flex items-center gap-3 text-sm text-ink hover:text-deep transition-colors"
-          >
-            <span aria-hidden className="text-muted">
-              <GlobeIcon />
-            </span>
-            gyeol.page
-          </a>
-        </li>
-      </ul>
+        {/* 연락처 — 전화·이메일 */}
+        <ul className="mt-5 space-y-2">
+          <li>
+            <a
+              href={PROFILE.phone_href}
+              onClick={(e) => {
+                e.stopPropagation();
+                track("cta_external_click", {
+                  target: `tel:${PROFILE.phone_intl}`,
+                });
+              }}
+              className="flex items-center gap-3 text-sm text-ink hover:text-deep transition-colors"
+            >
+              <span aria-hidden className="text-muted">
+                <PhoneIcon />
+              </span>
+              {PROFILE.phone_display}
+            </a>
+          </li>
+          <li>
+            <a
+              href={`mailto:${PROFILE.email}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                track("mailto_click", { where: "card" });
+              }}
+              className="flex items-center gap-3 text-sm text-ink hover:text-deep transition-colors"
+            >
+              <span aria-hidden className="text-muted">
+                <MailIcon />
+              </span>
+              {PROFILE.email}
+            </a>
+          </li>
+        </ul>
+      </div>
 
       {/* 연락처 저장 CTA */}
       <div>
