@@ -7,7 +7,7 @@
   aspect-ratio: 5 / 8;
 }
 
-/* 모바일: 디바이스 가로폭에서 좌우 4px만 남기고 꽉 채움 (높이는 비례) */
+/* 모바일: 디바이스 가로폭에서 좌우 12px만 남기고 꽉 채움 (높이는 비례) */
 @media (max-width: 640px) {
   .stage {
     width: 100%;
@@ -38,32 +38,51 @@
 
 .cardFlipped {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
 }
 
 .face {
   position: absolute;
   inset: 0;
+  /* 앞면도 명시적 3D transform을 줘야 iOS WebKit에서 backface 처리가 안정적 */
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   border-radius: inherit;
   padding: 48px;
   display: flex;
   flex-direction: column;
+  /* iOS WebKit의 backface-visibility 불안정 대비 (앞·뒷면 동시 노출 방지):
+     뒤로 향한 면을 플립 중간 지점(600ms의 절반=300ms)에 opacity로 확실히 숨김 */
+  transition: opacity 0s linear 300ms;
+}
+
+/* 뒤로 향한 면 = aria-hidden="true". opacity로 확실히 숨김 (backface 의존 X) */
+.face[aria-hidden="true"] {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .faceBack {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
 }
 
-/* reduced-motion: 플립 애니메이션 비활성 */
+/* reduced-motion: 회전 플립 비활성 → 면 전환을 단순 크로스페이드로 */
 @media (prefers-reduced-motion: reduce) {
   .card {
     transition: none;
   }
   .cardFlipped {
     transform: none;
+    -webkit-transform: none;
+  }
+  .faceBack {
+    transform: none;
+    -webkit-transform: none;
   }
   .face {
-    transition: opacity 300ms linear;
+    transition: opacity 200ms linear;
   }
 }
