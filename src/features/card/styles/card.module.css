@@ -1,0 +1,61 @@
+/* 결 스튜디오 명함 페이지 — 카드 3D 스타일 */
+
+.stage {
+  perspective: 1000px;
+  perspective-origin: 50% 35%;
+  width: min(86vw, 360px);
+  aspect-ratio: 5 / 8;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(0.65, 0, 0.35, 1);
+  border-radius: 24px;
+  box-shadow:
+    0 24px 48px -12px rgba(27, 59, 95, 0.18),
+    0 8px 16px -8px rgba(27, 59, 95, 0.12);
+  /* 프로필 사진 배경(스튜디오 화이트)에서 스포이드한 색 — 사진과 카드 사이 경계 제거 */
+  background: #ecf1fb;
+  cursor: pointer;
+  outline: none;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-bingcheong);
+  outline-offset: 4px;
+}
+
+.cardFlipped {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: inherit;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.faceBack {
+  transform: rotateY(180deg);
+}
+
+/* reduced-motion: 플립 애니메이션 비활성 */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+  .cardFlipped {
+    transform: none;
+  }
+  .face {
+    transition: opacity 300ms linear;
+  }
+}

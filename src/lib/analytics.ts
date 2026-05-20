@@ -17,7 +17,10 @@ export type AnalyticsEvent =
   | { name: "scroll_depth"; params: { percent: 25 | 50 | 75 | 100 } }
   | { name: "section_view"; params: { section: string } }
   | { name: "hero_interact"; params: { duration_ms: number } }
-  | { name: "work_scroll_complete"; params: { cases_seen: number } };
+  | { name: "work_scroll_complete"; params: { cases_seen: number } }
+  | { name: "card_view"; params: Record<string, never> }
+  | { name: "card_flip"; params: { to: "front" | "back" } }
+  | { name: "card_save_contact"; params: Record<string, never> };
 
 export function track<E extends AnalyticsEvent>(
   event: E["name"],
