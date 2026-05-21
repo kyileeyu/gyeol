@@ -3,30 +3,34 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { BusinessCard, CardViewTracker } from "@/features/card";
 
+const CARD_TITLE = "유승현 · Design Engineer — 결 Gyeol Studio";
+const CARD_DESC =
+  "유승현 (Seunghyun Yu) · Design Engineer / AI Workflow Instructor. 결이 맞는 페이지를 만듭니다 — 결 Gyeol Studio 온라인 명함.";
+const CARD_OG = `${SITE_URL}/card/og.png`;
+
 export const metadata: Metadata = {
-  title: "명함 : 유승현 · 결 스튜디오",
-  description:
-    "결이 맞는 페이지를 만듭니다. 유승현, 결 Gyeol Studio 대표.",
+  title: CARD_TITLE,
+  description: CARD_DESC,
   alternates: { canonical: `${SITE_URL}/card` },
   openGraph: {
     type: "profile",
     url: `${SITE_URL}/card`,
-    title: "유승현 - 결 Gyeol Studio",
-    description: "결이 맞는 페이지를 만듭니다.",
+    title: CARD_TITLE,
+    description: CARD_DESC,
     images: [
       {
-        url: `${SITE_URL}/og-image.png`,
+        url: CARD_OG,
         width: 1200,
         height: 630,
-        alt: "결 명함 - 유승현",
+        alt: "유승현 · Design Engineer — 결 Gyeol Studio 온라인 명함",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "유승현 - 결 Gyeol Studio",
-    description: "결이 맞는 페이지를 만듭니다.",
-    images: [`${SITE_URL}/og-image.png`],
+    title: CARD_TITLE,
+    description: CARD_DESC,
+    images: [CARD_OG],
   },
   robots: { index: true, follow: true },
 };
