@@ -32,6 +32,16 @@ const nextConfig = {
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
+  async rewrites() {
+    // ai.gyeol.page 서브도메인 → /ai 라우트로 rewrite
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "ai.gyeol.page" }],
+        destination: "/ai",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
