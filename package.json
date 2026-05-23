@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build:cases": "node scripts/build-cases.mjs",
+    "gen:og": "node scripts/gen-og.mjs",
     "dev": "npm run build:cases && next dev",
     "build": "npm run build:cases && next build",
     "start": "next start",

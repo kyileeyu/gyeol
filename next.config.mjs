@@ -33,10 +33,11 @@ const nextConfig = {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
   async rewrites() {
-    // ai.gyeol.page 서브도메인 → /ai 라우트로 rewrite
+    // ai.gyeol.page 서브도메인의 루트만 /ai로 rewrite.
+    // /api·/_next·정적 자산·기타 경로는 통과시켜 폼 POST·이미지 등이 정상 동작하게 한다.
     return [
       {
-        source: "/:path*",
+        source: "/",
         has: [{ type: "host", value: "ai.gyeol.page" }],
         destination: "/ai",
       },

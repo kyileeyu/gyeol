@@ -15,6 +15,10 @@
     {
       "pattern": "gyeol.page",
       "custom_domain": true
+    },
+    {
+      "pattern": "ai.gyeol.page",
+      "custom_domain": true
     }
   ],
   "observability": {
