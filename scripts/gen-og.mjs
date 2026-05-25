@@ -31,7 +31,7 @@ const H = 630;
 const C = {
   bg: "#FAFBFC",
   surface: "#F0F4F8",
-  wave: "#A8D5E2",
+  wave: "#7AC0D4",
   deep: "#1B3B5F",
   primary: "#1A1A1A",
   muted: "#8B95A1",

@@ -629,7 +629,7 @@ margin-left: border-l 위치와 정렬 (px-6 기준 좌측 -1px)
   - 허니팟: `aria-hidden="true"`, `tabIndex={-1}`.
 - **`prefers-reduced-motion`**: `useReducedMotion()` 훅. true이면 initial variant 즉시 "show". S4 연결선 scaleY 모션도 생략.
 - **포커스 링**: `focus-visible:ring-2 ring-wave`. 마우스 사용 시 ring 없음.
-- **사다리 색 대비**: 빙청(`#A8D5E2`) border on 설백 배경 = 장식선이므로 콘텐츠 의존도 없음. 텍스트 대비는 먹/안개 기준 준수.
+- **사다리 색 대비**: 빙청(`#7AC0D4`) border on 설백 배경 = 장식선이므로 콘텐츠 의존도 없음. 텍스트 대비는 먹/안개 기준 준수.
 
 ---
 

@@ -101,7 +101,7 @@ export const waterFragmentShader = /* glsl */ `
 
     // ----- palette -----
     vec3 seolbaek   = vec3(0.980, 0.984, 0.988); // #FAFBFC
-    vec3 bingcheong = vec3(0.659, 0.835, 0.886); // #A8D5E2
+    vec3 bingcheong = vec3(0.478, 0.753, 0.831); // #7AC0D4
     vec3 eunbak     = vec3(0.788, 0.839, 0.874); // #C9D6DF
     vec3 cheongram  = vec3(0.106, 0.231, 0.373); // #1B3B5F
 
