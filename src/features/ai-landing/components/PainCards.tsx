@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const PAINS = [
   {
     quote: "활용처는 보이는데, 도구를 4개로 나누면 멈춥니다.",
@@ -24,6 +28,23 @@ export function PainCards() {
         borderBottom: "1px solid var(--gy-hairline-soft)",
       }}
     >
+      <style>{`
+        .gy-pain-card {
+          transition:
+            transform 280ms cubic-bezier(0,0,0.2,1),
+            box-shadow 280ms cubic-bezier(0,0,0.2,1),
+            border-color 280ms cubic-bezier(0,0,0.2,1);
+        }
+        .gy-pain-card:hover {
+          transform: translateY(-3px);
+          box-shadow: var(--gy-shadow-sm);
+          border-color: var(--gy-steel);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .gy-pain-card:hover { transform: none; }
+        }
+      `}</style>
+
       <div
         className="mx-auto grid lg:grid-cols-[minmax(0,1fr)_240px]"
         style={{
@@ -33,9 +54,13 @@ export function PainCards() {
         }}
       >
         <div>
-          <h2
+          <motion.h2
             id="pain-title"
             className="font-kr"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
             style={{
               fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
               fontWeight: 600,
@@ -46,7 +71,7 @@ export function PainCards() {
             }}
           >
             막히는 자리는 보통 셋.
-          </h2>
+          </motion.h2>
 
           <ol
             style={{
@@ -60,8 +85,17 @@ export function PainCards() {
             }}
           >
             {PAINS.map((p, idx) => (
-              <li
+              <motion.li
                 key={idx}
+                className="gy-pain-card"
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{
+                  duration: 0.55,
+                  delay: idx * 0.08,
+                  ease: [0, 0, 0.2, 1],
+                }}
                 style={{
                   background: "var(--gy-canvas)",
                   border: "1px solid var(--gy-hairline)",
@@ -109,14 +143,18 @@ export function PainCards() {
                 >
                   {p.note}
                 </p>
-              </li>
+              </motion.li>
             ))}
           </ol>
         </div>
 
-        <aside
+        <motion.aside
           aria-label="비밀유지 안내"
           className="font-kr lg:sticky lg:top-32"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0, 0, 0.2, 1] }}
           style={{
             alignSelf: "start",
             background: "var(--gy-canvas)",
@@ -152,7 +190,7 @@ export function PainCards() {
             모든 작업은 NDA 위에서 시작합니다. 케이스 외부 공개는 동의 시에만,
             직업 카테고리만 익명 가공합니다.
           </p>
-        </aside>
+        </motion.aside>
       </div>
     </section>
   );

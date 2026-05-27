@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const STEPS = [
   {
     num: "01",
@@ -23,10 +27,7 @@ const STEPS = [
 
 export function StoryHowSection() {
   return (
-    <section
-      id="story-how"
-      aria-labelledby="story-title"
-    >
+    <section id="story-how" aria-labelledby="story-title">
       <div
         className="mx-auto grid lg:grid-cols-[minmax(0,1fr)_240px]"
         style={{
@@ -36,9 +37,13 @@ export function StoryHowSection() {
         }}
       >
         <div>
-          <h2
+          <motion.h2
             id="story-title"
             className="font-kr"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
             style={{
               fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
               fontWeight: 600,
@@ -49,11 +54,15 @@ export function StoryHowSection() {
               maxWidth: "22ch",
             }}
           >
-            강의가 아니라, 하네스 엔지니어링.
-          </h2>
+            강의가 아닙니다.
+          </motion.h2>
 
-          <div
+          <motion.div
             className="font-kr"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0, 0, 0.2, 1] }}
             style={{
               marginTop: "clamp(2rem, 3.5vw, 2.75rem)",
               maxWidth: "62ch",
@@ -70,10 +79,10 @@ export function StoryHowSection() {
               본인 손에 맞는 AI 에이전트 팀 구조로 옮깁니다.
             </p>
             <p style={{ marginTop: "1.25rem" }}>
-              이 자리에서 우리가 같이 만드는 것은 당신만의 작업 하네스 — 다시
-              만들 필요 없는 구조.
+              이 자리에서 우리가 같이 만드는 것은 본인 손에 맞는 작업 구조 —
+              다시 만들 필요 없는 결.
             </p>
-          </div>
+          </motion.div>
 
           <ol
             style={{
@@ -84,9 +93,17 @@ export function StoryHowSection() {
               padding: 0,
             }}
           >
-            {STEPS.map((s) => (
-              <li
+            {STEPS.map((s, idx) => (
+              <motion.li
                 key={s.num}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{
+                  duration: 0.55,
+                  delay: idx * 0.07,
+                  ease: [0, 0, 0.2, 1],
+                }}
                 style={{
                   display: "grid",
                   gridTemplateColumns: "auto 1fr",
@@ -136,14 +153,18 @@ export function StoryHowSection() {
                     {s.body}
                   </p>
                 </div>
-              </li>
+              </motion.li>
             ))}
           </ol>
         </div>
 
-        <aside
+        <motion.aside
           aria-label="전문직 1:1 인용"
           className="font-kr lg:sticky lg:top-32"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0, 0, 0.2, 1] }}
           style={{
             alignSelf: "start",
             background: "var(--gy-surface-2)",
@@ -177,7 +198,7 @@ export function StoryHowSection() {
           >
             — 전문직 1:1에서 가장 자주 나오는 문장
           </p>
-        </aside>
+        </motion.aside>
       </div>
     </section>
   );

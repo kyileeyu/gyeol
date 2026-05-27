@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { IntakeForm } from "./IntakeForm";
 
 export function IntakeFormShell() {
@@ -18,9 +21,13 @@ export function IntakeFormShell() {
         }}
       >
         <div style={{ maxWidth: "560px" }}>
-          <h2
+          <motion.h2
             id="intake-title"
             className="font-kr"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
             style={{
               fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
               fontWeight: 600,
@@ -30,9 +37,13 @@ export function IntakeFormShell() {
             }}
           >
             사전 문의.
-          </h2>
-          <p
+          </motion.h2>
+          <motion.p
             className="font-kr"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, delay: 0.1, ease: [0, 0, 0.2, 1] }}
             style={{
               marginTop: "clamp(1.25rem, 2vw, 1.75rem)",
               fontSize: "1rem",
@@ -43,17 +54,28 @@ export function IntakeFormShell() {
             }}
           >
             지금은 정식 오픈 전 단계입니다. 문의를 받으면 48시간 안에
-            답신드리고, 30분 1:1 콜 일정을 잡습니다.
-          </p>
+            답신드리고, 30분 1:1 콜 일정을 잡습니다. 콜 형식(대면·온라인)은
+            회신할 때 함께 정해드립니다.
+          </motion.p>
 
-          <div style={{ marginTop: "clamp(2rem, 3.5vw, 2.75rem)" }}>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0, 0, 0.2, 1] }}
+            style={{ marginTop: "clamp(2rem, 3.5vw, 2.75rem)" }}
+          >
             <IntakeForm />
-          </div>
+          </motion.div>
         </div>
 
-        <aside
+        <motion.aside
           aria-label="진단 리포트 안내"
           className="font-kr lg:sticky lg:top-32"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0, 0, 0.2, 1] }}
           style={{
             alignSelf: "start",
             background: "var(--gy-soft)",
@@ -86,7 +108,7 @@ export function IntakeFormShell() {
           >
             체험 후 받는 1페이지 진단 리포트는 의뢰와 별개로 드리는 자료입니다.
           </p>
-        </aside>
+        </motion.aside>
       </div>
     </section>
   );

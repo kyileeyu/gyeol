@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const CARDS = [
   {
     body: "도메인 안에서는 가장 깊은 판단을 내리지만, 도구 4구분에서 멈춰 있는 분.",
@@ -24,9 +28,30 @@ export function WhoCards() {
         padding: "clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
       }}
     >
-      <h2
+      <style>{`
+        .gy-who-card {
+          transition:
+            transform 280ms cubic-bezier(0,0,0.2,1),
+            box-shadow 280ms cubic-bezier(0,0,0.2,1),
+            background 280ms cubic-bezier(0,0,0.2,1);
+        }
+        .gy-who-card:hover {
+          transform: translateY(-4px);
+          box-shadow: var(--gy-shadow-md);
+          background: var(--gy-soft);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .gy-who-card:hover { transform: none; }
+        }
+      `}</style>
+
+      <motion.h2
         id="who-title"
         className="font-kr"
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
         style={{
           fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
           fontWeight: 600,
@@ -38,10 +63,10 @@ export function WhoCards() {
         }}
       >
         이런 분께 닿기를.
-      </h2>
+      </motion.h2>
 
       <ul
-        className="grid"
+        className="grid lg:grid-cols-3"
         style={{
           marginTop: "clamp(2.5rem, 4vw, 3.5rem)",
           gap: "clamp(1rem, 2vw, 1.5rem)",
@@ -49,14 +74,26 @@ export function WhoCards() {
         }}
       >
         {CARDS.map((card, idx) => (
-          <li key={idx} style={{ listStyle: "none" }}>
+          <motion.li
+            key={idx}
+            style={{ listStyle: "none" }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{
+              duration: 0.55,
+              delay: idx * 0.08,
+              ease: [0, 0, 0.2, 1],
+            }}
+          >
             <article
-              className="font-kr"
+              className="font-kr gy-who-card"
               style={{
                 background: "var(--gy-soft)",
                 borderRadius: "var(--gy-rounded-xl)",
                 padding: "clamp(1.5rem, 3vw, 2rem)",
                 color: "var(--gy-deep)",
+                height: "100%",
               }}
             >
               <p
@@ -97,7 +134,7 @@ export function WhoCards() {
                 — {card.role}
               </p>
             </article>
-          </li>
+          </motion.li>
         ))}
       </ul>
     </section>

@@ -1,6 +1,13 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 const TIMELINE = [
-  { time: "05분", body: "인사·자리 정렬" },
-  { time: "15분", body: "욕구 진단 — 본인 작업의 실행 부분이 어디서 빠져나가는지" },
+  { time: "05분", body: "인사·자리 정렬 (대면 또는 온라인)" },
+  {
+    time: "15분",
+    body: "욕구 진단 — 본인 작업의 실행 부분이 어디서 빠져나가는지",
+  },
   { time: "05분", body: "운영방식 결정 — 회차 단위(Build) 또는 정기(Care)" },
   { time: "05분", body: "체험 입금·NDA 안내" },
 ] as const;
@@ -16,6 +23,23 @@ export function ProcessTimeline() {
         borderBottom: "1px solid var(--gy-hairline-soft)",
       }}
     >
+      <style>{`
+        .gy-step-card {
+          transition:
+            transform 280ms cubic-bezier(0,0,0.2,1),
+            border-color 280ms cubic-bezier(0,0,0.2,1),
+            box-shadow 280ms cubic-bezier(0,0,0.2,1);
+        }
+        .gy-step-card:hover {
+          transform: translateY(-3px);
+          border-color: var(--gy-steel);
+          box-shadow: var(--gy-shadow-sm);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .gy-step-card:hover { transform: none; }
+        }
+      `}</style>
+
       <div
         className="mx-auto grid lg:grid-cols-[minmax(0,1fr)_240px]"
         style={{
@@ -25,9 +49,13 @@ export function ProcessTimeline() {
         }}
       >
         <div>
-          <h2
+          <motion.h2
             id="process-title"
             className="font-kr"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
             style={{
               fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
               fontWeight: 600,
@@ -38,9 +66,13 @@ export function ProcessTimeline() {
             }}
           >
             진행은 이렇게.
-          </h2>
-          <p
+          </motion.h2>
+          <motion.p
             className="font-kr"
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, delay: 0.1, ease: [0, 0, 0.2, 1] }}
             style={{
               marginTop: "1rem",
               fontSize: "0.9375rem",
@@ -51,7 +83,7 @@ export function ProcessTimeline() {
             }}
           >
             30분 1:1 콜 — 본 작업 전 자리를 함께 정렬합니다.
-          </p>
+          </motion.p>
 
           <ol
             className="grid lg:grid-cols-4"
@@ -64,8 +96,17 @@ export function ProcessTimeline() {
             }}
           >
             {TIMELINE.map((t, idx) => (
-              <li
+              <motion.li
                 key={idx}
+                className="gy-step-card"
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{
+                  duration: 0.5,
+                  delay: idx * 0.07,
+                  ease: [0, 0, 0.2, 1],
+                }}
                 style={{
                   background: "var(--gy-canvas)",
                   border: "1px solid var(--gy-hairline)",
@@ -100,21 +141,31 @@ export function ProcessTimeline() {
                 >
                   {t.body}
                 </p>
-              </li>
+              </motion.li>
             ))}
           </ol>
 
-          <div style={{ marginTop: "clamp(2.5rem, 4vw, 3.5rem)" }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, delay: 0.3 }}
+            style={{ marginTop: "clamp(2.5rem, 4vw, 3.5rem)" }}
+          >
             <a href="#intake" className="btn-primary">
-              <span>문의하기</span>
+              <span>30분 미팅 예약</span>
               <span aria-hidden="true">→</span>
             </a>
-          </div>
+          </motion.div>
         </div>
 
-        <aside
+        <motion.aside
           aria-label="운영방식 안내"
           className="font-kr lg:sticky lg:top-32"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0, 0, 0.2, 1] }}
           style={{
             alignSelf: "start",
             background: "var(--gy-canvas)",
@@ -149,7 +200,7 @@ export function ProcessTimeline() {
             산출물 있는 작업은 회차 단위로(Build), 본인 시간 중심 작업은 주 1회
             1시간 정기로(Care). 1:1 콜에서 함께 결정합니다.
           </p>
-        </aside>
+        </motion.aside>
       </div>
     </section>
   );
