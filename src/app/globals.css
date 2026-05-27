@@ -17,28 +17,139 @@
 }
 
 :root {
-  --color-seolbaek: #fafbfc;
-  --color-bakmu: #f0f4f8;
-  --color-bingcheong: #7ac0d4;
-  --color-eunbak: #c9d6df;
-  --color-cheongram: #1b3b5f;
-  --color-meok: #1a1a1a;
-  --color-angae: #8b95a1;
+  /* === 결 디자인 시스템 — sky-blue 5단 척추 (brand/DESIGN.md SSOT) === */
+  --gy-canvas: #FCFFFF;
+  --gy-soft:   #C4DAFA;
+  --gy-sky:    #84B6F4;
+  --gy-steel:  #4D82BC;
+  --gy-deep:   #005187;
+
+  /* surface 3단 */
+  --gy-surface-0: #FCFFFF;
+  --gy-surface-1: #F3F7FC;
+  --gy-surface-2: #E8EFF8;
+  --gy-hairline:      #DCE5F0;
+  --gy-hairline-soft: #ECF1F7;
+
+  /* ink 4단 */
+  --gy-ink:        #0F1F2A;
+  --gy-ink-strong: #000000;
+  --gy-ink-muted:  #5A6B78;
+  --gy-ink-subtle: #8A9BA8;
+
+  /* pastel accents — 뱃지·아바타·카테고리 태그 전용 */
+  --gy-pastel-amber: #FBD9A3;
+  --gy-pastel-coral: #F4B5C2;
+  --gy-pastel-iris:  #B4A8E8;
+  --gy-pastel-jade:  #B8DEC7;
+  --gy-on-amber: #6B4A1A;
+  --gy-on-coral: #722741;
+  --gy-on-iris:  #3F2D8F;
+  --gy-on-jade:  #1D5048;
+
+  /* signal */
+  --gy-success: #0E7C56;  --gy-success-bg: #E6F7EE;
+  --gy-warning: #92400E;  --gy-warning-bg: #FEF3C7;
+  --gy-error:   #B3262B;  --gy-error-bg:   #FCE7E8;
+  --gy-info:    #005187;  --gy-info-bg:    #C4DAFA;
+
+  /* inverse (다크 표면) */
+  --gy-inverse-canvas:     #005187;
+  --gy-inverse-canvas-alt: #003F6E;
+  --gy-on-primary:         #FCFFFF;
+  --gy-on-inverse:         #FCFFFF;
+  --gy-on-inverse-muted:   #C4DAFA;
+
+  /* rounded */
+  --gy-rounded-xs:   4px;
+  --gy-rounded-sm:   6px;
+  --gy-rounded-md:   8px;
+  --gy-rounded-lg:   12px;
+  --gy-rounded-xl:   16px;
+  --gy-rounded-xxl:  24px;
+  --gy-rounded-pill: 9999px;
+
+  /* spacing */
+  --gy-space-xs:      4px;
+  --gy-space-sm:      8px;
+  --gy-space-md:      16px;
+  --gy-space-lg:      24px;
+  --gy-space-xl:      32px;
+  --gy-space-xxl:     48px;
+  --gy-space-section: 96px;
+
+  /* shadow — 모두 deep 톤 alpha */
+  --gy-shadow-sm:    0 1px 2px rgba(0, 81, 135, 0.04);
+  --gy-shadow-md:    0 1px 2px rgba(0, 81, 135, 0.04), 0 8px 24px rgba(0, 81, 135, 0.06);
+  --gy-shadow-lg:    0 2px 4px rgba(0, 81, 135, 0.05), 0 16px 40px rgba(0, 81, 135, 0.10);
+  --gy-shadow-focus: 0 0 0 3px rgba(77, 130, 188, 0.40);
+
+  /* motion */
+  --gy-duration-instant:  100ms;
+  --gy-duration-fast:     200ms;
+  --gy-duration-moderate: 350ms;
+  --gy-duration-enter:    500ms;
+  --gy-duration-exit:     1000ms;
+  --gy-easing-out:  cubic-bezier(0, 0, 0.2, 1);
+  --gy-easing-flow: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* === 옛 7컬러 변수 — 이름 보존, 새 시스템으로 alias === */
+  --color-seolbaek:   var(--gy-canvas);
+  --color-bakmu:      var(--gy-surface-1);
+  --color-bingcheong: var(--gy-sky);
+  --color-eunbak:     var(--gy-hairline);
+  --color-cheongram:  var(--gy-deep);
+  --color-meok:       var(--gy-ink);
+  --color-angae:      var(--gy-ink-muted);
 }
 
 @theme inline {
-  --color-bg: var(--color-seolbaek);
-  --color-surface: var(--color-bakmu);
-  --color-wave: var(--color-bingcheong);
-  --color-shimmer: var(--color-eunbak);
-  --color-deep: var(--color-cheongram);
-  --color-ink: var(--color-meok);
-  --color-muted: var(--color-angae);
+  /* === 옛 의미 alias (기존 코드 무회귀) === */
+  --color-bg:      var(--gy-canvas);
+  --color-surface: var(--gy-surface-1);
+  --color-wave:    var(--gy-sky);
+  --color-shimmer: var(--gy-hairline);
+  --color-deep:    var(--gy-deep);
+  --color-ink:     var(--gy-ink);
+  --color-muted:   var(--gy-ink-muted);
 
-  --font-kr: var(--font-pretendard);
+  /* === 새 시스템 색 — Tailwind utility로 노출 === */
+  --color-canvas:      var(--gy-canvas);
+  --color-soft:        var(--gy-soft);
+  --color-sky:         var(--gy-sky);
+  --color-steel:       var(--gy-steel);
+  --color-surface-0:   var(--gy-surface-0);
+  --color-surface-1:   var(--gy-surface-1);
+  --color-surface-2:   var(--gy-surface-2);
+  --color-hairline:    var(--gy-hairline);
+  --color-hairline-soft: var(--gy-hairline-soft);
+  --color-ink-strong:  var(--gy-ink-strong);
+  --color-ink-muted:   var(--gy-ink-muted);
+  --color-ink-subtle:  var(--gy-ink-subtle);
+  --color-pastel-amber: var(--gy-pastel-amber);
+  --color-pastel-coral: var(--gy-pastel-coral);
+  --color-pastel-iris:  var(--gy-pastel-iris);
+  --color-pastel-jade:  var(--gy-pastel-jade);
+  --color-on-amber: var(--gy-on-amber);
+  --color-on-coral: var(--gy-on-coral);
+  --color-on-iris:  var(--gy-on-iris);
+  --color-on-jade:  var(--gy-on-jade);
+  --color-success: var(--gy-success);    --color-success-bg: var(--gy-success-bg);
+  --color-warning: var(--gy-warning);    --color-warning-bg: var(--gy-warning-bg);
+  --color-error:   var(--gy-error);      --color-error-bg:   var(--gy-error-bg);
+  --color-info:    var(--gy-info);       --color-info-bg:    var(--gy-info-bg);
+  --color-inverse: var(--gy-inverse-canvas);
+  --color-inverse-alt: var(--gy-inverse-canvas-alt);
+  --color-on-inverse:       var(--gy-on-inverse);
+  --color-on-inverse-muted: var(--gy-on-inverse-muted);
+  --color-on-primary:       var(--gy-on-primary);
+
+  /* fonts */
+  --font-kr:       var(--font-pretendard);
   --font-kr-serif: "GounBatang", var(--font-noto-serif-kr);
-  --font-en: var(--font-inter);
+  --font-en:       var(--font-inter);
 
+  /* motion */
   --ease-water: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
@@ -233,4 +344,120 @@ body {
   font-size: revert;
   line-height: revert;
   letter-spacing: revert;
+}
+
+/* 에디토리얼 매거진 — 세로 텍스트 (IssueLabel·Hero 사이드바) */
+.sidebar-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.1em;
+  font-size: 0.6875rem;
+  color: var(--color-angae);
+}
+
+/* WaveDivider 모션 감소 대응 */
+@media (prefers-reduced-motion: reduce) {
+  .wave-divider-svg .wave-divider-path {
+    animation: none !important;
+  }
+}
+
+/* ai.gyeol.page — 시그니처 메시 그라디언트 (페이지당 1회, hero 전용) */
+.bg-mesh-hero {
+  background: conic-gradient(
+    from 220deg at 30% 40%,
+    #FCFFFF 0%,
+    #C4DAFA 20%,
+    #84B6F4 42%,
+    #4D82BC 65%,
+    #005187 88%,
+    #FCFFFF 100%
+  );
+}
+
+/* ai.gyeol.page — primary CTA (DESIGN.md button-primary) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gy-space-sm);
+  background: var(--gy-deep);
+  color: var(--gy-on-primary);
+  padding: 12px 28px;
+  border-radius: var(--gy-rounded-pill);
+  font-family: var(--font-kr);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  transition: background-color var(--gy-duration-fast) var(--gy-easing-out);
+}
+.btn-primary:hover { background: var(--gy-inverse-canvas-alt); }
+.btn-primary:active { background: var(--gy-inverse-canvas-alt); transform: translateY(0.5px); }
+.btn-primary:focus { outline: none; }
+.btn-primary:focus-visible { box-shadow: var(--gy-shadow-focus); }
+
+/* ai.gyeol.page — secondary CTA (다크 표면 위 사용 시 .on-dark 보조 클래스로 반전) */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gy-space-sm);
+  background: transparent;
+  color: var(--gy-deep);
+  border: 1px solid var(--gy-deep);
+  padding: 12px 28px;
+  border-radius: var(--gy-rounded-pill);
+  font-family: var(--font-kr);
+  font-size: 14px;
+  font-weight: 700;
+  transition: background-color var(--gy-duration-fast) var(--gy-easing-out);
+}
+.btn-secondary:hover { background: var(--gy-surface-2); }
+.btn-secondary:focus { outline: none; }
+.btn-secondary:focus-visible { box-shadow: var(--gy-shadow-focus); }
+
+/* ai.gyeol.page — 본문 inline link, always underline + hover 좌→우 thicken */
+.link-flow {
+  color: var(--gy-deep);
+  text-decoration: none;
+  background-image:
+    linear-gradient(to right, currentColor, currentColor),
+    linear-gradient(to right, currentColor, currentColor);
+  background-size: 0% 2px, 100% 1px;
+  background-position: 0 100%, 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
+  transition: background-size var(--gy-duration-moderate) var(--gy-easing-out);
+}
+.link-flow:hover { background-size: 100% 2px, 100% 1px; }
+
+/* ai.gyeol.page — 폼 input (DESIGN.md input-text) */
+.gy-input {
+  width: 100%;
+  background: var(--gy-surface-1);
+  color: var(--gy-ink);
+  border: 1px solid var(--gy-hairline);
+  border-radius: var(--gy-rounded-md);
+  padding: 12px 16px;
+  font-family: var(--font-kr);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+  outline: none;
+  transition: border-color var(--gy-duration-fast) var(--gy-easing-out);
+}
+.gy-input::placeholder { color: var(--gy-ink-subtle); }
+.gy-input:focus { border: 2px solid var(--gy-deep); padding: 11px 15px; }
+.gy-input[aria-invalid="true"] {
+  border-color: var(--gy-error);
+  background: var(--gy-error-bg);
+}
+
+/* prefers-reduced-motion 전역 정책 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
