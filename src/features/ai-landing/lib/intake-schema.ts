@@ -1,11 +1,22 @@
 import { z } from "zod";
 
 export const blockerOptions = [
-  { value: "tool-split-4", label: "도구·자료를 4개로 나누면 멈춤" },
-  { value: "structure-stuck", label: "활용은 되는데 구조로 묶이지 않음" },
-  { value: "confidential", label: "비공개 전제 위라 외부에 묻기 어려움" },
+  { value: "tool-start", label: "어떤 AI 도구부터 시작해야 할지 막막함" },
+  { value: "not-reusable", label: "다시 만들거나 자동화하려면 매번 처음부터" },
+  { value: "private-data", label: "내 실무·데이터에 맞추기엔 외부에 묻기 어려움" },
   { value: "unsure", label: "위 셋 중 정확히 모르겠음" },
 ] as const;
+
+export const callFormatOptions = [
+  { value: "phone", label: "통화 선호" },
+  { value: "video", label: "화상 회의 선호" },
+  { value: "any", label: "상관없음" },
+] as const;
+
+export const callFormatValues = callFormatOptions.map((o) => o.value) as [
+  string,
+  ...string[],
+];
 
 export const blockerValues = blockerOptions.map((o) => o.value) as [
   string,
@@ -40,6 +51,7 @@ export const intakeSchema = z.object({
     .trim()
     .min(5, "조금만 더 들려주세요 (5자 이상)")
     .max(800, "800자 이내로 입력해주세요"),
+  callFormat: z.enum(callFormatValues).optional(),
   _trap: z.string().max(0).optional().or(z.literal("")),
 });
 

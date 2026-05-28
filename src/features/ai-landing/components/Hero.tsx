@@ -7,18 +7,14 @@ import { SplitTextReveal } from "./SplitTextReveal";
 
 const HeroShader = dynamic(
   () => import("./HeroShader").then((m) => m.HeroShader),
-  { ssr: false }
+  { ssr: false },
 );
 
 const HERO = {
-  eyebrow: "결 컨설팅 (Gyeol Consulting) · 전문직 1:1",
+  eyebrow: "결 1:1·그룹 컨설팅 (Gyeol Consulting) ",
   h1: ["지금 그 업무,", "사람이 해야 하는 일이 맞습니까."],
-  p1: ["GPT → Claude 강의가 아닙니다.", "당신의 판단만 가져오세요."],
-  p2: [
-    "본 페이지는 정식 오픈 전 사전 문의 단계입니다.",
-    "이번 분기에 받는 자리는 동시에 두 분까지.",
-    "대면 또는 온라인, 편하신 방식으로.",
-  ],
+  p1: ["Claude Code 과외가 아닙니다.", "당신의 판단만 가져오세요."],
+  p2: [""],
   cta: "30분 미팅 예약",
 } as const;
 
@@ -28,6 +24,12 @@ export function Hero() {
       id="hero"
       aria-labelledby="hero-title"
       className="relative isolate overflow-hidden"
+      style={{
+        minHeight: "100svh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
     >
       <div
         aria-hidden="true"
@@ -45,11 +47,11 @@ export function Hero() {
       />
 
       <div
-        className="mx-auto"
+        className="mx-auto w-full"
         style={{
           maxWidth: "1400px",
           padding:
-            "clamp(8rem, 14vw, 12rem) clamp(1.5rem, 5vw, 4rem) clamp(6rem, 10vw, 9rem)",
+            "clamp(4rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 5vw, 4.5rem)",
         }}
       >
         <div
@@ -174,7 +176,6 @@ export function Hero() {
           </motion.div>
         </div>
       </div>
-
     </section>
   );
 }

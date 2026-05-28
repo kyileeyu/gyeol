@@ -13,6 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { JsonLd } from "@/components/JsonLd";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
+import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -122,6 +123,7 @@ export default function RootLayout({
       className={`${pretendard.variable} ${inter.variable} ${notoSerifKr.variable}`}
     >
       <body>
+        <SmoothScrollProvider />
         {children}
         <ScrollDepthTracker />
         <JsonLd />

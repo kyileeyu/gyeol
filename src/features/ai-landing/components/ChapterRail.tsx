@@ -44,7 +44,7 @@ export function ChapterRail() {
       style={{
         position: "fixed",
         top: "50%",
-        left: "clamp(1.5rem, 3vw, 2.5rem)",
+        right: "clamp(1.5rem, 3vw, 2.5rem)",
         transform: "translateY(-50%)",
         flexDirection: "column",
         gap: "0.75rem",
@@ -62,6 +62,7 @@ export function ChapterRail() {
             aria-current={isActive ? "true" : undefined}
             style={{
               display: "flex",
+              flexDirection: "row-reverse",
               alignItems: "center",
               gap: "0.5rem",
               padding: "0.25rem 0",

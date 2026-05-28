@@ -11,6 +11,10 @@ export function IntakeFormShell() {
       aria-labelledby="intake-title"
       style={{
         background: "var(--gy-canvas)",
+        minHeight: "100svh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
       <div
@@ -36,7 +40,7 @@ export function IntakeFormShell() {
               color: "var(--gy-ink)",
             }}
           >
-            사전 문의.
+            문의.
           </SplitTextReveal>
           <motion.p
             className="font-kr"
@@ -53,9 +57,8 @@ export function IntakeFormShell() {
               wordBreak: "keep-all",
             }}
           >
-            지금은 정식 오픈 전 단계입니다. 문의를 받으면 48시간 안에
-            답신드리고, 30분 1:1 콜 일정을 잡습니다. 콜 형식(대면·온라인)은
-            회신할 때 함께 정해드립니다.
+            문의를 받으면 48시간 안에 답신드리고, 30분 1:1 디스커버리 일정을
+            잡습니다.
           </motion.p>
 
           <motion.div

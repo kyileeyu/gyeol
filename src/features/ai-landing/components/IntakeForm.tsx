@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   intakeSchema,
   blockerOptions,
+  callFormatOptions,
   type IntakeInput,
 } from "../lib/intake-schema";
 
@@ -28,6 +29,7 @@ export function IntakeForm() {
       role: "",
       blocker: undefined as unknown as IntakeInput["blocker"],
       decision: "",
+      callFormat: undefined as unknown as IntakeInput["callFormat"],
       _trap: "",
     },
   });
@@ -61,7 +63,7 @@ export function IntakeForm() {
         style={{
           background: "var(--gy-surface-1)",
           border: "1px solid var(--gy-hairline)",
-          borderRadius: "var(--gy-rounded-lg)",
+          borderRadius: "var(--gy-rounded-xxl)",
           padding: "clamp(1.75rem, 3vw, 2.25rem)",
         }}
       >
@@ -112,198 +114,255 @@ export function IntakeForm() {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
       className="font-kr"
-      style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}
+      style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
     >
-      {/* 이름 */}
-      <div>
-        <label htmlFor="intake-name" className="sr-only">
-          이름
-        </label>
-        <input
-          id="intake-name"
-          type="text"
-          autoComplete="name"
-          placeholder="이름"
-          className="gy-input"
-          aria-invalid={!!errors.name}
-          aria-describedby={errors.name ? "intake-name-error" : undefined}
-          {...register("name")}
-        />
-        {errors.name && (
-          <p
-            id="intake-name-error"
-            style={{
-              marginTop: "0.5rem",
-              fontSize: "0.8125rem",
-              color: "var(--gy-error)",
-            }}
-          >
-            {errors.name.message}
-          </p>
-        )}
-      </div>
-
-      {/* 이메일 */}
-      <div>
-        <label htmlFor="intake-email" className="sr-only">
-          회신 가능한 이메일
-        </label>
-        <input
-          id="intake-email"
-          type="email"
-          autoComplete="email"
-          placeholder="회신 가능한 이메일 (도메인 이메일 권장)"
-          className="gy-input"
-          aria-invalid={!!errors.email}
-          aria-describedby={errors.email ? "intake-email-error" : undefined}
-          {...register("email")}
-        />
-        {errors.email && (
-          <p
-            id="intake-email-error"
-            style={{
-              marginTop: "0.5rem",
-              fontSize: "0.8125rem",
-              color: "var(--gy-error)",
-            }}
-          >
-            {errors.email.message}
-          </p>
-        )}
-      </div>
-
-      {/* 직무·업종 */}
-      <div>
-        <label htmlFor="intake-role" className="sr-only">
-          직무·업종
-        </label>
-        <input
-          id="intake-role"
-          type="text"
-          autoComplete="organization-title"
-          placeholder="직무·업종 (자유 기입)"
-          className="gy-input"
-          aria-invalid={!!errors.role}
-          aria-describedby={errors.role ? "intake-role-error" : undefined}
-          {...register("role")}
-        />
-        {errors.role && (
-          <p
-            id="intake-role-error"
-            style={{
-              marginTop: "0.5rem",
-              fontSize: "0.8125rem",
-              color: "var(--gy-error)",
-            }}
-          >
-            {errors.role.message}
-          </p>
-        )}
-      </div>
-
-      {/* blocker enum */}
-      <fieldset
-        aria-invalid={!!errors.blocker}
-        aria-describedby={errors.blocker ? "intake-blocker-error" : undefined}
-        style={{ border: "none", padding: 0, margin: 0 }}
-      >
-        <legend
-          style={{
-            fontSize: "0.9375rem",
-            fontWeight: 600,
-            lineHeight: 1.5,
-            color: "var(--gy-ink)",
-            marginBottom: "0.75rem",
-            wordBreak: "keep-all",
-          }}
-        >
-          가장 막히는 결정 업무
-        </legend>
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-          {blockerOptions.map((opt) => (
-            <label
-              key={opt.value}
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: "0.625rem",
-                padding: "0.75rem 1rem",
-                background: "var(--gy-surface-1)",
-                border: "1px solid var(--gy-hairline)",
-                borderRadius: "var(--gy-rounded-md)",
-                cursor: "pointer",
-                transition: "border-color 200ms var(--gy-easing-out)",
-              }}
-            >
-              <input
-                type="radio"
-                value={opt.value}
-                {...register("blocker")}
+      <div className="gy-intake-wrap">
+        <div className="gy-intake-card">
+          {/* name */}
+          <div className="gy-intake-row" data-invalid={!!errors.name}>
+            <label htmlFor="intake-name" className="sr-only">
+              이름
+            </label>
+            <input
+              id="intake-name"
+              type="text"
+              autoComplete="name"
+              placeholder="이름"
+              className="gy-intake-input"
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? "intake-name-error" : undefined}
+              {...register("name")}
+            />
+            {errors.name && (
+              <p
+                id="intake-name-error"
                 style={{
-                  marginTop: "0.25rem",
-                  accentColor: "var(--gy-deep)",
-                  width: "16px",
-                  height: "16px",
-                  flexShrink: 0,
-                }}
-              />
-              <span
-                style={{
-                  fontSize: "0.9375rem",
-                  fontWeight: 500,
-                  lineHeight: 1.6,
-                  color: "var(--gy-ink)",
-                  wordBreak: "keep-all",
+                  marginTop: "0.5rem",
+                  fontSize: "0.8125rem",
+                  color: "var(--gy-error)",
                 }}
               >
-                {opt.label}
-              </span>
-            </label>
-          ))}
-        </div>
-        {errors.blocker && (
-          <p
-            id="intake-blocker-error"
-            style={{
-              marginTop: "0.5rem",
-              fontSize: "0.8125rem",
-              color: "var(--gy-error)",
-            }}
-          >
-            {errors.blocker.message}
-          </p>
-        )}
-      </fieldset>
+                {errors.name.message}
+              </p>
+            )}
+          </div>
 
-      {/* decision */}
-      <div>
-        <label htmlFor="intake-decision" className="sr-only">
-          풀고 싶은 결정 또는 업무
-        </label>
-        <textarea
-          id="intake-decision"
-          rows={4}
-          placeholder="풀고 싶은 결정 또는 업무를 한두 문장으로"
-          className="gy-input"
-          style={{ resize: "vertical" }}
-          aria-invalid={!!errors.decision}
-          aria-describedby={
-            errors.decision ? "intake-decision-error" : undefined
-          }
-          {...register("decision")}
-        />
-        {errors.decision && (
-          <p
-            id="intake-decision-error"
-            style={{
-              marginTop: "0.5rem",
-              fontSize: "0.8125rem",
-              color: "var(--gy-error)",
-            }}
+          {/* email */}
+          <div className="gy-intake-row" data-invalid={!!errors.email}>
+            <label htmlFor="intake-email" className="sr-only">
+              회신 가능한 이메일
+            </label>
+            <input
+              id="intake-email"
+              type="email"
+              autoComplete="email"
+              placeholder="회신 가능한 이메일"
+              className="gy-intake-input"
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "intake-email-error" : undefined}
+              {...register("email")}
+            />
+            {errors.email && (
+              <p
+                id="intake-email-error"
+                style={{
+                  marginTop: "0.5rem",
+                  fontSize: "0.8125rem",
+                  color: "var(--gy-error)",
+                }}
+              >
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          {/* role */}
+          <div className="gy-intake-row" data-invalid={!!errors.role}>
+            <label htmlFor="intake-role" className="sr-only">
+              직무·업종
+            </label>
+            <input
+              id="intake-role"
+              type="text"
+              autoComplete="organization-title"
+              placeholder="직무 · 업종"
+              className="gy-intake-input"
+              aria-invalid={!!errors.role}
+              aria-describedby={errors.role ? "intake-role-error" : undefined}
+              {...register("role")}
+            />
+            {errors.role && (
+              <p
+                id="intake-role-error"
+                style={{
+                  marginTop: "0.5rem",
+                  fontSize: "0.8125rem",
+                  color: "var(--gy-error)",
+                }}
+              >
+                {errors.role.message}
+              </p>
+            )}
+          </div>
+
+          {/* blocker */}
+          <div
+            className="gy-intake-row"
+            role="radiogroup"
+            aria-labelledby="intake-blocker-label"
+            aria-invalid={!!errors.blocker}
+            aria-describedby={
+              errors.blocker ? "intake-blocker-error" : undefined
+            }
+            data-invalid={!!errors.blocker}
           >
-            {errors.decision.message}
-          </p>
-        )}
+            <p
+              id="intake-blocker-label"
+              style={{
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                lineHeight: 1.5,
+                color: "var(--gy-ink-muted)",
+                marginBottom: "0.5rem",
+                wordBreak: "keep-all",
+              }}
+            >
+              가장 막히는 결정 업무
+            </p>
+            <div>
+              {blockerOptions.map((opt) => (
+                <label key={opt.value} className="gy-intake-blocker-option">
+                  <input
+                    type="radio"
+                    value={opt.value}
+                    {...register("blocker")}
+                    style={{
+                      accentColor: "var(--gy-deep)",
+                      width: "16px",
+                      height: "16px",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: "0.9375rem",
+                      fontWeight: 500,
+                      lineHeight: 1.5,
+                      color: "var(--gy-ink)",
+                      wordBreak: "keep-all",
+                    }}
+                  >
+                    {opt.label}
+                  </span>
+                </label>
+              ))}
+            </div>
+            {errors.blocker && (
+              <p
+                id="intake-blocker-error"
+                style={{
+                  marginTop: "0.5rem",
+                  fontSize: "0.8125rem",
+                  color: "var(--gy-error)",
+                }}
+              >
+                {errors.blocker.message}
+              </p>
+            )}
+          </div>
+
+          {/* call format */}
+          <div
+            className="gy-intake-row"
+            role="radiogroup"
+            aria-labelledby="intake-contact-label"
+          >
+            <p
+              id="intake-contact-label"
+              style={{
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                lineHeight: 1.5,
+                color: "var(--gy-ink-muted)",
+                marginBottom: "0.5rem",
+                wordBreak: "keep-all",
+              }}
+            >
+              선호하는 콜 형식
+            </p>
+            <div className="gy-intake-contact-options">
+              {callFormatOptions.map((opt) => (
+                <label key={opt.value} className="gy-intake-contact-option">
+                  <input
+                    type="radio"
+                    value={opt.value}
+                    {...register("callFormat")}
+                    style={{
+                      accentColor: "var(--gy-deep)",
+                      width: "16px",
+                      height: "16px",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: "0.9375rem",
+                      fontWeight: 500,
+                      lineHeight: 1.5,
+                      color: "var(--gy-ink)",
+                    }}
+                  >
+                    {opt.label}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* decision */}
+          <div className="gy-intake-row" data-invalid={!!errors.decision}>
+            <label htmlFor="intake-decision" className="sr-only">
+              풀고 싶은 문제 또는 업무
+            </label>
+            <textarea
+              id="intake-decision"
+              rows={4}
+              placeholder="풀고 싶은 문제 또는 업무를 한두 문장으로"
+              className="gy-intake-input gy-intake-textarea"
+              aria-invalid={!!errors.decision}
+              aria-describedby={
+                errors.decision ? "intake-decision-error" : undefined
+              }
+              {...register("decision")}
+            />
+            {errors.decision && (
+              <p
+                id="intake-decision-error"
+                style={{
+                  marginTop: "0.5rem",
+                  fontSize: "0.8125rem",
+                  color: "var(--gy-error)",
+                }}
+              >
+                {errors.decision.message}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="btn-primary gy-intake-submit"
+          style={{
+            opacity: status === "submitting" ? 0.6 : 1,
+            cursor: status === "submitting" ? "not-allowed" : "pointer",
+          }}
+        >
+          <span>
+            {status === "submitting" ? "보내는 중…" : "신청 보내기"}
+          </span>
+        </button>
       </div>
 
       {/* honeypot */}
@@ -321,21 +380,6 @@ export function IntakeForm() {
         }}
         {...register("_trap")}
       />
-
-      <button
-        type="submit"
-        disabled={status === "submitting"}
-        className="btn-primary"
-        style={{
-          justifyContent: "center",
-          opacity: status === "submitting" ? 0.6 : 1,
-          cursor: status === "submitting" ? "not-allowed" : "pointer",
-        }}
-      >
-        <span>
-          {status === "submitting" ? "보내는 중…" : "사전 신청 보내기"}
-        </span>
-      </button>
 
       <noscript>
         <p
