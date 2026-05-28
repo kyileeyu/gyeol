@@ -2,34 +2,20 @@
 
 import { motion } from "framer-motion";
 
-const STEPS = [
-  {
-    num: "01",
-    name: "결을 잡다 (Aligning)",
-    body: "첫 자리. 30분 1:1 콜에서 결정 구조를 정렬합니다.",
-  },
-  {
-    num: "02",
-    name: "결을 그리다 (Designing)",
-    body: "2시간 체험 세션에서 본인 작업의 결을 함께 그립니다.",
-  },
-  {
-    num: "03",
-    name: "결을 새기다 (Building)",
-    body: "본 작업. 산출물이 있는 경우 회차 단위로 새깁니다.",
-  },
-  {
-    num: "04",
-    name: "결을 잇다 (Caring)",
-    body: "본 작업. 산출물이 시간 단위인 경우 정기적으로 잇습니다.",
-  },
-] as const;
-
 export function StoryHowSection() {
   return (
-    <section id="story-how" aria-labelledby="story-title">
+    <section
+      id="story-how"
+      aria-labelledby="story-title"
+      style={{
+        minHeight: "100svh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <div
-        className="mx-auto"
+        className="mx-auto w-full"
         style={{
           maxWidth: "820px",
           padding: "clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
@@ -52,7 +38,7 @@ export function StoryHowSection() {
             maxWidth: "16ch",
           }}
         >
-          강의가 아닙니다.
+          단순한 강의가 아닙니다.
         </motion.h2>
 
         <motion.div
@@ -73,12 +59,16 @@ export function StoryHowSection() {
           }}
         >
           <p>
-            도구를 가르치지 않습니다. 판단은 본인 안에 그대로 두고, 실행을
-            본인 손에 맞는 AI 에이전트 팀 구조로 옮깁니다.
+            시중의 강의는 툴 사용법을 가르치지만, &lsquo;내 실무&rsquo;는 툴
+            하나 배웠다고 풀리지 않습니다. 같은 도구도 비즈니스의 맥락과 판단에
+            따라 완전히 다른 시스템이 되기 때문입니다. 기성 커리큘럼이
+            해결해주지 못하는 바로 그 지점부터 진짜 고민이 시작됩니다.
           </p>
           <p style={{ marginTop: "1.25rem" }}>
-            이 자리에서 우리가 같이 만드는 것은 본인 손에 맞는 작업 구조 —
-            다시 만들 필요 없는 결.
+            저는 가르치기만 하고 떠나는 강사가 아니라, 당신의 업무 환경에
+            깊숙이 들어가 &lsquo;일의 결&rsquo;을 함께 읽어내는 파트너가
+            되고자 합니다. 당신의 소중한 비즈니스 판단 위에서, 최적의 흐름과
+            자동화 구조를 함께 디자인합니다.
           </p>
         </motion.div>
 
@@ -90,112 +80,63 @@ export function StoryHowSection() {
           transition={{ duration: 0.65, delay: 0.15, ease: [0, 0, 0.2, 1] }}
           style={{
             margin: "clamp(3rem, 5.5vw, 4rem) 0 0",
-            padding: "clamp(1.75rem, 3vw, 2rem)",
-            background: "var(--gy-soft)",
-            borderRadius: "var(--gy-rounded-xl)",
+            padding: "clamp(1.25rem, 2.2vw, 1.5rem) clamp(1.25rem, 2.4vw, 1.625rem)",
+            background: "rgba(252, 255, 255, 0.5)",
+            backdropFilter: "blur(12px) saturate(140%)",
+            WebkitBackdropFilter: "blur(12px) saturate(140%)",
+            border: "1px solid var(--gy-hairline)",
+            borderRadius: "var(--gy-rounded-lg)",
+            boxShadow: "var(--gy-shadow-md)",
+            maxWidth: "min(560px, 100%)",
           }}
         >
           <blockquote
             style={{
-              fontSize: "clamp(1.25rem, 2.2vw, 1.625rem)",
+              fontSize: "clamp(0.9375rem, 1.35vw, 1.0625rem)",
               fontWeight: 500,
-              lineHeight: 1.5,
-              letterSpacing: "-0.018em",
+              lineHeight: 1.65,
+              letterSpacing: "-0.01em",
               color: "var(--gy-ink)",
               wordBreak: "keep-all",
               margin: 0,
             }}
           >
-            &ldquo;활용은 보이는데, 구조로 묶이지 않을 때 외부에 묻기조차
-            어려운 자리가 있다.&rdquo;
+            &ldquo;따로 만든 예제가 아니라 바로 사용하는 환경에서 진행돼서,
+            수업 끝나자마자 혼자 적용할 수 있었습니다.&rdquo;
           </blockquote>
           <figcaption
-            className="font-en"
+            className="font-kr"
             style={{
-              marginTop: "1.25rem",
-              fontSize: "12px",
-              fontWeight: 700,
-              letterSpacing: "0.125em",
-              textTransform: "uppercase",
+              marginTop: "0.75rem",
+              fontSize: "0.8125rem",
+              fontWeight: 500,
+              letterSpacing: "-0.005em",
               color: "var(--gy-deep)",
+              opacity: 0.75,
             }}
           >
-            전문직 1:1에서 가장 자주 나오는 문장
+            — 1:1 과외 수강 후기
           </figcaption>
         </motion.figure>
 
-        <ol
+        <motion.p
+          className="font-kr"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0, 0, 0.2, 1] }}
           style={{
-            marginTop: "clamp(2.75rem, 5vw, 4rem)",
-            display: "grid",
-            gap: "clamp(1.25rem, 2vw, 1.75rem)",
-            listStyle: "none",
-            padding: 0,
+            marginTop: "clamp(2.5rem, 4.5vw, 3.5rem)",
+            fontSize: "clamp(0.9375rem, 1.4vw, 1.0625rem)",
+            fontWeight: 500,
+            lineHeight: 1.7,
+            letterSpacing: "-0.005em",
+            color: "var(--gy-ink-muted)",
+            wordBreak: "keep-all",
           }}
         >
-          {STEPS.map((s, idx) => (
-            <motion.li
-              key={s.num}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{
-                duration: 0.55,
-                delay: idx * 0.07,
-                ease: [0, 0, 0.2, 1],
-              }}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "auto 1fr",
-                columnGap: "clamp(1rem, 2vw, 1.5rem)",
-                paddingBottom: "clamp(1.25rem, 2vw, 1.5rem)",
-                borderBottom: "1px solid var(--gy-hairline-soft)",
-              }}
-            >
-              <span
-                className="font-en"
-                aria-hidden="true"
-                style={{
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  letterSpacing: "0.125em",
-                  color: "var(--gy-steel)",
-                  paddingTop: "0.45rem",
-                }}
-              >
-                {s.num}
-              </span>
-              <div>
-                <h3
-                  className="font-kr"
-                  style={{
-                    fontSize: "clamp(1.125rem, 1.7vw, 1.25rem)",
-                    fontWeight: 700,
-                    lineHeight: 1.35,
-                    letterSpacing: "-0.015em",
-                    color: "var(--gy-deep)",
-                    wordBreak: "keep-all",
-                  }}
-                >
-                  {s.name}
-                </h3>
-                <p
-                  className="font-kr"
-                  style={{
-                    marginTop: "0.5rem",
-                    fontSize: "1rem",
-                    fontWeight: 500,
-                    lineHeight: 1.75,
-                    color: "var(--gy-ink-muted)",
-                    wordBreak: "keep-all",
-                  }}
-                >
-                  {s.body}
-                </p>
-              </div>
-            </motion.li>
-          ))}
-        </ol>
+          그 결을 함께 읽어내는 첫 30분, 미팅에서 시작합니다.
+        </motion.p>
       </div>
     </section>
   );
