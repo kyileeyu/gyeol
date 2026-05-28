@@ -1,21 +1,56 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
-const CARDS = [
+const CARDS: {
+  quote: string;
+  role: string;
+  image: string;
+}[] = [
   {
-    body: "도메인 안에서는 가장 깊은 판단을 내리지만, 도구 4구분에서 멈춰 있는 분.",
-    role: "임원·본부장·1인 대표",
+    quote:
+      "코딩은 한 번도 해본 적이 없어요. 어디서부터 배워야 할지 모르겠어요.",
+    role: "IM 실무자 · 금융권",
+    image: "/personas/persona-park.webp",
   },
   {
-    body: "고객 정보를 다루기에 외부에 묻기 어려운 작업이 쌓이는 분.",
-    role: "변호사·의사·세무사·회계사",
+    quote: "판단은 매일 내리는데, 사람 대신 AI가 해결해 줄 수 있을까요?",
+    role: "사모펀드 임원 · 본부장",
+    image: "/personas/persona-baek.webp",
   },
   {
-    body: "혼자의 시간이 곧 자산인데, 실행 부분에서 매일 빠져나가는 분.",
-    role: "교수·작가·전문 프리랜서",
+    quote: "매주 같은 자료를 모으고 정리해요. 이 시간을 줄일 수 있을까요.",
+    role: "글로벌 제약사 13년차",
+    image: "/personas/persona-jeon.webp",
   },
-] as const;
+];
+
+function ProfileImage({ src }: { src: string }) {
+  return (
+    <div
+      aria-hidden
+      style={{
+        position: "relative",
+        width: "clamp(56px, 10vw, 72px)",
+        height: "clamp(56px, 10vw, 72px)",
+        borderRadius: "9999px",
+        background: "var(--gy-surface-0)",
+        overflow: "hidden",
+        boxShadow: "inset 0 0 0 1px var(--gy-hairline-soft)",
+        flexShrink: 0,
+      }}
+    >
+      <Image
+        src={src}
+        alt=""
+        fill
+        sizes="(max-width: 768px) 56px, 72px"
+        style={{ objectFit: "contain", padding: "6%" }}
+      />
+    </div>
+  );
+}
 
 export function WhoCards() {
   return (
@@ -26,6 +61,10 @@ export function WhoCards() {
       style={{
         maxWidth: "1200px",
         padding: "clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
+        minHeight: "100svh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
       <motion.h2
@@ -48,12 +87,31 @@ export function WhoCards() {
         이런 분께 닿기를.
       </motion.h2>
 
+      <motion.p
+        className="font-kr"
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7, delay: 0.1, ease: [0, 0, 0.2, 1] }}
+        style={{
+          marginTop: "1rem",
+          fontSize: "clamp(0.9375rem, 1.4vw, 1.0625rem)",
+          fontWeight: 400,
+          lineHeight: 1.7,
+          letterSpacing: "-0.01em",
+          color: "var(--gy-deep)",
+          wordBreak: "keep-all",
+        }}
+      >
+        세 분의 이야기 중 하나가 당신의 이야기라면, 결이 맞을지도 모릅니다.
+      </motion.p>
+
       <ul
-        className="grid lg:grid-cols-3"
         style={{
           marginTop: "clamp(2.5rem, 4vw, 3.5rem)",
-          gap: "clamp(1rem, 2vw, 1.5rem)",
-          gridTemplateColumns: "1fr",
+          display: "grid",
+          gap: "clamp(0.75rem, 1.6vw, 1.5rem)",
+          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
         }}
       >
         {CARDS.map((card, idx) => (
@@ -69,55 +127,61 @@ export function WhoCards() {
               ease: [0, 0, 0.2, 1],
             }}
           >
-            <article
+            <motion.article
               className="font-kr"
+              whileHover={{
+                y: -6,
+                borderColor: "#84B6F4",
+                boxShadow: "0 18px 40px -16px rgba(0, 81, 135, 0.22)",
+              }}
+              transition={{ duration: 0.35, ease: [0.65, 0, 0.35, 1] }}
               style={{
-                background: "var(--gy-soft)",
+                background: "rgba(252, 255, 255, 0.55)",
+                backdropFilter: "blur(20px) saturate(140%)",
+                WebkitBackdropFilter: "blur(20px) saturate(140%)",
+                border: "1px solid var(--gy-hairline)",
                 borderRadius: "var(--gy-rounded-xl)",
-                padding: "clamp(1.5rem, 3vw, 2rem)",
+                padding: "clamp(1.125rem, 2.5vw, 2.25rem)",
                 color: "var(--gy-deep)",
                 height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "stretch",
+                textAlign: "left",
+                willChange: "transform",
               }}
             >
-              <p
-                className="font-en"
+              <ProfileImage src={card.image} />
+
+              <blockquote
                 style={{
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  letterSpacing: "0.125em",
-                  lineHeight: 1.2,
-                  textTransform: "uppercase",
-                  color: "var(--gy-deep)",
-                  opacity: 0.65,
-                }}
-              >
-                0{idx + 1}
-              </p>
-              <h3
-                style={{
-                  marginTop: "0.75rem",
-                  fontSize: "clamp(1.0625rem, 1.6vw, 1.25rem)",
-                  fontWeight: 600,
-                  lineHeight: 1.5,
-                  letterSpacing: "-0.01em",
+                  margin: "1.25rem 0 0 0",
+                  fontSize: "clamp(1.0625rem, 1.55vw, 1.1875rem)",
+                  fontWeight: 500,
+                  lineHeight: 1.6,
+                  letterSpacing: "-0.012em",
                   color: "var(--gy-ink)",
                   wordBreak: "keep-all",
                 }}
               >
-                {card.body}
-              </h3>
+                {card.quote}
+              </blockquote>
+
               <p
                 style={{
-                  marginTop: "1rem",
+                  marginTop: "auto",
+                  paddingTop: "1.5rem",
                   fontSize: "0.875rem",
                   fontWeight: 500,
                   lineHeight: 1.5,
                   color: "var(--gy-deep)",
+                  opacity: 0.75,
+                  textAlign: "right",
                 }}
               >
-                — {card.role}
+                - {card.role}
               </p>
-            </article>
+            </motion.article>
           </motion.li>
         ))}
       </ul>
