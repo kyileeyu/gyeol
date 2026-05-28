@@ -1,0 +1,8 @@
+/*
+ * ScrollTextFade
+ *
+ * Learn More: https://www.framer.com/asset-urls
+ */
+
+export * from "https://framerusercontent.com/modules/nPxmhQ1w7d7n1nKBkpEA/EOngdaWNALnqdUTfCpCF/ScrollTextFade.js"
+export { default } from "https://framerusercontent.com/modules/nPxmhQ1w7d7n1nKBkpEA/EOngdaWNALnqdUTfCpCF/ScrollTextFade.js"
