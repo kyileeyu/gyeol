@@ -528,7 +528,7 @@ body {
   align-items: center;
   gap: 12px;
   min-width: 0;
-  max-width: 280px;
+  flex: 0 0 auto;
 }
 .gy-stepper-indicator {
   width: 36px;
@@ -576,11 +576,11 @@ body {
 }
 .gy-stepper-separator {
   position: relative;
-  flex: 1;
+  flex: 1 1 auto;
   height: 1px;
   background: var(--gy-hairline);
-  margin: 0 16px;
-  min-width: 24px;
+  margin: 0 28px;
+  min-width: 64px;
   overflow: hidden;
 }
 .gy-stepper-separator-fill {

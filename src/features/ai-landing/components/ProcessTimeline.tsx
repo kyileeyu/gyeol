@@ -159,7 +159,7 @@ export function ProcessTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: 0.15, ease: [0, 0, 0.2, 1] }}
-            style={{ marginTop: "clamp(2.5rem, 4.5vw, 3.5rem)" }}
+            style={{ marginTop: "clamp(6rem, 10vw, 9rem)" }}
           >
             {STEPS.map((s, i) => (
               <Fragment key={i}>
@@ -182,7 +182,7 @@ export function ProcessTimeline() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.55, delay: 0.3 }}
-            style={{ marginTop: "clamp(2.5rem, 4.5vw, 3.5rem)" }}
+            style={{ marginTop: "clamp(9rem, 15vw, 14rem)" }}
           >
             <a href="#intake" className="btn-primary">
               <span>30분 미팅 예약</span>
