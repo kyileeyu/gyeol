@@ -379,13 +379,13 @@ body {
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: var(--gy-space-sm);
+  gap: var(--gy-space-md, 10px);
   background: var(--gy-deep);
   color: var(--gy-on-primary);
-  padding: 12px 28px;
+  padding: 20px 36px;
   border-radius: var(--gy-rounded-pill);
   font-family: var(--font-kr);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.01em;
@@ -450,6 +450,170 @@ body {
 .gy-input[aria-invalid="true"] {
   border-color: var(--gy-error);
   background: var(--gy-error-bg);
+}
+
+/* ai.gyeol.page — IntakeForm 통합 카드형 폼 */
+.gy-intake-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.gy-intake-card {
+  background: var(--gy-surface-1);
+  border: 1px solid var(--gy-hairline);
+  border-bottom: none;
+  border-radius: 28px 28px 0 0;
+  overflow: hidden;
+}
+.gy-intake-row {
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--gy-hairline);
+  transition: background var(--gy-duration-fast) var(--gy-easing-out);
+}
+.gy-intake-row:first-child { padding-top: 20px; }
+.gy-intake-row:last-child {
+  border-bottom: none;
+  padding-bottom: 20px;
+}
+.gy-intake-row:focus-within { background: var(--gy-surface-2); }
+.gy-intake-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  font-family: var(--font-kr);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--gy-ink);
+}
+.gy-intake-input::placeholder { color: var(--gy-ink-subtle); }
+.gy-intake-textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+.gy-intake-row[data-invalid="true"] { background: var(--gy-error-bg); }
+.gy-intake-blocker-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.gy-intake-blocker-option + .gy-intake-blocker-option {
+  border-top: 1px solid var(--gy-hairline-soft);
+}
+.gy-intake-contact-options {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.gy-intake-contact-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+/* ai.gyeol.page — ProcessTimeline horizontal stepper */
+.gy-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.gy-stepper-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  max-width: 280px;
+}
+.gy-stepper-indicator {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.gy-stepper-indicator[data-state="completed"],
+.gy-stepper-indicator[data-state="active"] {
+  background: var(--gy-deep);
+  color: var(--gy-on-primary);
+}
+.gy-stepper-indicator[data-state="inactive"] {
+  background: var(--gy-hairline);
+  color: var(--gy-ink-subtle);
+}
+.gy-stepper-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  word-break: keep-all;
+}
+.gy-stepper-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gy-ink);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.gy-stepper-desc {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gy-ink-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+.gy-stepper-separator {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--gy-hairline);
+  margin: 0 16px;
+  min-width: 24px;
+  overflow: hidden;
+}
+.gy-stepper-separator-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--gy-deep);
+  transform-origin: left center;
+}
+@media (max-width: 960px) {
+  .gy-stepper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .gy-stepper-item {
+    max-width: none;
+  }
+  .gy-stepper-separator {
+    width: 1px;
+    height: 20px;
+    margin: 0 0 0 18px;
+    min-width: 0;
+    flex: 0 0 auto;
+  }
+  .gy-stepper-separator-fill {
+    transform-origin: center top;
+  }
+}
+.gy-intake-submit {
+  width: 100%;
+  justify-content: center;
+  padding: 18px 28px;
+  border-radius: 0 0 28px 28px;
 }
 
 /* /links 링크 인 바이오 — 페이지 한정 그라디언트 배경 (DESIGN.md 예외 승인) */
