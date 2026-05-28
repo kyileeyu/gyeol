@@ -6,9 +6,9 @@ const CHAPTERS = [
   { id: "hero",      num: "01", label: "Hero" },
   { id: "who",       num: "02", label: "이런 분께" },
   { id: "pain",      num: "03", label: "막히는 지점" },
-  { id: "story-how", num: "05", label: "어떻게 하나" },
-  { id: "process",   num: "06", label: "진행 방식" },
-  { id: "intake",    num: "07", label: "문의" },
+  { id: "story-how", num: "04", label: "어떻게 하나" },
+  { id: "process",   num: "05", label: "진행 방식" },
+  { id: "intake",    num: "06", label: "문의" },
 ] as const;
 
 export function ChapterRail() {
