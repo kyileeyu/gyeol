@@ -60,7 +60,7 @@ export function WhoCards() {
       className="mx-auto"
       style={{
         maxWidth: "1200px",
-        padding: "clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
+        padding: "clamp(2.5rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem)",
         minHeight: "100svh",
         display: "flex",
         flexDirection: "column",
@@ -107,11 +107,10 @@ export function WhoCards() {
       </motion.p>
 
       <ul
+        className="gy-mobile-card-track grid grid-cols-1 md:grid-cols-3"
         style={{
           marginTop: "clamp(2.5rem, 4vw, 3.5rem)",
-          display: "grid",
           gap: "clamp(0.75rem, 1.6vw, 1.5rem)",
-          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
         }}
       >
         {CARDS.map((card, idx) => (

@@ -19,7 +19,7 @@ export function StoryHowSection() {
         className="mx-auto w-full"
         style={{
           maxWidth: "820px",
-          padding: "clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
+          padding: "clamp(2.5rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem)",
         }}
       >
         <motion.h2
@@ -30,7 +30,7 @@ export function StoryHowSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
           style={{
-            fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+            fontSize: "clamp(1.875rem, 5vw, 3.5rem)",
             fontWeight: 500,
             lineHeight: 1.1,
             letterSpacing: "-0.028em",
@@ -45,11 +45,11 @@ export function StoryHowSection() {
         <div
           className="font-kr"
           style={{
-            marginTop: "clamp(2rem, 3.5vw, 2.75rem)",
+            marginTop: "clamp(1.25rem, 3.5vw, 2.75rem)",
             maxWidth: "62ch",
-            fontSize: "1.0625rem",
+            fontSize: "clamp(0.8125rem, 1.35vw, 1.0625rem)",
             fontWeight: 500,
-            lineHeight: 1.85,
+            lineHeight: 1.75,
             color: "var(--gy-ink)",
             letterSpacing: "-0.005em",
             wordBreak: "keep-all",
@@ -93,8 +93,8 @@ export function StoryHowSection() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.65, delay: 0.15, ease: [0, 0, 0.2, 1] }}
           style={{
-            margin: "clamp(3rem, 5.5vw, 4rem) 0 0",
-            padding: "clamp(1.25rem, 2.2vw, 1.5rem) clamp(1.25rem, 2.4vw, 1.625rem)",
+            margin: "clamp(1.75rem, 5.5vw, 4rem) 0 0",
+            padding: "clamp(1rem, 2.2vw, 1.5rem) clamp(1rem, 2.4vw, 1.625rem)",
             background: "rgba(252, 255, 255, 0.5)",
             backdropFilter: "blur(12px) saturate(140%)",
             WebkitBackdropFilter: "blur(12px) saturate(140%)",
@@ -140,7 +140,7 @@ export function StoryHowSection() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0, 0, 0.2, 1] }}
           style={{
-            marginTop: "clamp(2.5rem, 4.5vw, 3.5rem)",
+            marginTop: "clamp(1.5rem, 4.5vw, 3.5rem)",
             fontSize: "clamp(0.9375rem, 1.4vw, 1.0625rem)",
             fontWeight: 500,
             lineHeight: 1.7,

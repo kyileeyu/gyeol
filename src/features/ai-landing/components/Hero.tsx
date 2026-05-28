@@ -51,13 +51,13 @@ export function Hero() {
         style={{
           maxWidth: "1400px",
           padding:
-            "clamp(4rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 5vw, 4.5rem)",
+            "clamp(2.5rem, 7vw, 6rem) clamp(1.25rem, 5vw, 4rem) clamp(2rem, 5vw, 4.5rem)",
         }}
       >
         <div
           className="grid grid-cols-1 lg:grid-cols-2 items-center"
           style={{
-            gap: "clamp(3rem, 6vw, 5rem)",
+            gap: "clamp(1.5rem, 6vw, 5rem)",
           }}
         >
           <div>
@@ -87,8 +87,8 @@ export function Hero() {
               stagger={0.022}
               duration={0.6}
               style={{
-                marginTop: "clamp(1.25rem, 2vw, 2rem)",
-                fontSize: "clamp(2.5rem, 5.5vw, 4rem)",
+                marginTop: "clamp(1rem, 2vw, 2rem)",
+                fontSize: "clamp(2rem, 5.5vw, 4rem)",
                 fontWeight: 600,
                 lineHeight: 1.06,
                 letterSpacing: "-0.035em",
@@ -110,9 +110,9 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
               style={{
-                marginTop: "clamp(1.75rem, 3vw, 2.5rem)",
+                marginTop: "clamp(1.25rem, 3vw, 2.5rem)",
                 maxWidth: "32ch",
-                fontSize: "clamp(1.0625rem, 1.5vw, 1.25rem)",
+                fontSize: "clamp(0.9375rem, 1.5vw, 1.25rem)",
                 fontWeight: 500,
                 lineHeight: 1.6,
                 letterSpacing: "-0.005em",
@@ -133,7 +133,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65, duration: 0.6 }}
               style={{
-                marginTop: "clamp(2.5rem, 4vw, 3.5rem)",
+                marginTop: "clamp(1.5rem, 4vw, 3.5rem)",
                 maxWidth: "38ch",
                 fontSize: "0.9375rem",
                 fontWeight: 500,
@@ -153,7 +153,7 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.5 }}
-              style={{ marginTop: "clamp(2rem, 3vw, 2.75rem)" }}
+              style={{ marginTop: "clamp(1.5rem, 3vw, 2.75rem)" }}
             >
               <a href="#intake" className="btn-primary">
                 <span>{HERO.cta}</span>
@@ -163,6 +163,7 @@ export function Hero() {
           </div>
 
           <motion.div
+            className="gy-hero-graph-wrap"
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, duration: 0.9, ease: [0, 0, 0.2, 1] }}

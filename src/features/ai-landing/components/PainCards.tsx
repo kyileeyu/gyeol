@@ -49,7 +49,7 @@ export function PainCards() {
         className="mx-auto"
         style={{
           maxWidth: "1200px",
-          padding: "clamp(5rem, 9vw, 7rem) clamp(1.5rem, 5vw, 4rem)",
+          padding: "clamp(3rem, 9vw, 7rem) clamp(1.25rem, 5vw, 4rem)",
         }}
       >
           <motion.h2
@@ -72,6 +72,7 @@ export function PainCards() {
           </motion.h2>
 
           <ol
+            className="gy-mobile-card-track"
             style={{
               marginTop: "clamp(2.75rem, 4.5vw, 3.75rem)",
               display: "grid",

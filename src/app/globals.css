@@ -395,6 +395,13 @@ body {
 .btn-primary:active { background: var(--gy-inverse-canvas-alt); transform: translateY(0.5px); }
 .btn-primary:focus { outline: none; }
 .btn-primary:focus-visible { box-shadow: var(--gy-shadow-focus); }
+@media (max-width: 767px) {
+  .btn-primary:not(.gy-intake-submit) {
+    padding: 14px 24px;
+    font-size: 14px;
+    gap: 8px;
+  }
+}
 
 /* ai.gyeol.page — secondary CTA (다크 표면 위 사용 시 .on-dark 보조 클래스로 반전) */
 .btn-secondary {
@@ -614,6 +621,35 @@ body {
   justify-content: center;
   padding: 18px 28px;
   border-radius: 0 0 28px 28px;
+}
+
+/* ai.gyeol.page — 모바일 카드 가로 스와이프 (md 이상은 기존 grid 유지) */
+@media (max-width: 767px) {
+  .gy-mobile-card-track {
+    display: flex !important;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-inline: calc(-1 * clamp(1.25rem, 5vw, 4rem));
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+    gap: 12px;
+    grid-template-columns: none;
+  }
+  .gy-mobile-card-track::-webkit-scrollbar { display: none; }
+  .gy-mobile-card-track > * {
+    flex: 0 0 calc(100% - 56px);
+    scroll-snap-align: center;
+    min-width: 0;
+    max-width: 320px;
+  }
+  .gy-hero-graph-wrap {
+    max-width: 280px;
+    margin-inline: auto;
+    width: 100%;
+  }
 }
 
 /* /links 링크 인 바이오 — 페이지 한정 그라디언트 배경 (DESIGN.md 예외 승인) */
