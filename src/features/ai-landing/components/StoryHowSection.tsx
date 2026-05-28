@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SplitTextReveal } from "./SplitTextReveal";
 
 export function StoryHowSection() {
   return (
@@ -41,12 +42,8 @@ export function StoryHowSection() {
           단순한 강의가 아닙니다.
         </motion.h2>
 
-        <motion.div
+        <div
           className="font-kr"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0, 0, 0.2, 1] }}
           style={{
             marginTop: "clamp(2rem, 3.5vw, 2.75rem)",
             maxWidth: "62ch",
@@ -58,19 +55,36 @@ export function StoryHowSection() {
             wordBreak: "keep-all",
           }}
         >
-          <p>
+          <SplitTextReveal
+            as="p"
+            splitType="lines"
+            trigger="scroll"
+            stagger={0.09}
+            duration={0.8}
+            y={20}
+            blur={6}
+          >
             시중의 강의는 툴 사용법을 가르치지만, &lsquo;내 실무&rsquo;는 툴
             하나 배웠다고 풀리지 않습니다. 같은 도구도 비즈니스의 맥락과 판단에
             따라 완전히 다른 시스템이 되기 때문입니다. 기성 커리큘럼이
             해결해주지 못하는 바로 그 지점부터 진짜 고민이 시작됩니다.
-          </p>
-          <p style={{ marginTop: "1.25rem" }}>
+          </SplitTextReveal>
+          <SplitTextReveal
+            as="p"
+            splitType="lines"
+            trigger="scroll"
+            stagger={0.09}
+            duration={0.8}
+            y={20}
+            blur={6}
+            style={{ marginTop: "1.25rem" }}
+          >
             저는 가르치기만 하고 떠나는 강사가 아니라, 당신의 업무 환경에
             깊숙이 들어가 &lsquo;일의 결&rsquo;을 함께 읽어내는 파트너가
             되고자 합니다. 당신의 소중한 비즈니스 판단 위에서, 최적의 흐름과
             자동화 구조를 함께 디자인합니다.
-          </p>
-        </motion.div>
+          </SplitTextReveal>
+        </div>
 
         <motion.figure
           className="font-kr"

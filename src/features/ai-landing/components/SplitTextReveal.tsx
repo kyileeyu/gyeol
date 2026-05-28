@@ -4,13 +4,18 @@ import { useEffect, useRef } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { ensureGsapPlugins, gsap, SplitText } from "@/lib/gsap";
 
+type SplitType = "chars" | "words" | "lines";
+
 type SplitTextRevealProps = {
   children: ReactNode;
-  as?: "h1" | "h2";
+  as?: "h1" | "h2" | "p" | "div";
+  splitType?: SplitType;
   trigger?: "load" | "scroll";
   delay?: number;
   stagger?: number;
   duration?: number;
+  y?: number;
+  blur?: number;
   className?: string;
   style?: CSSProperties;
   id?: string;
@@ -19,15 +24,18 @@ type SplitTextRevealProps = {
 export function SplitTextReveal({
   children,
   as = "h2",
+  splitType = "chars",
   trigger = "scroll",
   delay = 0.15,
   stagger = 0.02,
   duration = 0.55,
+  y = 14,
+  blur = 6,
   className,
   style,
   id,
 }: SplitTextRevealProps) {
-  const ref = useRef<HTMLHeadingElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -39,11 +47,11 @@ export function SplitTextReveal({
 
     if (reducedMotion) {
       el.style.opacity = "0";
-      const id = requestAnimationFrame(() => {
+      const rafId = requestAnimationFrame(() => {
         el.style.transition = "opacity 0.4s ease";
         el.style.opacity = "1";
       });
-      return () => cancelAnimationFrame(id);
+      return () => cancelAnimationFrame(rafId);
     }
 
     ensureGsapPlugins();
@@ -53,14 +61,23 @@ export function SplitTextReveal({
 
     const start = () => {
       split = new SplitText(el, {
-        type: "chars",
+        type: splitType,
         charsClass: "gy-st-char",
+        wordsClass: "gy-st-word",
+        linesClass: "gy-st-line",
       });
 
-      tween = gsap.from(split.chars, {
+      const targets =
+        splitType === "chars"
+          ? split.chars
+          : splitType === "words"
+            ? split.words
+            : split.lines;
+
+      tween = gsap.from(targets, {
         opacity: 0,
-        y: 14,
-        filter: "blur(6px)",
+        y,
+        filter: `blur(${blur}px)`,
         duration,
         stagger,
         delay: trigger === "load" ? delay : 0,
@@ -86,15 +103,32 @@ export function SplitTextReveal({
       tween?.kill();
       split?.revert();
     };
-  }, [trigger, delay, stagger, duration]);
+  }, [trigger, delay, stagger, duration, splitType, y, blur]);
 
-  return as === "h1" ? (
-    <h1 ref={ref} id={id} className={className} style={style}>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const refAny = ref as React.RefObject<any>;
+
+  if (as === "h1")
+    return (
+      <h1 ref={refAny} id={id} className={className} style={style}>
+        {children}
+      </h1>
+    );
+  if (as === "h2")
+    return (
+      <h2 ref={refAny} id={id} className={className} style={style}>
+        {children}
+      </h2>
+    );
+  if (as === "p")
+    return (
+      <p ref={refAny} id={id} className={className} style={style}>
+        {children}
+      </p>
+    );
+  return (
+    <div ref={refAny} id={id} className={className} style={style}>
       {children}
-    </h1>
-  ) : (
-    <h2 ref={ref} id={id} className={className} style={style}>
-      {children}
-    </h2>
+    </div>
   );
 }
