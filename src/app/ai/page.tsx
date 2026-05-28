@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { AiLandingPage, buildFaqJsonLd } from "@/features/ai-landing";
 
-const TITLE = "결 컨설팅 (Gyeol Consulting) · 1:1 사전 문의";
+const TITLE = "결 컨설팅 (Gyeol Consulting) · 1:1 문의";
 const DESCRIPTION =
   "전문직의 실행 부분을 본인 손에 맞는 AI 에이전트 팀 구조로 옮겨주는 비공개 1:1 라인. 결 스튜디오 산하 결 컨설팅.";
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "결 컨설팅 (Gyeol Consulting) · 1:1 사전 문의",
+        alt: "결 컨설팅 (Gyeol Consulting) · 1:1 문의",
       },
     ],
   },
