@@ -28,38 +28,21 @@ export function WhoCards() {
         padding: "clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
       }}
     >
-      <style>{`
-        .gy-who-card {
-          transition:
-            transform var(--gy-duration-moderate) var(--gy-easing-out),
-            box-shadow var(--gy-duration-moderate) var(--gy-easing-out),
-            background var(--gy-duration-moderate) var(--gy-easing-out);
-        }
-        .gy-who-card:hover {
-          transform: translateY(-4px);
-          box-shadow: var(--gy-shadow-md);
-          background: var(--gy-soft);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .gy-who-card:hover { transform: none; }
-        }
-      `}</style>
-
       <motion.h2
         id="who-title"
         className="font-kr"
-        initial={{ opacity: 0, y: 12 }}
+        initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+        transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
         style={{
-          fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
-          fontWeight: 600,
-          lineHeight: 1.15,
-          letterSpacing: "-0.025em",
+          fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+          fontWeight: 500,
+          lineHeight: 1.1,
+          letterSpacing: "-0.028em",
           color: "var(--gy-ink)",
           wordBreak: "keep-all",
-          maxWidth: "20ch",
+          maxWidth: "16ch",
         }}
       >
         이런 분께 닿기를.
@@ -87,7 +70,7 @@ export function WhoCards() {
             }}
           >
             <article
-              className="font-kr gy-who-card"
+              className="font-kr"
               style={{
                 background: "var(--gy-soft)",
                 borderRadius: "var(--gy-rounded-xl)",
@@ -97,10 +80,11 @@ export function WhoCards() {
               }}
             >
               <p
+                className="font-en"
                 style={{
                   fontSize: "12px",
                   fontWeight: 700,
-                  letterSpacing: "0.15em",
+                  letterSpacing: "0.125em",
                   lineHeight: 1.2,
                   textTransform: "uppercase",
                   color: "var(--gy-deep)",

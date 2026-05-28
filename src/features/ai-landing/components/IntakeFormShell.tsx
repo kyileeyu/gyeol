@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { IntakeForm } from "./IntakeForm";
+import { SplitTextReveal } from "./SplitTextReveal";
 
 export function IntakeFormShell() {
   return (
@@ -21,23 +22,22 @@ export function IntakeFormShell() {
         }}
       >
         <div style={{ maxWidth: "560px" }}>
-          <motion.h2
+          <SplitTextReveal
             id="intake-title"
             className="font-kr"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+            trigger="scroll"
+            stagger={0.03}
+            duration={0.6}
             style={{
-              fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
-              fontWeight: 600,
-              lineHeight: 1.15,
-              letterSpacing: "-0.025em",
+              fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+              fontWeight: 500,
+              lineHeight: 1.1,
+              letterSpacing: "-0.028em",
               color: "var(--gy-ink)",
             }}
           >
             사전 문의.
-          </motion.h2>
+          </SplitTextReveal>
           <motion.p
             className="font-kr"
             initial={{ opacity: 0, y: 10 }}
@@ -87,9 +87,9 @@ export function IntakeFormShell() {
           <p
             className="font-en"
             style={{
-              fontSize: "11px",
+              fontSize: "12px",
               fontWeight: 700,
-              letterSpacing: "0.18em",
+              letterSpacing: "0.125em",
               color: "var(--gy-deep)",
               textTransform: "uppercase",
             }}

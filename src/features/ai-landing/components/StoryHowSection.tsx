@@ -38,18 +38,18 @@ export function StoryHowSection() {
         <motion.h2
           id="story-title"
           className="font-kr"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+          transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
           style={{
-            fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
-            fontWeight: 600,
-            lineHeight: 1.15,
-            letterSpacing: "-0.025em",
+            fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+            fontWeight: 500,
+            lineHeight: 1.1,
+            letterSpacing: "-0.028em",
             color: "var(--gy-ink)",
             wordBreak: "keep-all",
-            maxWidth: "22ch",
+            maxWidth: "16ch",
           }}
         >
           강의가 아닙니다.
@@ -84,24 +84,24 @@ export function StoryHowSection() {
 
         <motion.figure
           className="font-kr"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, delay: 0.15, ease: [0, 0, 0.2, 1] }}
+          transition={{ duration: 0.65, delay: 0.15, ease: [0, 0, 0.2, 1] }}
           style={{
-            margin: "clamp(2.75rem, 5vw, 3.75rem) 0 0",
-            paddingLeft: "clamp(1.25rem, 2vw, 1.75rem)",
-            borderLeft: "2px solid var(--gy-sky)",
-            maxWidth: "56ch",
+            margin: "clamp(3rem, 5.5vw, 4rem) 0 0",
+            padding: "clamp(1.75rem, 3vw, 2rem)",
+            background: "var(--gy-soft)",
+            borderRadius: "var(--gy-rounded-xl)",
           }}
         >
           <blockquote
             style={{
-              fontSize: "clamp(1.125rem, 1.9vw, 1.375rem)",
+              fontSize: "clamp(1.25rem, 2.2vw, 1.625rem)",
               fontWeight: 500,
-              lineHeight: 1.6,
-              letterSpacing: "-0.015em",
-              color: "var(--gy-deep)",
+              lineHeight: 1.5,
+              letterSpacing: "-0.018em",
+              color: "var(--gy-ink)",
               wordBreak: "keep-all",
               margin: 0,
             }}
@@ -110,15 +110,17 @@ export function StoryHowSection() {
             어려운 자리가 있다.&rdquo;
           </blockquote>
           <figcaption
+            className="font-en"
             style={{
-              marginTop: "0.875rem",
-              fontSize: "0.8125rem",
-              fontWeight: 600,
-              letterSpacing: "0.02em",
-              color: "var(--gy-ink-muted)",
+              marginTop: "1.25rem",
+              fontSize: "12px",
+              fontWeight: 700,
+              letterSpacing: "0.125em",
+              textTransform: "uppercase",
+              color: "var(--gy-deep)",
             }}
           >
-            — 전문직 1:1에서 가장 자주 나오는 문장
+            전문직 1:1에서 가장 자주 나오는 문장
           </figcaption>
         </motion.figure>
 
@@ -156,7 +158,7 @@ export function StoryHowSection() {
                 style={{
                   fontSize: "12px",
                   fontWeight: 700,
-                  letterSpacing: "0.15em",
+                  letterSpacing: "0.125em",
                   color: "var(--gy-steel)",
                   paddingTop: "0.45rem",
                 }}

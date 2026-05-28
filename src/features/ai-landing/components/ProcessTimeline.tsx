@@ -18,28 +18,9 @@ export function ProcessTimeline() {
       id="process"
       aria-labelledby="process-title"
       style={{
-        background: "var(--gy-surface-1)",
-        borderTop: "1px solid var(--gy-hairline-soft)",
-        borderBottom: "1px solid var(--gy-hairline-soft)",
+        background: "var(--gy-surface-2)",
       }}
     >
-      <style>{`
-        .gy-step-card {
-          transition:
-            transform var(--gy-duration-moderate) var(--gy-easing-out),
-            border-color var(--gy-duration-moderate) var(--gy-easing-out),
-            box-shadow var(--gy-duration-moderate) var(--gy-easing-out);
-        }
-        .gy-step-card:hover {
-          transform: translateY(-3px);
-          border-color: var(--gy-steel);
-          box-shadow: var(--gy-shadow-sm);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .gy-step-card:hover { transform: none; }
-        }
-      `}</style>
-
       <div
         className="mx-auto"
         style={{
@@ -51,15 +32,15 @@ export function ProcessTimeline() {
           <motion.h2
             id="process-title"
             className="font-kr"
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+            transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
             style={{
-              fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
-              fontWeight: 600,
-              lineHeight: 1.15,
-              letterSpacing: "-0.025em",
+              fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+              fontWeight: 500,
+              lineHeight: 1.1,
+              letterSpacing: "-0.028em",
               color: "var(--gy-ink)",
               wordBreak: "keep-all",
             }}
@@ -98,7 +79,6 @@ export function ProcessTimeline() {
           {TIMELINE.map((t, idx) => (
             <motion.li
               key={idx}
-              className="gy-step-card"
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -165,9 +145,9 @@ export function ProcessTimeline() {
           <span
             className="font-en"
             style={{
-              fontSize: "11px",
+              fontSize: "12px",
               fontWeight: 700,
-              letterSpacing: "0.18em",
+              letterSpacing: "0.125em",
               color: "var(--gy-deep)",
               textTransform: "uppercase",
               marginRight: "0.75rem",

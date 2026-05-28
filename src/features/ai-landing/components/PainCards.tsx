@@ -23,25 +23,19 @@ export function PainCards() {
       id="pain"
       aria-labelledby="pain-title"
       style={{
-        background: "var(--gy-surface-1)",
-        borderTop: "1px solid var(--gy-hairline-soft)",
-        borderBottom: "1px solid var(--gy-hairline-soft)",
+        background: "var(--gy-inverse-canvas)",
+        color: "var(--gy-on-inverse)",
       }}
     >
       <style>{`
         .gy-pain-card {
           transition:
-            transform var(--gy-duration-moderate) var(--gy-easing-out),
-            box-shadow var(--gy-duration-moderate) var(--gy-easing-out),
+            background var(--gy-duration-moderate) var(--gy-easing-out),
             border-color var(--gy-duration-moderate) var(--gy-easing-out);
         }
         .gy-pain-card:hover {
-          transform: translateY(-3px);
-          box-shadow: var(--gy-shadow-sm);
-          border-color: var(--gy-steel);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .gy-pain-card:hover { transform: none; }
+          background: rgba(252, 255, 255, 0.06);
+          border-color: var(--gy-sky);
         }
       `}</style>
 
@@ -49,7 +43,7 @@ export function PainCards() {
         className="mx-auto grid lg:grid-cols-[minmax(0,1fr)_240px]"
         style={{
           maxWidth: "1200px",
-          padding: "clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
+          padding: "clamp(5rem, 9vw, 7rem) clamp(1.5rem, 5vw, 4rem)",
           gap: "clamp(2rem, 4vw, 3rem)",
         }}
       >
@@ -57,16 +51,16 @@ export function PainCards() {
           <motion.h2
             id="pain-title"
             className="font-kr"
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: [0, 0, 0.2, 1] }}
+            transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
             style={{
-              fontSize: "clamp(1.75rem, 3.6vw, 2.5rem)",
-              fontWeight: 600,
-              lineHeight: 1.15,
-              letterSpacing: "-0.025em",
-              color: "var(--gy-ink)",
+              fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+              fontWeight: 500,
+              lineHeight: 1.1,
+              letterSpacing: "-0.028em",
+              color: "var(--gy-on-inverse)",
               wordBreak: "keep-all",
             }}
           >
@@ -75,13 +69,12 @@ export function PainCards() {
 
           <ol
             style={{
-              marginTop: "clamp(2.5rem, 4vw, 3.5rem)",
+              marginTop: "clamp(2.75rem, 4.5vw, 3.75rem)",
               display: "grid",
               gap: "clamp(1rem, 2vw, 1.25rem)",
               gridTemplateColumns: "1fr",
               listStyle: "none",
               padding: 0,
-              counterReset: "pain",
             }}
           >
             {PAINS.map((p, idx) => (
@@ -97,10 +90,10 @@ export function PainCards() {
                   ease: [0, 0, 0.2, 1],
                 }}
                 style={{
-                  background: "var(--gy-canvas)",
-                  border: "1px solid var(--gy-hairline)",
+                  background: "var(--gy-inverse-canvas-alt)",
+                  border: "1px solid rgba(252, 255, 255, 0.08)",
                   borderRadius: "var(--gy-rounded-lg)",
-                  padding: "clamp(1.5rem, 2.5vw, 1.75rem)",
+                  padding: "clamp(1.75rem, 2.5vw, 2rem)",
                 }}
               >
                 <p
@@ -108,10 +101,11 @@ export function PainCards() {
                   style={{
                     fontSize: "12px",
                     fontWeight: 700,
-                    letterSpacing: "0.15em",
+                    letterSpacing: "0.125em",
                     lineHeight: 1.2,
-                    color: "var(--gy-ink-subtle)",
+                    color: "var(--gy-on-inverse-muted)",
                     textTransform: "uppercase",
+                    opacity: 0.7,
                   }}
                 >
                   0{idx + 1}
@@ -119,12 +113,12 @@ export function PainCards() {
                 <h3
                   className="font-kr"
                   style={{
-                    marginTop: "0.625rem",
-                    fontSize: "clamp(1.0625rem, 1.6vw, 1.1875rem)",
-                    fontWeight: 700,
+                    marginTop: "0.75rem",
+                    fontSize: "clamp(1.0625rem, 1.7vw, 1.25rem)",
+                    fontWeight: 600,
                     lineHeight: 1.45,
                     letterSpacing: "-0.015em",
-                    color: "var(--gy-ink)",
+                    color: "var(--gy-on-inverse)",
                     wordBreak: "keep-all",
                   }}
                 >
@@ -137,7 +131,7 @@ export function PainCards() {
                     fontSize: "0.9375rem",
                     fontWeight: 500,
                     lineHeight: 1.7,
-                    color: "var(--gy-ink-muted)",
+                    color: "var(--gy-on-inverse-muted)",
                     wordBreak: "keep-all",
                   }}
                 >
@@ -157,8 +151,8 @@ export function PainCards() {
           transition={{ duration: 0.6, delay: 0.2, ease: [0, 0, 0.2, 1] }}
           style={{
             alignSelf: "start",
-            background: "var(--gy-canvas)",
-            border: "1px solid var(--gy-hairline)",
+            background: "var(--gy-inverse-canvas-alt)",
+            border: "1px solid rgba(252, 255, 255, 0.08)",
             borderRadius: "var(--gy-rounded-lg)",
             padding: "1.25rem 1.5rem",
             maxWidth: "260px",
@@ -169,9 +163,9 @@ export function PainCards() {
             style={{
               fontSize: "11px",
               fontWeight: 700,
-              letterSpacing: "0.18em",
+              letterSpacing: "0.125em",
               lineHeight: 1.2,
-              color: "var(--gy-deep)",
+              color: "var(--gy-on-inverse-muted)",
               textTransform: "uppercase",
             }}
           >
@@ -183,7 +177,7 @@ export function PainCards() {
               fontSize: "0.875rem",
               fontWeight: 500,
               lineHeight: 1.7,
-              color: "var(--gy-ink-muted)",
+              color: "var(--gy-on-inverse-muted)",
               wordBreak: "keep-all",
             }}
           >

@@ -67,7 +67,7 @@ export function ChapterRail() {
               padding: "0.25rem 0",
               fontSize: "11px",
               fontWeight: 700,
-              letterSpacing: "0.18em",
+              letterSpacing: "0.125em",
               lineHeight: 1.2,
               textTransform: "uppercase",
               color: isActive ? "var(--gy-deep)" : "var(--gy-ink-subtle)",

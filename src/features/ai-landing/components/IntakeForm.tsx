@@ -68,9 +68,9 @@ export function IntakeForm() {
         <p
           className="font-en"
           style={{
-            fontSize: "11px",
+            fontSize: "12px",
             fontWeight: 700,
-            letterSpacing: "0.18em",
+            letterSpacing: "0.125em",
             color: "var(--gy-deep)",
             textTransform: "uppercase",
           }}

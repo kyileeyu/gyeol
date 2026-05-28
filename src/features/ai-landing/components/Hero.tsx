@@ -1,7 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { AgentGraph } from "./AgentGraph";
+import { SplitTextReveal } from "./SplitTextReveal";
+
+const HeroShader = dynamic(
+  () => import("./HeroShader").then((m) => m.HeroShader),
+  { ssr: false }
+);
 
 const HERO = {
   eyebrow: "결 컨설팅 (Gyeol Consulting) · 전문직 1:1",
@@ -25,8 +32,9 @@ export function Hero() {
       <div
         aria-hidden="true"
         className="bg-mesh-hero absolute inset-0 -z-10"
-        style={{ opacity: 0.85 }}
+        style={{ opacity: 0.4 }}
       />
+      <HeroShader />
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10"
@@ -45,11 +53,9 @@ export function Hero() {
         }}
       >
         <div
-          className="grid"
+          className="grid grid-cols-1 lg:grid-cols-2 items-center"
           style={{
-            gridTemplateColumns: "1fr",
             gap: "clamp(3rem, 6vw, 5rem)",
-            alignItems: "center",
           }}
         >
           <div>
@@ -61,7 +67,7 @@ export function Hero() {
               style={{
                 fontSize: "12px",
                 fontWeight: 700,
-                letterSpacing: "0.15em",
+                letterSpacing: "0.125em",
                 lineHeight: 1.2,
                 textTransform: "uppercase",
                 color: "var(--gy-deep)",
@@ -70,12 +76,14 @@ export function Hero() {
               {HERO.eyebrow}
             </motion.p>
 
-            <motion.h1
+            <SplitTextReveal
+              as="h1"
               id="hero-title"
               className="font-kr"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.7, ease: [0, 0, 0.2, 1] }}
+              trigger="load"
+              delay={0.2}
+              stagger={0.022}
+              duration={0.6}
               style={{
                 marginTop: "clamp(1.25rem, 2vw, 2rem)",
                 fontSize: "clamp(2.5rem, 5.5vw, 4rem)",
@@ -92,7 +100,7 @@ export function Hero() {
                   {line}
                 </span>
               ))}
-            </motion.h1>
+            </SplitTextReveal>
 
             <motion.p
               className="font-kr"
@@ -167,13 +175,6 @@ export function Hero() {
         </div>
       </div>
 
-      <style>{`
-        @media (min-width: 1024px) {
-          section[aria-labelledby="hero-title"] .grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
