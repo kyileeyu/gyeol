@@ -94,6 +94,8 @@ export function ProcessTimeline() {
         minHeight: "300svh",
       }}
     >
+      {/* section 300svh 안에서 100svh 콘텐츠를 sticky로 viewport에 고정.
+         나머지 200svh 스크롤 거리 동안 step 점화 progress가 진행된다. */}
       <div
         style={{
           position: "sticky",

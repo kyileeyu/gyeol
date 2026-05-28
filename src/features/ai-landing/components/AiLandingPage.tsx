@@ -18,12 +18,10 @@ type StackSlot = {
 };
 
 const STACK: StackSlot[] = [
-  { node: <Hero />,            background: "var(--gy-canvas)",         rounded: false },
-  { node: <WhoCards />,        background: "var(--gy-surface-1)",      rounded: true  },
-  { node: <PainCards />,       background: "var(--gy-canvas)",         rounded: true  },
-  { node: <StoryHowSection />, background: "var(--gy-surface-1)",      rounded: true  },
-  { node: <ProcessTimeline />, background: "var(--gy-surface-2)",      rounded: true  },
-  { node: <IntakeFormShell />, background: "var(--gy-inverse-canvas)", rounded: true  },
+  { node: <Hero />,            background: "var(--gy-canvas)",    rounded: false },
+  { node: <WhoCards />,        background: "var(--gy-surface-1)", rounded: true  },
+  { node: <PainCards />,       background: "var(--gy-canvas)",    rounded: true  },
+  { node: <StoryHowSection />, background: "var(--gy-surface-1)", rounded: true  },
 ];
 
 export function AiLandingPage() {
@@ -76,6 +74,13 @@ export function AiLandingPage() {
               {slot.node}
             </div>
           ))}
+        </div>
+
+        <div style={{ background: "var(--gy-surface-2)" }}>
+          <ProcessTimeline />
+        </div>
+        <div style={{ background: "var(--gy-inverse-canvas)" }}>
+          <IntakeFormShell />
         </div>
 
         <Footer />
