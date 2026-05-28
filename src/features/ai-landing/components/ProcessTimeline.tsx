@@ -1,43 +1,144 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Fragment, useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 
-const TIMELINE = [
-  { time: "05분", body: "인사·자리 정렬 (대면 또는 온라인)" },
+const STEPS = [
   {
-    time: "15분",
-    body: "욕구 진단 — 본인 작업의 실행 부분이 어디서 빠져나가는지",
+    title: "생각의 결을 읽고 정렬합니다",
+    description: "05분 · 서로의 결에 대한 인사와 이해",
   },
-  { time: "05분", body: "운영방식 결정 — 회차 단위(Build) 또는 정기(Care)" },
-  { time: "05분", body: "체험 입금·NDA 안내" },
+  {
+    title: "일의 결을 읽고 진단합니다",
+    description: "15분 · 작업 구조와 흐름을 잇는 지점",
+  },
+  {
+    title: "미래의 결을 함께 디자인합니다",
+    description: "10분 · 지속 가능한 자동화·구축 방식 결정",
+  },
 ] as const;
 
+// 색상 — globals.css 토큰 hex 그대로 (framer-motion이 hex만 interpolate)
+const INDICATOR_OFF_BG = "#DCE5F0"; // var(--gy-hairline)
+const INDICATOR_ON_BG = "#005187"; // var(--gy-deep)
+const INDICATOR_OFF_FG = "#8A9BA8"; // var(--gy-ink-subtle)
+const INDICATOR_ON_FG = "#FCFFFF"; // var(--gy-on-primary)
+
+function StepIndicator({
+  progress,
+  num,
+}: {
+  progress: MotionValue<number>;
+  num: number;
+}) {
+  const background = useTransform(
+    progress,
+    [0, 1],
+    [INDICATOR_OFF_BG, INDICATOR_ON_BG],
+  );
+  const color = useTransform(
+    progress,
+    [0, 1],
+    [INDICATOR_OFF_FG, INDICATOR_ON_FG],
+  );
+  return (
+    <motion.div
+      className="gy-stepper-indicator font-en"
+      style={{ background, color }}
+    >
+      {num}
+    </motion.div>
+  );
+}
+
+function StepSeparator({ progress }: { progress: MotionValue<number> }) {
+  return (
+    <div className="gy-stepper-separator">
+      <motion.div
+        className="gy-stepper-separator-fill"
+        style={{ scaleX: progress, scaleY: progress }}
+      />
+    </div>
+  );
+}
+
 export function ProcessTimeline() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  // 매핑 — sticky 구간 전체에 균등 분포 (1번 → 1-2선 → 2번 → 2-3선 → 3번)
+  const step1 = useTransform(scrollYProgress, [0.05, 0.18], [0, 1]);
+  const sep1 = useTransform(scrollYProgress, [0.22, 0.42], [0, 1]);
+  const step2 = useTransform(scrollYProgress, [0.45, 0.55], [0, 1]);
+  const sep2 = useTransform(scrollYProgress, [0.58, 0.78], [0, 1]);
+  const step3 = useTransform(scrollYProgress, [0.82, 0.92], [0, 1]);
+
+  const indicators: MotionValue<number>[] = [step1, step2, step3];
+  const separators: MotionValue<number>[] = [sep1, sep2];
+
   return (
     <section
+      ref={sectionRef}
       id="process"
       aria-labelledby="process-title"
       style={{
         background: "var(--gy-surface-2)",
+        minHeight: "300svh",
       }}
     >
       <div
-        className="mx-auto"
         style={{
-          maxWidth: "1200px",
-          padding: "clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
+          position: "sticky",
+          top: 0,
+          height: "100svh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
-        <div style={{ maxWidth: "62ch" }}>
+        <div
+          className="mx-auto w-full"
+          style={{
+            maxWidth: "1100px",
+            padding: "clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem)",
+          }}
+        >
+          <motion.p
+            className="font-en"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, ease: [0, 0, 0.2, 1] }}
+            style={{
+              fontSize: "12px",
+              fontWeight: 700,
+              letterSpacing: "0.125em",
+              lineHeight: 1.2,
+              textTransform: "uppercase",
+              color: "var(--gy-deep)",
+            }}
+          >
+            Process · 30 min
+          </motion.p>
+
           <motion.h2
             id="process-title"
             className="font-kr"
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease: [0, 0, 0.2, 1] }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0, 0, 0.2, 1] }}
             style={{
-              fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+              marginTop: "0.75rem",
+              fontSize: "clamp(2rem, 4.5vw, 3rem)",
               fontWeight: 500,
               lineHeight: 1.1,
               letterSpacing: "-0.028em",
@@ -45,132 +146,48 @@ export function ProcessTimeline() {
               wordBreak: "keep-all",
             }}
           >
-            진행은 이렇게.
+            결을 맞추는 시간.
           </motion.h2>
-          <motion.p
-            className="font-kr"
-            initial={{ opacity: 0, y: 8 }}
+
+          <motion.div
+            className="gy-stepper"
+            role="list"
+            aria-label="결을 맞추는 30분의 흐름"
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.55, delay: 0.1, ease: [0, 0, 0.2, 1] }}
-            style={{
-              marginTop: "1rem",
-              fontSize: "0.9375rem",
-              fontWeight: 500,
-              lineHeight: 1.7,
-              color: "var(--gy-ink-muted)",
-              wordBreak: "keep-all",
-            }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0, 0, 0.2, 1] }}
+            style={{ marginTop: "clamp(2.5rem, 4.5vw, 3.5rem)" }}
           >
-            30분 1:1 콜 — 본 작업 전 자리를 함께 정렬합니다.
-          </motion.p>
+            {STEPS.map((s, i) => (
+              <Fragment key={i}>
+                <div className="gy-stepper-item" role="listitem">
+                  <StepIndicator progress={indicators[i]} num={i + 1} />
+                  <div className="gy-stepper-text">
+                    <p className="font-kr gy-stepper-title">{s.title}</p>
+                    <p className="font-kr gy-stepper-desc">{s.description}</p>
+                  </div>
+                </div>
+                {i < STEPS.length - 1 && (
+                  <StepSeparator progress={separators[i]} />
+                )}
+              </Fragment>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, delay: 0.3 }}
+            style={{ marginTop: "clamp(2.5rem, 4.5vw, 3.5rem)" }}
+          >
+            <a href="#intake" className="btn-primary">
+              <span>30분 미팅 예약</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </motion.div>
         </div>
-
-        <ol
-          className="grid lg:grid-cols-4"
-          style={{
-            marginTop: "clamp(2.75rem, 5vw, 4rem)",
-            gap: "clamp(1rem, 2vw, 1.5rem)",
-            gridTemplateColumns: "1fr",
-            listStyle: "none",
-            padding: 0,
-          }}
-        >
-          {TIMELINE.map((t, idx) => (
-            <motion.li
-              key={idx}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{
-                duration: 0.5,
-                delay: idx * 0.07,
-                ease: [0, 0, 0.2, 1],
-              }}
-              style={{
-                background: "var(--gy-canvas)",
-                border: "1px solid var(--gy-hairline)",
-                borderRadius: "var(--gy-rounded-lg)",
-                padding: "clamp(1.5rem, 2.5vw, 2rem)",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                minHeight: "180px",
-              }}
-            >
-              <h3
-                className="font-en"
-                style={{
-                  fontSize: "clamp(1.75rem, 2.6vw, 2.125rem)",
-                  fontWeight: 700,
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.05,
-                  color: "var(--gy-deep)",
-                }}
-              >
-                {t.time}
-              </h3>
-              <p
-                className="font-kr"
-                style={{
-                  fontSize: "0.9375rem",
-                  fontWeight: 500,
-                  lineHeight: 1.65,
-                  color: "var(--gy-ink)",
-                  wordBreak: "keep-all",
-                }}
-              >
-                {t.body}
-              </p>
-            </motion.li>
-          ))}
-        </ol>
-
-        <motion.p
-          className="font-kr"
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, delay: 0.2, ease: [0, 0, 0.2, 1] }}
-          style={{
-            marginTop: "clamp(2rem, 3.5vw, 2.75rem)",
-            maxWidth: "62ch",
-            fontSize: "0.9375rem",
-            fontWeight: 500,
-            lineHeight: 1.75,
-            color: "var(--gy-ink-muted)",
-            wordBreak: "keep-all",
-          }}
-        >
-          <span
-            className="font-en"
-            style={{
-              fontSize: "12px",
-              fontWeight: 700,
-              letterSpacing: "0.125em",
-              color: "var(--gy-deep)",
-              textTransform: "uppercase",
-              marginRight: "0.75rem",
-            }}
-          >
-            Build · Care
-          </span>
-          산출물 있는 작업은 회차 단위로(Build), 본인 시간 중심 작업은 주 1회
-          1시간 정기로(Care). 1:1 콜에서 함께 결정합니다.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, delay: 0.3 }}
-          style={{ marginTop: "clamp(2.5rem, 4vw, 3.5rem)" }}
-        >
-          <a href="#intake" className="btn-primary">
-            <span>30분 미팅 예약</span>
-            <span aria-hidden="true">→</span>
-          </a>
-        </motion.div>
       </div>
     </section>
   );
