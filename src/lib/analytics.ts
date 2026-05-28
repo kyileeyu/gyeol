@@ -37,7 +37,16 @@ export type AnalyticsEvent =
   | { name: "class_to_hub_click"; params: Record<string, never> }
   // v2 신규: AI 사다리 단계 뷰 + 관심 주제 집계
   | { name: "class_ladder_step_view"; params: { step: number } }
-  | { name: "class_inquiry_topic"; params: { topic: string } };
+  | { name: "class_inquiry_topic"; params: { topic: string } }
+  // /links 링크 인 바이오 이벤트
+  | { name: "links_view"; params: Record<string, never> }
+  | { name: "links_click"; params: { id: string; href: string } }
+  | {
+      name: "links_social_click";
+      params: { platform: string };
+    }
+  | { name: "links_share_open"; params: { method: "native" | "qr" } }
+  | { name: "links_copy_url"; params: Record<string, never> };
 
 export function track<E extends AnalyticsEvent>(
   event: E["name"],

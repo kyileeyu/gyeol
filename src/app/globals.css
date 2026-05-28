@@ -452,6 +452,14 @@ body {
   background: var(--gy-error-bg);
 }
 
+/* /links 링크 인 바이오 — 페이지 한정 그라디언트 배경 (DESIGN.md 예외 승인) */
+.links-bg {
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(132, 182, 244, 0.35) 0%, transparent 60%),
+    linear-gradient(180deg, var(--gy-soft) 0%, var(--gy-canvas) 55%);
+  background-attachment: fixed;
+}
+
 /* prefers-reduced-motion 전역 정책 */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
