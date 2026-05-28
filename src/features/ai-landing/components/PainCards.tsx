@@ -4,16 +4,18 @@ import { motion } from "framer-motion";
 
 const PAINS = [
   {
-    quote: "활용처는 보이는데, 도구를 4개로 나누면 멈춥니다.",
-    note: "가장 흔한 자리. 도구가 4개로 갈리는 순간 판단이 분산됨.",
+    quote:
+      "좋다는 AI 툴은 많은데, 막상 일하려니 뭐부터 켜야 할지 모르겠습니다.",
+    note: "새로운 툴을 배우는 피로감을 끝내고, 내 업무 동선에 꼭 필요한 핵심 도구 위주로 매끄러운 흐름을 설계합니다.",
   },
   {
-    quote: "활용은 되는데, 구조로 묶으려 하면 막힙니다.",
-    note: "산출물이 보이지만, 다시 만들 때 처음부터 시작해야 하는 자리.",
+    quote: "어떻게 만들긴 했는데, 다시 만들거나 자동화하려면 막막합니다.",
+    note: "매번 처음부터 다시 시작하는 비효율을 멈추고, 언제든 똑같은 퀄리티로 작동하는 지속 가능한 시스템을 구축합니다.",
   },
   {
-    quote: "고객 정보·직업윤리 위라 외부에 묻기조차 어렵습니다.",
-    note: "가장 외로운 자리. 비공개 1:1에서만 풀 수 있음.",
+    quote:
+      "유튜브나 강의엔 안 나오는 '내 실무, 내 데이터'에 맞추려니 답이 안 나옵니다.",
+    note: "보안 때문에 외부에 묻기 어려운 진짜 내 업무 고민을 철저한 NDA 기반의 1:1 맞춤형 솔루션으로 안전하게 해결합니다.",
   },
 ] as const;
 
@@ -25,6 +27,10 @@ export function PainCards() {
       style={{
         background: "var(--gy-inverse-canvas)",
         color: "var(--gy-on-inverse)",
+        minHeight: "100svh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
       <style>{`
@@ -40,14 +46,12 @@ export function PainCards() {
       `}</style>
 
       <div
-        className="mx-auto grid lg:grid-cols-[minmax(0,1fr)_240px]"
+        className="mx-auto"
         style={{
           maxWidth: "1200px",
           padding: "clamp(5rem, 9vw, 7rem) clamp(1.5rem, 5vw, 4rem)",
-          gap: "clamp(2rem, 4vw, 3rem)",
         }}
       >
-        <div>
           <motion.h2
             id="pain-title"
             className="font-kr"
@@ -140,51 +144,6 @@ export function PainCards() {
               </motion.li>
             ))}
           </ol>
-        </div>
-
-        <motion.aside
-          aria-label="비밀유지 안내"
-          className="font-kr lg:sticky lg:top-32"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0, 0, 0.2, 1] }}
-          style={{
-            alignSelf: "start",
-            background: "var(--gy-inverse-canvas-alt)",
-            border: "1px solid rgba(252, 255, 255, 0.08)",
-            borderRadius: "var(--gy-rounded-lg)",
-            padding: "1.25rem 1.5rem",
-            maxWidth: "260px",
-          }}
-        >
-          <p
-            className="font-en"
-            style={{
-              fontSize: "11px",
-              fontWeight: 700,
-              letterSpacing: "0.125em",
-              lineHeight: 1.2,
-              color: "var(--gy-on-inverse-muted)",
-              textTransform: "uppercase",
-            }}
-          >
-            NDA First
-          </p>
-          <p
-            style={{
-              marginTop: "0.75rem",
-              fontSize: "0.875rem",
-              fontWeight: 500,
-              lineHeight: 1.7,
-              color: "var(--gy-on-inverse-muted)",
-              wordBreak: "keep-all",
-            }}
-          >
-            모든 작업은 NDA 위에서 시작합니다. 케이스 외부 공개는 동의 시에만,
-            직업 카테고리만 익명 가공합니다.
-          </p>
-        </motion.aside>
       </div>
     </section>
   );
