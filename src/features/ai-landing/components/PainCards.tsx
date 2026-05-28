@@ -31,9 +31,9 @@ export function PainCards() {
       <style>{`
         .gy-pain-card {
           transition:
-            transform 280ms cubic-bezier(0,0,0.2,1),
-            box-shadow 280ms cubic-bezier(0,0,0.2,1),
-            border-color 280ms cubic-bezier(0,0,0.2,1);
+            transform var(--gy-duration-moderate) var(--gy-easing-out),
+            box-shadow var(--gy-duration-moderate) var(--gy-easing-out),
+            border-color var(--gy-duration-moderate) var(--gy-easing-out);
         }
         .gy-pain-card:hover {
           transform: translateY(-3px);

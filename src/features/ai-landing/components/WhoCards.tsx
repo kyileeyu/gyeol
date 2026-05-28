@@ -31,9 +31,9 @@ export function WhoCards() {
       <style>{`
         .gy-who-card {
           transition:
-            transform 280ms cubic-bezier(0,0,0.2,1),
-            box-shadow 280ms cubic-bezier(0,0,0.2,1),
-            background 280ms cubic-bezier(0,0,0.2,1);
+            transform var(--gy-duration-moderate) var(--gy-easing-out),
+            box-shadow var(--gy-duration-moderate) var(--gy-easing-out),
+            background var(--gy-duration-moderate) var(--gy-easing-out);
         }
         .gy-who-card:hover {
           transform: translateY(-4px);
