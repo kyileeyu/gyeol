@@ -60,7 +60,7 @@ export function Footer() {
         <hr
           style={{
             border: 0,
-            borderTop: "1px solid rgba(252, 255, 255, 0.10)",
+            borderTop: "1px solid color-mix(in srgb, var(--gy-on-inverse) 10%, transparent)",
             margin: 0,
           }}
         />

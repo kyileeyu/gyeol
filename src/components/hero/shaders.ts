@@ -99,11 +99,11 @@ export const waterFragmentShader = /* glsl */ `
     waveSum = clamp(waveSum, -1.2, 1.2);
     energy  = clamp(energy, 0.0, 1.4);
 
-    // ----- palette -----
-    vec3 seolbaek   = vec3(0.980, 0.984, 0.988); // #FAFBFC
-    vec3 bingcheong = vec3(0.478, 0.753, 0.831); // #7AC0D4
-    vec3 eunbak     = vec3(0.788, 0.839, 0.874); // #C9D6DF
-    vec3 cheongram  = vec3(0.106, 0.231, 0.373); // #1B3B5F
+    // ----- palette (DESIGN.md 인디고·페리윙클 5단) -----
+    vec3 seolbaek   = vec3(0.988, 0.992, 1.000); // canvas #FCFDFF
+    vec3 bingcheong = vec3(0.482, 0.576, 0.957); // sky #7B93F4
+    vec3 eunbak     = vec3(0.714, 0.761, 0.969); // soft #B6C2F7 (shimmer)
+    vec3 cheongram  = vec3(0.004, 0.259, 0.627); // deep #0142A0
 
     // base tinted water
     vec3 col = mix(seolbaek, bingcheong, 0.5 + 0.35 * ambient);

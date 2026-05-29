@@ -22,7 +22,7 @@ export default function QRModal({ open, onClose }: Props) {
     QRCode.toDataURL(LINKS_PAGE_URL, {
       margin: 1,
       width: 480,
-      color: { dark: "#005187", light: "#FCFFFF" },
+      color: { dark: "#0142A0", light: "#FCFDFF" },
     })
       .then((url) => {
         if (!cancelled) setDataUrl(url);

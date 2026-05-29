@@ -11,17 +11,17 @@ type EmailPayload = {
   replyTo?: string;
 };
 
-// 사이트 팔레트 (globals.css)
-// seolbaek #fafbfc bg / bakmu #f0f4f8 surface / eunbak #c9d6df border
-// cheongram #1b3b5f deep / meok #1a1a1a ink / angae #8b95a1 muted
+// 사이트 팔레트 (brand/DESIGN.md — 인디고·페리윙클 5단)
+// canvas #FCFDFF bg / surface-1 #F4F6FE surface / hairline #DCE2F8 border
+// deep #0142A0 / ink #12183B / ink-muted #595F75
 const C = {
-  bg: "#fafbfc",
-  surface: "#f0f4f8",
-  border: "#c9d6df",
-  deep: "#1b3b5f",
-  ink: "#1a1a1a",
-  muted: "#8b95a1",
-  card: "#ffffff",
+  bg: "#FCFDFF",
+  surface: "#F4F6FE",
+  border: "#DCE2F8",
+  deep: "#0142A0",
+  ink: "#12183B",
+  muted: "#595F75",
+  card: "#FFFFFF",
 } as const;
 
 const SENDER_NAME = "결 Gyeol";

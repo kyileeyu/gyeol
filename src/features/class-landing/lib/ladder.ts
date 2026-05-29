@@ -44,7 +44,7 @@ export const LADDER_STEPS: LadderStepData[] = [
     description: "아이디어를 작동하는 웹·앱으로. 코드 없이도 출시까지.",
     examples: [
       "AI 기반 랜딩 페이지·예약 폼·콘텐츠 생성기.",
-      "Vercel 배포까지 — 아이디어에서 링크 공유까지.",
+      "Cloudflare 배포까지 — 아이디어에서 링크 공유까지.",
     ],
     variant: "default",
   },

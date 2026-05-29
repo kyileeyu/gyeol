@@ -6,13 +6,13 @@ import { hubContactSchema } from "@/features/intro-hub/lib/hub-contact-schema";
 export const runtime = "nodejs";
 
 const C = {
-  bg: "#fafbfc",
-  surface: "#f0f4f8",
-  border: "#c9d6df",
-  deep: "#1b3b5f",
-  ink: "#1a1a1a",
-  muted: "#8b95a1",
-  card: "#ffffff",
+  bg: "#FCFDFF",
+  surface: "#F4F6FE",
+  border: "#DCE2F8",
+  deep: "#0142A0",
+  ink: "#12183B",
+  muted: "#595F75",
+  card: "#FFFFFF",
 } as const;
 
 const escape = (v: string) =>

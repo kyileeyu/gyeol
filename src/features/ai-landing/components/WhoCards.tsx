@@ -2,6 +2,30 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+// framer-motion whileHover는 var()를 안정적으로 보간 못 하므로,
+// globals.css --gy-* 토큰을 런타임에 hex/rgba로 resolve해서 hover 값으로 쓴다.
+function hexToRgba(hex: string, alpha: number): string {
+  const h = hex.replace("#", "").trim();
+  const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+  const n = parseInt(full, 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
+}
+
+function useCardHover() {
+  const [s, setS] = useState({
+    border: "#7B93F4", // --gy-sky fallback (DESIGN.md)
+    shadow: "0 18px 40px -16px rgba(1, 66, 160, 0.22)", // --gy-deep fallback
+  });
+  useEffect(() => {
+    const cs = getComputedStyle(document.documentElement);
+    const sky = cs.getPropertyValue("--gy-sky").trim() || "#7B93F4";
+    const deep = cs.getPropertyValue("--gy-deep").trim() || "#0142A0";
+    setS({ border: sky, shadow: `0 18px 40px -16px ${hexToRgba(deep, 0.22)}` });
+  }, []);
+  return s;
+}
 
 const CARDS: {
   quote: string;
@@ -53,6 +77,7 @@ function ProfileImage({ src }: { src: string }) {
 }
 
 export function WhoCards() {
+  const hover = useCardHover();
   return (
     <section
       id="who"
@@ -130,12 +155,12 @@ export function WhoCards() {
               className="font-kr"
               whileHover={{
                 y: -6,
-                borderColor: "#84B6F4",
-                boxShadow: "0 18px 40px -16px rgba(0, 81, 135, 0.22)",
+                borderColor: hover.border,
+                boxShadow: hover.shadow,
               }}
               transition={{ duration: 0.35, ease: [0.65, 0, 0.35, 1] }}
               style={{
-                background: "rgba(252, 255, 255, 0.55)",
+                background: "color-mix(in srgb, var(--gy-canvas) 55%, transparent)",
                 backdropFilter: "blur(20px) saturate(140%)",
                 WebkitBackdropFilter: "blur(20px) saturate(140%)",
                 border: "1px solid var(--gy-hairline)",

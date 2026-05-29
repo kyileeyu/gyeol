@@ -45,11 +45,11 @@ export function KakaoFloatingButton() {
           "bg-deep/80 backdrop-blur-xl",
           "border border-canvas/20",
           "px-7 py-3.5 text-canvas",
-          "shadow-[0_14px_36px_rgba(0,81,135,0.36)]",
+          "shadow-[0_14px_36px_rgba(1,66,160,0.36)]",
           "transition-[background-color,box-shadow] duration-[200ms]",
-          "hover:bg-deep hover:shadow-[0_18px_44px_rgba(0,81,135,0.44)]",
+          "hover:bg-deep hover:shadow-[0_18px_44px_rgba(1,66,160,0.44)]",
           "active:scale-[0.98]",
-          "focus:outline-none focus-visible:shadow-[0_0_0_3px_rgba(252,255,255,0.65),0_14px_36px_rgba(0,81,135,0.36)]",
+          "focus:outline-none focus-visible:shadow-[0_0_0_3px_rgba(252,253,255,0.65),0_14px_36px_rgba(1,66,160,0.36)]",
         ].join(" ")}
       >
         <ChatIcon size={18} />

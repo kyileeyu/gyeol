@@ -18,7 +18,7 @@ export default function SaveContactButton() {
         track("card_save_contact", {});
         track("cta_external_click", { target: "save_contact" });
       }}
-      className="group relative block w-full overflow-hidden rounded-full p-[1.5px] shadow-[0_10px_28px_-12px_rgba(27,59,95,0.45)]"
+      className="group relative block w-full overflow-hidden rounded-full p-[1.5px] shadow-[0_10px_28px_-12px_rgba(1,66,160,0.45)]"
     >
       {/* 회전하는 conic-gradient 글로우 보더 (흰색에 가까운 라이트 스윕) */}
       {!reduce && (

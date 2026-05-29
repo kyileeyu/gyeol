@@ -63,7 +63,7 @@ export default function ContactForm() {
     "w-full bg-transparent px-5 py-5 text-ink placeholder:text-muted outline-none border-0 text-base";
   const rowCx =
     "border-b border-ink/15 transition-colors duration-300 ease-[cubic-bezier(0.65,0,0.35,1)] focus-within:border-wave last:border-b-0";
-  const errorCx = "px-5 pb-3 text-xs text-[#B23A48]";
+  const errorCx = "px-5 pb-3 text-xs text-[#B3262B]";
 
   return (
     <AnimatePresence mode="wait">
@@ -188,7 +188,7 @@ export default function ContactForm() {
           />
 
           {submitError && (
-            <p className="mt-4 text-sm text-[#B23A48]">
+            <p className="mt-4 text-sm text-[#B3262B]">
               전송 중 문제가 있었어요: {submitError}
             </p>
           )}

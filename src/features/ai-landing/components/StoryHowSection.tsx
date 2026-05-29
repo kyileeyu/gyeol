@@ -95,7 +95,7 @@ export function StoryHowSection() {
           style={{
             margin: "clamp(1.75rem, 5.5vw, 4rem) 0 0",
             padding: "clamp(1rem, 2.2vw, 1.5rem) clamp(1rem, 2.4vw, 1.625rem)",
-            background: "rgba(252, 255, 255, 0.5)",
+            background: "color-mix(in srgb, var(--gy-canvas) 50%, transparent)",
             backdropFilter: "blur(12px) saturate(140%)",
             WebkitBackdropFilter: "blur(12px) saturate(140%)",
             border: "1px solid var(--gy-hairline)",

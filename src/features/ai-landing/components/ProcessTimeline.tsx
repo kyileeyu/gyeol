@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -23,11 +23,30 @@ const STEPS = [
   },
 ] as const;
 
-// 색상 — globals.css 토큰 hex 그대로 (framer-motion이 hex만 interpolate)
-const INDICATOR_OFF_BG = "#DCE5F0"; // var(--gy-hairline)
-const INDICATOR_ON_BG = "#005187"; // var(--gy-deep)
-const INDICATOR_OFF_FG = "#8A9BA8"; // var(--gy-ink-subtle)
-const INDICATOR_ON_FG = "#FCFFFF"; // var(--gy-on-primary)
+// framer-motion useTransform은 var()를 보간 못 하므로(실제 hex 필요),
+// globals.css --gy-* 토큰을 런타임에 hex로 resolve해서 쓴다. fallback = DESIGN.md 값.
+const INDICATOR_FALLBACK = {
+  offBg: "#DCE2F8", // --gy-hairline
+  onBg: "#0142A0", // --gy-deep
+  offFg: "#8A90A6", // --gy-ink-subtle
+  onFg: "#FCFDFF", // --gy-on-primary
+};
+
+function useIndicatorColors() {
+  const [c, setC] = useState(INDICATOR_FALLBACK);
+  useEffect(() => {
+    const cs = getComputedStyle(document.documentElement);
+    const get = (name: string, fallback: string) =>
+      cs.getPropertyValue(name).trim() || fallback;
+    setC({
+      offBg: get("--gy-hairline", INDICATOR_FALLBACK.offBg),
+      onBg: get("--gy-deep", INDICATOR_FALLBACK.onBg),
+      offFg: get("--gy-ink-subtle", INDICATOR_FALLBACK.offFg),
+      onFg: get("--gy-on-primary", INDICATOR_FALLBACK.onFg),
+    });
+  }, []);
+  return c;
+}
 
 function StepIndicator({
   progress,
@@ -36,16 +55,9 @@ function StepIndicator({
   progress: MotionValue<number>;
   num: number;
 }) {
-  const background = useTransform(
-    progress,
-    [0, 1],
-    [INDICATOR_OFF_BG, INDICATOR_ON_BG],
-  );
-  const color = useTransform(
-    progress,
-    [0, 1],
-    [INDICATOR_OFF_FG, INDICATOR_ON_FG],
-  );
+  const c = useIndicatorColors();
+  const background = useTransform(progress, [0, 1], [c.offBg, c.onBg]);
+  const color = useTransform(progress, [0, 1], [c.offFg, c.onFg]);
   return (
     <motion.div
       className="gy-stepper-indicator font-en"

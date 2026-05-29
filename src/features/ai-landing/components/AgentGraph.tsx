@@ -70,20 +70,20 @@ function generateDots(): Dot[] {
   return result;
 }
 
-// DESIGN.md sky-blue 5단 (mist baseline)
+// 색은 모두 globals.css 토큰(--gy-*)에서 결정 — DESIGN.md 인디고·페리윙클 5단
 const C = {
-  lineFrom: "#005187",
-  lineTo: "#84B6F4",
-  lineHotFrom: "#005187",
-  lineHotTo: "#4D82BC",
-  agentFill: "#005187",
-  agentCore: "#FCFFFF",
-  agentGlow: "#4D82BC",
-  centerFill: "#005187",
-  centerStroke: "#005187",
-  centerText: "#FCFFFF",
-  centerGlow: "#84B6F4",
-  labelFill: "#5A6B78",
+  lineFrom: "var(--gy-deep)",
+  lineTo: "var(--gy-sky)",
+  lineHotFrom: "var(--gy-deep)",
+  lineHotTo: "var(--gy-steel)",
+  agentFill: "var(--gy-deep)",
+  agentCore: "var(--gy-canvas)",
+  agentGlow: "var(--gy-steel)",
+  centerFill: "var(--gy-deep)",
+  centerStroke: "var(--gy-deep)",
+  centerText: "var(--gy-canvas)",
+  centerGlow: "var(--gy-sky)",
+  labelFill: "var(--gy-ink-muted)",
 } as const;
 
 export function AgentGraph() {

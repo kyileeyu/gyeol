@@ -172,7 +172,7 @@ function ShowcaseCard({
       <span
         aria-hidden
         className="absolute left-0 top-0 h-full w-[2px]"
-        style={{ backgroundColor: "rgba(27,59,95,0.08)" }}
+        style={{ backgroundColor: "color-mix(in srgb, var(--gy-deep) 8%, transparent)" }}
       />
       <motion.span
         aria-hidden

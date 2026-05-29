@@ -54,9 +54,8 @@ export default function PrivacyPage() {
               2. 자동 수집 정보 (분석 도구·쿠키)
             </h2>
             <p>
-              방문자 행동 분석을 위해 Google Analytics 4 와 Vercel Analytics ·
-              Speed Insights 를 사용하며, 이 과정에서 다음 정보가 자동
-              수집됩니다.
+              방문자 행동 분석을 위해 Google Analytics 4 를 사용하며, 이
+              과정에서 다음 정보가 자동 수집됩니다.
             </p>
             <ul className="mt-3 list-disc pl-5 space-y-1">
               <li>익명화된 IP 주소, 접속 국가·지역</li>
@@ -98,8 +97,7 @@ export default function PrivacyPage() {
               Contact 폼으로 수집된 정보는 의뢰 응대 완료 후{" "}
               <strong className="text-deep">6개월</strong> 동안 보관 후 파기하며,
               정보주체의 요청이 있을 경우 즉시 파기합니다. 분석 데이터는 Google
-              Analytics 정책에 따라 최대 14개월 보관 후 자동 삭제되며, Vercel
-              Analytics 데이터는 익명·집계 형태로만 보관됩니다.
+              Analytics 정책에 따라 최대 14개월 보관 후 자동 삭제됩니다.
             </p>
           </section>
 
@@ -125,10 +123,10 @@ export default function PrivacyPage() {
                 </a>
               </li>
               <li>
-                <strong className="text-deep">Vercel Inc.</strong> (미국) — 호스팅
-                및 웹 분석 ·{" "}
+                <strong className="text-deep">Cloudflare, Inc.</strong> (미국) —
+                호스팅 ·{" "}
                 <a
-                  href="https://vercel.com/legal/privacy-policy"
+                  href="https://www.cloudflare.com/privacypolicy/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-deep underline underline-offset-2"

@@ -42,7 +42,7 @@ export function Hero() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(180deg, rgba(252,255,255,0) 0%, rgba(252,255,255,0.55) 78%, var(--gy-canvas) 100%)",
+            "linear-gradient(180deg, color-mix(in srgb, var(--gy-canvas) 0%, transparent) 0%, color-mix(in srgb, var(--gy-canvas) 55%, transparent) 78%, var(--gy-canvas) 100%)",
         }}
       />
 

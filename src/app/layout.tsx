@@ -8,8 +8,6 @@ import {
   SITE_DESCRIPTION,
   VERIFICATION,
 } from "@/lib/site";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { JsonLd } from "@/components/JsonLd";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
@@ -107,7 +105,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FAFBFC",
+  themeColor: "#FCFDFF",
   width: "device-width",
   initialScale: 1,
 };
@@ -128,8 +126,6 @@ export default function RootLayout({
         <ScrollDepthTracker />
         <JsonLd />
         <GoogleAnalytics />
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

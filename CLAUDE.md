@@ -6,7 +6,7 @@
 - 도메인: gyeol.page
 - 깃허브: git@github.com:kyileeyu/gyeol.git
 - Figma:
-- 배포 환경: Vercel
+- 배포 환경: Cloudflare Workers (@opennextjs/cloudflare · `npm run deploy`)
 
 ## 2. 브랜딩 코어
 - **사이트 목적**: 의뢰 문의 인입 + 인터랙션 기술력 자체를 포트폴리오로 증명
@@ -219,7 +219,7 @@ gyeol.page
 #### 보안·스팸 방지
 - **Honeypot 필드**: 보이지 않는 input 추가, 봇이 채우면 자동 차단 (코드 5줄)
 - **Zod 스키마 검증**: 서버 측에서 필수 필드·이메일 형식·문자열 길이 검증
-- **Rate limiting**: Vercel KV로 IP 기준 1분당 3회 제한 (선택, 시간 남으면)
+- **Rate limiting**: Cloudflare KV(또는 Durable Objects)로 IP 기준 1분당 3회 제한 (선택, 시간 남으면)
 
 #### Resend 셋업 순서 (D5)
 1. Resend 가입 + 도메인 추가 (`gyeol.page`)
@@ -265,8 +265,8 @@ gyeol.page
 - **스타일링**: Tailwind CSS + CSS Variables (컬러 토큰 7종)
 - **폼·검증**: React Hook Form + Zod
 - **메일**: Resend API (무료 한도 월 3,000통)
-- **호스팅**: Vercel
-- **분석 도구**: Vercel Analytics + Plausible (또는 GA4 검토)
+- **호스팅**: Cloudflare Workers (@opennextjs/cloudflare, wrangler — worker명 `gyeol`, 커스텀 도메인 `gyeol.page`·`ai.gyeol.page`)
+- **분석 도구**: Google Analytics 4 (실사용). ⚠️ `@vercel/analytics`·`@vercel/speed-insights`는 코드에 남아 있으나 Vercel 호스팅 전용이라 Cloudflare에선 수집되지 않음 — 제거 또는 Cloudflare Web Analytics 전환 필요
 
 ## 7. 출시 체크리스트
 - [ ] OG 이미지 (물결 이미지 + 헤드라인)
@@ -294,7 +294,7 @@ gyeol.page
 
 | 날짜 | 작업 | 산출물 |
 |---|---|---|
-| **D1 (4/19 일)** | Next.js 셋업, Git init, Vercel 연결, 도메인 연결, Pretendard 적용, 컬러 토큰 정의, Tailwind config | 빈 페이지 배포 완료 |
+| **D1 (4/19 일)** | Next.js 셋업, Git init, Cloudflare 연결, 도메인 연결, Pretendard 적용, 컬러 토큰 정의, Tailwind config | 빈 페이지 배포 완료 |
 | **D2 (4/20 월)** | Three.js + GLSL 셰이더 학습, Hero 물결 프로토타입 | Hero 동작 데모 |
 | **D3 (4/21 화)** | Hero 완성, Promise + Capability 3카드 섹션 마크업·모션 | 상단 4섹션 완료 |
 | **D4 (4/22 수)** | 가로스크롤 Work 섹션 (GSAP ScrollTrigger), 포트폴리오 케이스 콘텐츠 + 종류 태그 | Work 완료 |

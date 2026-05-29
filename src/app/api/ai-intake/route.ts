@@ -8,12 +8,12 @@ import {
 export const runtime = "nodejs";
 
 const C = {
-  bg: "#FCFFFF",
-  surface: "#F3F7FC",
-  border: "#DCE5F0",
-  deep: "#005187",
-  ink: "#0F1F2A",
-  muted: "#5A6B78",
+  bg: "#FCFDFF",
+  surface: "#F4F6FE",
+  border: "#DCE2F8",
+  deep: "#0142A0",
+  ink: "#12183B",
+  muted: "#595F75",
   card: "#FFFFFF",
 } as const;
 

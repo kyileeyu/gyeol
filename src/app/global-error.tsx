@@ -10,8 +10,8 @@ export default function GlobalError({
     <html lang="ko">
       <body
         style={{
-          background: "#FAFBFC",
-          color: "#1A1A1A",
+          background: "#FCFDFF",
+          color: "#12183B",
           fontFamily:
             "-apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif",
           margin: 0,
@@ -40,7 +40,7 @@ export default function GlobalError({
           <p
             style={{
               fontSize: "0.875rem",
-              color: "#8B95A1",
+              color: "#8A90A6",
               marginBottom: "2rem",
               maxWidth: "28rem",
             }}
@@ -51,7 +51,7 @@ export default function GlobalError({
             onClick={reset}
             style={{
               fontSize: "0.875rem",
-              color: "#1B3B5F",
+              color: "#0142A0",
               textDecoration: "underline",
               textUnderlineOffset: "4px",
               background: "none",

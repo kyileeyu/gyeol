@@ -22,12 +22,12 @@ const FRAG = /* glsl */ `
   uniform float uAspect;
   varying vec2 vUv;
 
-  // 결 sky-blue 5단 (DESIGN.md)
-  const vec3 cCanvas = vec3(0.988, 1.000, 1.000);
-  const vec3 cSoft   = vec3(0.769, 0.855, 0.980);
-  const vec3 cSky    = vec3(0.518, 0.714, 0.957);
-  const vec3 cSteel  = vec3(0.302, 0.510, 0.737);
-  const vec3 cDeep   = vec3(0.000, 0.318, 0.529);
+  // 결 인디고·페리윙클 5단 — globals.css(--gy-*) 토큰에서 런타임 주입
+  uniform vec3 cCanvas;
+  uniform vec3 cSoft;
+  uniform vec3 cSky;
+  uniform vec3 cSteel;
+  uniform vec3 cDeep;
 
   float hash(vec2 p) {
     return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
@@ -101,6 +101,18 @@ const FRAG = /* glsl */ `
   }
 `;
 
+// hex(#RRGGBB / #RGB) → 정규화 vec3 (0~1). CSS 토큰을 셰이더 uniform으로 옮길 때 사용.
+function hexToVec3(hex: string): THREE.Vector3 {
+  const h = hex.replace("#", "").trim();
+  const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+  const n = parseInt(full, 16);
+  return new THREE.Vector3(
+    ((n >> 16) & 255) / 255,
+    ((n >> 8) & 255) / 255,
+    (n & 255) / 255
+  );
+}
+
 function ShaderPlane({ blurMv }: { blurMv: MotionValue<number> }) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const reducedRef = useRef(
@@ -114,9 +126,29 @@ function ShaderPlane({ blurMv }: { blurMv: MotionValue<number> }) {
       uBlur: { value: 1.0 },
       uAngle: { value: Math.PI * 0.25 },
       uAspect: { value: 1.0 },
+      // DESIGN.md 인디고 5단 — fallback 기본값, 마운트 시 CSS 토큰으로 덮어씀
+      cCanvas: { value: hexToVec3("#FCFDFF") },
+      cSoft: { value: hexToVec3("#B6C2F7") },
+      cSky: { value: hexToVec3("#7B93F4") },
+      cSteel: { value: hexToVec3("#1F49ED") },
+      cDeep: { value: hexToVec3("#0142A0") },
     }),
     []
   );
+
+  // globals.css --gy-* 토큰을 읽어 색 uniform을 채움 — 색 결정은 globals.css 한 곳에서만
+  useEffect(() => {
+    const cs = getComputedStyle(document.documentElement);
+    const sync = (name: string, target: THREE.Vector3) => {
+      const v = cs.getPropertyValue(name).trim();
+      if (v) target.copy(hexToVec3(v));
+    };
+    sync("--gy-canvas", uniforms.cCanvas.value);
+    sync("--gy-soft", uniforms.cSoft.value);
+    sync("--gy-sky", uniforms.cSky.value);
+    sync("--gy-steel", uniforms.cSteel.value);
+    sync("--gy-deep", uniforms.cDeep.value);
+  }, [uniforms]);
 
   useFrame((state) => {
     const m = matRef.current;

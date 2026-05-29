@@ -17,48 +17,42 @@
 }
 
 :root {
-  /* === 결 디자인 시스템 — sky-blue 5단 척추 (brand/DESIGN.md SSOT) === */
-  --gy-canvas: #FCFFFF;
-  --gy-soft:   #C4DAFA;
-  --gy-sky:    #84B6F4;
-  --gy-steel:  #4D82BC;
-  --gy-deep:   #005187;
+  /* === 결 디자인 시스템 — 인디고·페리윙클 5단 척추 (brand/DESIGN.md SSOT) === */
+  --gy-canvas: #FCFDFF;
+  --gy-soft:   #B6C2F7;
+  --gy-sky:    #7B93F4;
+  --gy-steel:  #1F49ED;
+  --gy-deep:   #0142A0;
 
   /* surface 3단 */
-  --gy-surface-0: #FCFFFF;
-  --gy-surface-1: #F3F7FC;
-  --gy-surface-2: #E8EFF8;
-  --gy-hairline:      #DCE5F0;
-  --gy-hairline-soft: #ECF1F7;
+  --gy-surface-0: #FCFDFF;
+  --gy-surface-1: #F4F6FE;
+  --gy-surface-2: #E9EDFC;
+  --gy-hairline:      #DCE2F8;
+  --gy-hairline-soft: #EEF1FD;
 
   /* ink 4단 */
-  --gy-ink:        #0F1F2A;
+  --gy-ink:        #12183B;
   --gy-ink-strong: #000000;
-  --gy-ink-muted:  #5A6B78;
-  --gy-ink-subtle: #8A9BA8;
+  --gy-ink-muted:  #595F75;
+  --gy-ink-subtle: #8A90A6;
 
-  /* pastel accents — 뱃지·아바타·카테고리 태그 전용 */
-  --gy-pastel-amber: #FBD9A3;
-  --gy-pastel-coral: #F4B5C2;
-  --gy-pastel-iris:  #B4A8E8;
-  --gy-pastel-jade:  #B8DEC7;
-  --gy-on-amber: #6B4A1A;
-  --gy-on-coral: #722741;
-  --gy-on-iris:  #3F2D8F;
-  --gy-on-jade:  #1D5048;
+  /* accent — Golden Pollen, 시스템의 단 하나의 따뜻한 포인트 (뱃지·하이라이트·별점·아바타) */
+  --gy-pastel-gold: #FBC946;
+  --gy-on-gold:     #5C4209;
 
   /* signal */
   --gy-success: #0E7C56;  --gy-success-bg: #E6F7EE;
   --gy-warning: #92400E;  --gy-warning-bg: #FEF3C7;
   --gy-error:   #B3262B;  --gy-error-bg:   #FCE7E8;
-  --gy-info:    #005187;  --gy-info-bg:    #C4DAFA;
+  --gy-info:    #0142A0;  --gy-info-bg:    #B6C2F7;
 
   /* inverse (다크 표면) */
-  --gy-inverse-canvas:     #005187;
-  --gy-inverse-canvas-alt: #003F6E;
-  --gy-on-primary:         #FCFFFF;
-  --gy-on-inverse:         #FCFFFF;
-  --gy-on-inverse-muted:   #C4DAFA;
+  --gy-inverse-canvas:     #0142A0;
+  --gy-inverse-canvas-alt: #002F73;
+  --gy-on-primary:         #FCFDFF;
+  --gy-on-inverse:         #FCFDFF;
+  --gy-on-inverse-muted:   #B6C2F7;
 
   /* rounded */
   --gy-rounded-xs:   4px;
@@ -79,10 +73,10 @@
   --gy-space-section: 96px;
 
   /* shadow — 모두 deep 톤 alpha */
-  --gy-shadow-sm:    0 1px 2px rgba(0, 81, 135, 0.04);
-  --gy-shadow-md:    0 1px 2px rgba(0, 81, 135, 0.04), 0 8px 24px rgba(0, 81, 135, 0.06);
-  --gy-shadow-lg:    0 2px 4px rgba(0, 81, 135, 0.05), 0 16px 40px rgba(0, 81, 135, 0.10);
-  --gy-shadow-focus: 0 0 0 3px rgba(77, 130, 188, 0.40);
+  --gy-shadow-sm:    0 1px 2px rgba(1, 66, 160, 0.04);
+  --gy-shadow-md:    0 1px 2px rgba(1, 66, 160, 0.04), 0 8px 24px rgba(1, 66, 160, 0.06);
+  --gy-shadow-lg:    0 2px 4px rgba(1, 66, 160, 0.05), 0 16px 40px rgba(1, 66, 160, 0.10);
+  --gy-shadow-focus: 0 0 0 3px rgba(31, 73, 237, 0.40);
 
   /* motion */
   --gy-duration-instant:  100ms;
@@ -101,6 +95,14 @@
   --color-cheongram:  var(--gy-deep);
   --color-meok:       var(--gy-ink);
   --color-angae:      var(--gy-ink-muted);
+}
+
+/* 텍스트 선택 하이라이트 — Golden Pollen 바탕만, 글자색은 원래대로 유지 */
+::selection {
+  background: var(--gy-pastel-gold);
+}
+::-moz-selection {
+  background: var(--gy-pastel-gold);
 }
 
 @theme inline {
@@ -126,14 +128,8 @@
   --color-ink-strong:  var(--gy-ink-strong);
   --color-ink-muted:   var(--gy-ink-muted);
   --color-ink-subtle:  var(--gy-ink-subtle);
-  --color-pastel-amber: var(--gy-pastel-amber);
-  --color-pastel-coral: var(--gy-pastel-coral);
-  --color-pastel-iris:  var(--gy-pastel-iris);
-  --color-pastel-jade:  var(--gy-pastel-jade);
-  --color-on-amber: var(--gy-on-amber);
-  --color-on-coral: var(--gy-on-coral);
-  --color-on-iris:  var(--gy-on-iris);
-  --color-on-jade:  var(--gy-on-jade);
+  --color-pastel-gold: var(--gy-pastel-gold);
+  --color-on-gold:     var(--gy-on-gold);
   --color-success: var(--gy-success);    --color-success-bg: var(--gy-success-bg);
   --color-warning: var(--gy-warning);    --color-warning-bg: var(--gy-warning-bg);
   --color-error:   var(--gy-error);      --color-error-bg:   var(--gy-error-bg);
@@ -366,12 +362,12 @@ body {
 .bg-mesh-hero {
   background: conic-gradient(
     from 220deg at 30% 40%,
-    #FCFFFF 0%,
-    #C4DAFA 20%,
-    #84B6F4 42%,
-    #4D82BC 65%,
-    #005187 88%,
-    #FCFFFF 100%
+    var(--gy-canvas) 0%,
+    var(--gy-soft) 20%,
+    var(--gy-sky) 42%,
+    var(--gy-steel) 65%,
+    var(--gy-deep) 88%,
+    var(--gy-canvas) 100%
   );
 }
 

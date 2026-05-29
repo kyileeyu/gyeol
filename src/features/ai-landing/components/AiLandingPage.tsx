@@ -67,7 +67,7 @@ export function AiLandingPage() {
                 borderTopRightRadius: slot.rounded ? "var(--gy-rounded-xxl)" : 0,
                 overflow: "hidden",
                 boxShadow: slot.rounded
-                  ? "0 -12px 32px -16px rgba(15, 31, 42, 0.12)"
+                  ? "0 -12px 32px -16px color-mix(in srgb, var(--gy-ink) 12%, transparent)"
                   : "none",
               }}
             >

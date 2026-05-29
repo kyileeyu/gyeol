@@ -7,7 +7,7 @@
 | 키 | 값 |
 |---|---|
 | `SITE_URL` | `https://gyeol.page` |
-| `NEXT_PUBLIC_GA_ID` | `G-6125RMCMSV` (2026-04-27 발급, 로컬 `.env.local` 등록 완료. Vercel 프로덕션 환경변수 등록 필요) |
+| `NEXT_PUBLIC_GA_ID` | `G-6125RMCMSV` (2026-04-27 발급, 로컬 `.env.local` 등록 완료. Cloudflare 프로덕션 환경변수 등록 필요 — `wrangler secret put` 또는 대시보드) |
 | 사이트 목적 | 전환형(문의 인입) + 문의형 혼합 |
 | 1순위 KPI | Contact 폼 제출 / 폼 CTR / mailto CTR |
 | 2순위 KPI (결 특수) | hero_interact 참여율 / work_scroll_complete 비율 / scroll_depth 75%+ |
@@ -27,7 +27,7 @@
 | 3 | 메일 알림 | Resend → 받은편지함 + 자동 응답 (기존 구현) |
 | 4 | GA4 (방문자 분석) | `<GoogleAnalytics />` + 표준 6종 + 결 특수 2종 이벤트 |
 | 5 | 모바일 최적화 | `next/font/local` Pretendard + `images.formats: avif/webp` + 반응형 |
-| 6 | 도메인 + SSL | Vercel Let's Encrypt 자동 + HSTS 헤더 |
+| 6 | 도메인 + SSL | Cloudflare 자동 SSL (커스텀 도메인) + HSTS 헤더 |
 | 7 | 기본 SEO | metadata 풀세트 + sitemap + robots + JSON-LD 5종 + manifest |
 | 8 | 개인정보처리방침 | `app/privacy/page.tsx` (KISA 표준 9 섹션 — 책임자·안전성 확보 조치 포함 강화 버전) |
 
@@ -50,7 +50,7 @@
 - `.env.example`
 
 **수정**
-- `src/app/layout.tsx` — Vercel Analytics + Speed Insights + GoogleAnalytics + JsonLd + ScrollDepthTracker 마운트, 인라인 상수 → `@/lib/site`, `verification` placeholder
+- `src/app/layout.tsx` — GoogleAnalytics + JsonLd + ScrollDepthTracker 마운트, 인라인 상수 → `@/lib/site`, `verification` placeholder (Vercel Analytics·Speed Insights는 Cloudflare 전환으로 제거)
 - `src/app/sitemap.ts` — 인라인 상수 → import, `/privacy` 추가
 - `src/app/page.tsx` — 6 섹션을 `<SectionView>` 로 래핑
 - `next.config.mjs` — 보안 헤더 5종 + 이미지 포맷 + reactStrictMode
@@ -61,8 +61,8 @@
 - `src/features/work/components/LiveSiteCTA.tsx` — `cta_external_click` 발화
 
 **의존성 추가**
-- `@vercel/analytics`
-- `@vercel/speed-insights`
+- ~~`@vercel/analytics`~~ (Cloudflare 전환으로 제거 — Vercel 호스팅 전용)
+- ~~`@vercel/speed-insights`~~ (Cloudflare 전환으로 제거)
 
 ## 이벤트 매핑 (8종)
 
@@ -93,7 +93,7 @@
 - [ ] `curl https://gyeol.page/sitemap.xml` → `/`, `/work/dewstone`, `/work/yoonseul-log`, `/privacy` 포함 확인
 - [ ] [Google Rich Results Test](https://search.google.com/test/rich-results) — `WebSite` / `Organization` / `Person` / `ProfessionalService` / `FAQPage` 5종 통과
 - [ ] [opengraph.xyz](https://www.opengraph.xyz/) — OG 미리보기 정상 (`/og-image.png` 확인 필요)
-- [ ] DevTools Network — `gtag/js`, `_vercel/insights`, `vitals.vercel-insights.com` 호출
+- [ ] DevTools Network — `gtag/js` 호출 (GA4)
 - [ ] GA4 DebugView — 8종 이벤트 발화 확인 (GA4 ID 발급 후)
 - [ ] `/non-existent` → 결 톤 404 (`결이 흐르지 않는 페이지입니다`) 노출
 - [ ] [securityheaders.com](https://securityheaders.com/) — A 이상
@@ -101,7 +101,7 @@
 
 ## 출시 후 클라이언트(본인) 측 작업
 
-1. **GA4 발급** → Vercel 환경변수 `NEXT_PUBLIC_GA_ID` 에 등록 → 재배포
+1. **GA4 발급** → Cloudflare 환경변수 `NEXT_PUBLIC_GA_ID` 에 등록 (`wrangler secret put` 또는 대시보드) → 재배포
 2. **Search Console 등록** → 인증 코드 발급 → `src/lib/site.ts` `VERIFICATION.google` 에 입력 → 재배포
 3. **Naver Search Advisor 등록** → 인증 코드 발급 → `VERIFICATION.naver` 입력 → 재배포
 4. 두 콘솔에 `https://gyeol.page/sitemap.xml` 제출
@@ -110,6 +110,6 @@
 
 ## 메모
 
-- CSP 보안 헤더는 보류 (Three.js 셰이더 + Resend + GA + Vercel 외부 호출 → 출시 후 securityheaders.com 점수 확인 후 결정)
+- CSP 보안 헤더는 보류 (Three.js 셰이더 + Resend + GA 외부 호출 → 출시 후 securityheaders.com 점수 확인 후 결정)
 - 폰트 체계: Pretendard 자체 호스팅 ✅ + Google Fonts(Inter, Noto Serif KR)는 Next.js 자동 self-host ✅. `globals.css` 의 jsdelivr GounBatang 외부 CDN 은 추후 자체 호스팅 전환 검토 (낮은 우선순위 — 본문 한글 세리프 fallback)
 - OG 이미지 (`/og-image.png`) — `public/` 디렉토리에 1200×630 이미지 준비 필요 (출시 체크리스트 항목)

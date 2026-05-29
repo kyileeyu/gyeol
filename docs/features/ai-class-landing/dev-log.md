@@ -33,7 +33,7 @@
 
 ### 후속 (출시 전 잔여 항목)
 - `public/og/class.png` — v2 헤드라인에 맞는 OG 이미지 에셋 교체 필요 (현재 임시 복사본)
-- `ai.gyeol.page` DNS CNAME 레코드 추가 (Vercel 배포 도메인 가리키도록)
+- `ai.gyeol.page` DNS Cloudflare Workers 커스텀 도메인 연결 (wrangler.jsonc routes)
 - 후기/소셜 증거 섹션 (v1.1) — 체험 후기 공개 동의 건수 충분 시 S5 아래 삽입
 - AX 카드 CTA가 /me 단독 접근 시 /ai#class-contact 외부 이동임을 사용자에게 시각 피드백 고려 (현재 카드 태그·설명으로 충분한 맥락 제공 중)
 
@@ -66,6 +66,6 @@
 
 ### 후속 (출시 전 채워야 할 항목)
 - `public/og/class.png` — 실제 OG 이미지 에셋 교체 (현재 /card/og.png 임시 복사본)
-- `ai.gyeol.page` DNS CNAME 레코드 추가 (Vercel 배포 도메인 가리키도록)
+- `ai.gyeol.page` DNS Cloudflare Workers 커스텀 도메인 연결 (wrangler.jsonc routes)
 - S3 페인포인트 카드 내용은 3/3 학생 검증 데이터 기반 — 향후 업종/빈도 데이터 쌓이면 업데이트
 - 후기/소셜 증거 섹션 (v1.1) — 체험 후기 공개 동의 건수 충분 시 S5 아래 삽입

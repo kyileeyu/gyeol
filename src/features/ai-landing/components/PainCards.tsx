@@ -40,7 +40,7 @@ export function PainCards() {
             border-color var(--gy-duration-moderate) var(--gy-easing-out);
         }
         .gy-pain-card:hover {
-          background: rgba(252, 255, 255, 0.06);
+          background: color-mix(in srgb, var(--gy-on-inverse) 6%, transparent);
           border-color: var(--gy-sky);
         }
       `}</style>
@@ -96,7 +96,7 @@ export function PainCards() {
                 }}
                 style={{
                   background: "var(--gy-inverse-canvas-alt)",
-                  border: "1px solid rgba(252, 255, 255, 0.08)",
+                  border: "1px solid color-mix(in srgb, var(--gy-on-inverse) 8%, transparent)",
                   borderRadius: "var(--gy-rounded-lg)",
                   padding: "clamp(1.75rem, 2.5vw, 2rem)",
                 }}

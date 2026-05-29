@@ -45,15 +45,15 @@ function createSilkTexture(): string {
   // 좌상 → 우하 대각선 그라디언트. 대비가 확실해야 금속 반사 밑에서도 보임.
   const grad = ctx.createLinearGradient(0, 0, size, size);
   const bands: Array<[number, string]> = [
-    [0.00, "#FAFBFC"],
-    [0.12, "#C9D6DF"],
-    [0.24, "#FAFBFC"],
-    [0.38, "#C9D6DF"],
-    [0.50, "#FAFBFC"],
-    [0.62, "#C9D6DF"],
-    [0.76, "#FAFBFC"],
-    [0.88, "#C9D6DF"],
-    [1.00, "#FAFBFC"],
+    [0.00, "#FCFDFF"],
+    [0.12, "#B6C2F7"],
+    [0.24, "#FCFDFF"],
+    [0.38, "#B6C2F7"],
+    [0.50, "#FCFDFF"],
+    [0.62, "#B6C2F7"],
+    [0.76, "#FCFDFF"],
+    [0.88, "#B6C2F7"],
+    [1.00, "#FCFDFF"],
   ];
   for (const [pos, col] of bands) grad.addColorStop(pos, col);
   ctx.fillStyle = grad;

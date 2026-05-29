@@ -52,7 +52,7 @@
 - [ ] `src/app/ai/page.tsx` 생성 (서버 컴포넌트, metadata export 포함)
 - [ ] `src/features/class-landing/` 디렉터리 초기화 (FSD 패턴: `components/`, `lib/`, `index.ts`)
 - [ ] `next.config.mjs`에 `ai.gyeol.page` → `/ai` rewrite 규칙 추가
-- [ ] DNS: `ai.gyeol.page` CNAME 추가 (Vercel 배포 도메인 가리키도록)
+- [ ] DNS: `ai.gyeol.page` Cloudflare Workers 커스텀 도메인 연결 (wrangler.jsonc routes)
 - [ ] `src/app/sitemap.ts`에 `/ai` 항목 추가 (priority 0.7, changeFrequency: "monthly")
 
 ### 섹션 컴포넌트 개발
